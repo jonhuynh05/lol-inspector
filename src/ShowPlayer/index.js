@@ -13,16 +13,12 @@ class ShowPlayer extends Component {
         this.setState({
             name: this.props.match.params.summoner
         })
-        const summoner = await (await fetch (`/api/v1/search/${summonerName}`)).json()
+        const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
         console.log(summoner)
         this.setState({
-            level: summoner.summonerLevel,
-            id: summoner.id
-        })
-        const matches = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
-        console.log(matches)
-        this.setState({
-            matches: matches.matches
+            level: summoner.summoner.summonerLevel,
+            id: summoner.summoner.id,
+            matches: summoner.matches.matches
         })
     }
     render(){

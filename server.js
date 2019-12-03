@@ -68,9 +68,22 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             }
         )
         const summonerJson = await summoner.json()
-        const matches = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerJson.accountId}?api_key=${key}`)).json()
+        const matches = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerJson.accountId}?api_key=${key}`, {
+            "Origin": "https://developer.riotgames.com",
+            "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Riot-Token": "RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d",
+            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+        })).json()
         console.log(matches)
-        res.send(matches)
+        // res.send(summoner)
+        // res.send(summonerJson)
+        // res.send(matches)
+        res.send({
+            summoner: summonerJson,
+            matches: matches
+        })
+        // res.end()
     }
     catch(err){
         console.log(err)
