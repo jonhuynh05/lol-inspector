@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {Redirect} from "react-router-dom"
+import {MoonLoader} from "react-spinners"
 
 class PlayerSearch extends Component {
     state = {
@@ -6,7 +8,9 @@ class PlayerSearch extends Component {
         name: "",
         level: "",
         found: false,
-        foundMessage: ""
+        foundMessage: "",
+        redirect: false,
+        isLoading: false
     }
     handleChange = (e) => {
         this.setState({
@@ -20,6 +24,9 @@ class PlayerSearch extends Component {
     }
 
     getSummoner = async () => {
+        this.setState({
+            loading: true
+        })
         const summoner = await fetch (`/api/v1/search/${this.state.query}`)
         console.log(summoner)
         const summonerJson = await summoner.json()
@@ -36,18 +43,23 @@ class PlayerSearch extends Component {
                 name: summonerJson.name,
                 level: summonerJson.summonerLevel,
                 found: true,
-                foundMessage: ""
+                foundMessage: "",
+                loading: false,
+                redirect: true
             })
-            this.routeChange()
         }
     }
 
     routeChange() {
-        const path = `/search/${this.state.name}`;
-        this.props.history.push(path)
+        this.setState({
+            redirect: true
+        })
     }
 
     render(){
+        if(this.state.redirect) {
+            return <Redirect to={`/search/${this.state.name}`}/>
+        }
         return(
             <div>
                 <h1>Player Search</h1>
@@ -55,7 +67,12 @@ class PlayerSearch extends Component {
                     <input type="text" name="query" value={this.state.query} onChange={this.handleChange}/>
                     <button type="submit">Submit</button>
                 </form>
-                {
+                <MoonLoader 
+                    sizeUnit={"px"}
+                    size={150}
+                    color={'#123abc'}
+                    loading={this.state.loading}/>
+                {/* {
                     this.state.found === true
                     ?
                     <div>
@@ -66,7 +83,7 @@ class PlayerSearch extends Component {
                     <div>
                         {this.state.foundMessage}
                     </div>
-                }
+                } */}
             </div>
         )
     }
