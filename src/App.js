@@ -15,7 +15,7 @@ class App extends Component{
     try{
       const message = await fetch("/api/v1/champions")
       const messageJson = await message.json()
-      console.log(messageJson)
+      // console.log(messageJson)
       this.setState({
         summoner: messageJson
       })
