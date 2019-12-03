@@ -38,7 +38,13 @@ class PlayerSearch extends Component {
                 found: true,
                 foundMessage: ""
             })
+            this.routeChange()
         }
+    }
+
+    routeChange() {
+        const path = `/search/${this.state.name}`;
+        this.props.history.push(path)
     }
 
     render(){
