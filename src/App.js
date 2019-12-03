@@ -18,9 +18,9 @@ class App extends Component{
       this.setState({
         summoner: messageJson
       })
-      const matchHistory = await fetch(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${this.state.accountId}?api_key=RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d`)
-      const matchHistoryJson = await matchHistory.json()
-      console.log(matchHistoryJson)
+      // const matchHistory = await fetch(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${this.state.accountId}?api_key=RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d`)
+      // const matchHistoryJson = await matchHistory.json()
+      // console.log(matchHistoryJson)
     }
     catch(err){
       console.log(err)
