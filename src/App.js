@@ -4,6 +4,7 @@ import {Route, Switch} from "react-router-dom"
 import Footer from "./Footer"
 import * as ROUTES from "./constants/routes"
 import PlayerSearch from "./PlayerSearch"
+import ShowPlayer from "./ShowPlayer"
 
 
 class App extends Component{
@@ -33,6 +34,7 @@ class App extends Component{
         <Switch>
           <Route exact path={ROUTES.HOME} render={() => <div>home</div>}/>
           <Route exact path={ROUTES.SEARCH} render={() => <PlayerSearch />}/>
+          <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer />}/>
         </Switch>
         <Footer />
       </div>
