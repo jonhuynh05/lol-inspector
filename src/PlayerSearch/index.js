@@ -4,7 +4,9 @@ class PlayerSearch extends Component {
     state = {
         query: "",
         name: "",
-        level: ""
+        level: "",
+        found: false,
+        foundMessage: ""
     }
     handleChange = (e) => {
         this.setState({
@@ -22,10 +24,21 @@ class PlayerSearch extends Component {
         console.log(summoner)
         const summonerJson = await summoner.json()
         console.log(summonerJson)
-        this.setState({
-            name: summonerJson.name,
-            level: summonerJson.summonerLevel
-        })
+        if(summonerJson.status){
+            this.setState({
+                found: false,
+                foundMessage: "Summoner not found."
+            })
+            return null
+        }
+        else{
+            this.setState({
+                name: summonerJson.name,
+                level: summonerJson.summonerLevel,
+                found: true,
+                foundMessage: ""
+            })
+        }
     }
 
     render(){
@@ -37,14 +50,16 @@ class PlayerSearch extends Component {
                     <button type="submit">Submit</button>
                 </form>
                 {
-                    this.state.name !== ""
+                    this.state.found === true
                     ?
                     <div>
                         Found: {this.state.name}<br/>
                         Level: {this.state.level}
                     </div>
                     :
-                    null
+                    <div>
+                        {this.state.foundMessage}
+                    </div>
                 }
             </div>
         )
