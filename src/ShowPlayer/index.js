@@ -9,7 +9,8 @@ class ShowPlayer extends Component {
         id: "",
         recentMatches: [],
         recentMatchStats: [],
-        championsUsed: []
+        championsUsed: [],
+        opponents: []
     }
     async componentDidMount(){
         const summonerName = this.props.match.params.summoner
@@ -35,7 +36,8 @@ class ShowPlayer extends Component {
             id: summoner.summoner.id,
             recentMatches: summoner.matches,
             recentMatchStats: summoner.stats,
-            championsUsed: champsUsed
+            championsUsed: champsUsed,
+            opponents: summoner.opponents
         })
     }
     render(){

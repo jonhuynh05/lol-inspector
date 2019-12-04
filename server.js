@@ -121,11 +121,18 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
                 laneOpponent[i].duplicate = false
             }
         }
-        console.log(laneOpponent, "LANE OPP REVISED")
+        let laneOpponentNoDupes = []
+        for (let i = 0; i < laneOpponent.length; i++){
+            if(laneOpponent[i].duplicate === false){
+                laneOpponentNoDupes.push(laneOpponent[i])
+            }
+        }
+        console.log(laneOpponentNoDupes, "LANE OPP REVISED")
         res.send({
             summoner: summonerJson,
             matches: recentMatches,
-            stats: recentMatchStats
+            stats: recentMatchStats,
+            opponents: laneOpponentNoDupes
         })
     }
     catch(err){
