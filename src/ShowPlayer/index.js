@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {withRouter} from "react-router-dom"
+import "./showplayer.css"
 
 class ShowPlayer extends Component {
     state = {
@@ -7,7 +8,8 @@ class ShowPlayer extends Component {
         level: "",
         id: "",
         recentMatches: [],
-        recentMatchStats: []
+        recentMatchStats: [],
+        championsUsed: []
     }
     async componentDidMount(){
         const summonerName = this.props.match.params.summoner
@@ -15,23 +17,32 @@ class ShowPlayer extends Component {
             name: this.props.match.params.summoner
         })
         const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
-        console.log(summoner)
+        console.log(summoner, "FROM BACKEND")
         const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
-        console.log(champList, "CHAMPS")
-        const newChampArr = Object.entries(champList).map((e) => ({[e[0]]: e[1]}))
-        console.log(newChampArr)
+        console.log(champList, "CHAMP LIST")
+        const champListNames = Object.keys(champList)
+        const champsUsed = []
+        for(let i = 0; i < summoner.stats.length; i++){
+            for(let j = 0; j < champListNames.length; j++){
+                if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
+                    champsUsed.push(champListNames[j])
+                }
+            }
+        }
+        console.log(champsUsed, "CHAMPS USED")
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
             recentMatches: summoner.matches,
-            recentMatchStats: summoner.stats
+            recentMatchStats: summoner.stats,
+            championsUsed: champsUsed
         })
     }
     render(){
         const lastFiveMatches = this.state.recentMatchStats.map((stat, i) => {
             return(
                 <div className="match-stats" key={i}>
-                    Champion: {stat.championId}<br/>
+                    <img id="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`}/><br/>
                     Kills: {stat.stats.kills}<br/>
                     Deaths: {stat.stats.deaths}<br/>
                     Assists: {stat.stats.assists}<br/>
