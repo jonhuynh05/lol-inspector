@@ -6,7 +6,8 @@ class ShowPlayer extends Component {
         name: "",
         level: "",
         id: "",
-        matches: []
+        recentMatches: [],
+        recentMatchStats: []
     }
     async componentDidMount(){
         const summonerName = this.props.match.params.summoner
@@ -18,14 +19,28 @@ class ShowPlayer extends Component {
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
-            matches: summoner.matches.matches
+            recentMatches: summoner.matches,
+            recentMatchStats: summoner.stats
         })
     }
     render(){
+        const lastFiveMatches = this.state.recentMatchStats.map((stat, i) => {
+            return(
+                <div className="match-stats" key={i}>
+                    Champion: {stat.championId}<br/>
+                    Kills: {stat.stats.kills}<br/>
+                    Deaths: {stat.stats.deaths}<br/>
+                    Assists: {stat.stats.assists}<br/>
+                    Gold: {stat.stats.goldEarned}<br/>
+                </div>
+            )
+        })
         return(
             <div>
                 {this.state.name}<br/>
                 {this.state.level}
+                <h3>Last 5 Matches</h3>
+                {lastFiveMatches}
             </div>
         )
     }
