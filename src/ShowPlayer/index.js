@@ -44,6 +44,8 @@ class ShowPlayer extends Component {
                 <div className="match-stats" key={i}>
                     <img id="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
                     {this.state.championsUsed[i]}<br/>
+                    Role: {stat.timeline.role}<br/>
+                    Lane: {stat.timeline.lane}<br/>
                     Kills: {stat.stats.kills}<br/>
                     Deaths: {stat.stats.deaths}<br/>
                     Assists: {stat.stats.assists}<br/>
