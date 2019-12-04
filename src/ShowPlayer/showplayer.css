@@ -1,3 +1,7 @@
-#match-history-champs{
+.match-history-champs{
     width: 200px;
+}
+
+#show-player-container{
+    display: flex
 }
