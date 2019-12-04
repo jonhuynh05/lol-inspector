@@ -11,7 +11,6 @@ app.get("/api/v1/champions", async (req, res) => {
     try{
         const data = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/wearydisciple?api_key=${key}`)
         const dataJson = await data.json()
-        console.log(dataJson)
         res.send(dataJson)
     }
     catch(err){
@@ -32,9 +31,6 @@ app.get("/api/v1/search/:query", async (req, res) => {
             }
         )
         const dataJson = await data.json()
-        console.log(dataJson)
-        console.log(dataJson.accountId)
-
         // res.set({
         //     "X-App-Rate-Limit-Count": "1:1,1:120",
         //     "Content-Encoding": "gzip",
@@ -78,7 +74,13 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         let recentMatches = []
         //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
         for(let i = 0; i < 2; i++){
-            let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`)).json()
+            let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
+                "Origin": "https://developer.riotgames.com",
+                "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+                "X-Riot-Token": "RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d",
+                "Accept-Language": "en-US,en;q=0.9",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+            })).json()
             recentMatches.push(matchStats)
         }
         let recentMatchStats = []
@@ -88,7 +90,6 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             let filteredStats = recentMatches[i].participants.filter((id) => id.participantId === filteredIds.participantId)[0]
             recentMatchStats.push(filteredStats)
         }
-        console.log(recentMatchStats, "IS IT WORKING?")
         res.send({
             summoner: summonerJson,
             matches: recentMatches,

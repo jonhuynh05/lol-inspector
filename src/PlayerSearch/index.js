@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Redirect} from "react-router-dom"
 import {MoonLoader} from "react-spinners"
+import "./playersearch.css"
 
 class PlayerSearch extends Component {
     state = {
@@ -25,28 +26,31 @@ class PlayerSearch extends Component {
 
     getSummoner = async () => {
         this.setState({
-            loading: true
+            isLoading: true
         })
         const summoner = await fetch (`/api/v1/search/${this.state.query}`)
         console.log(summoner)
         const summonerJson = await summoner.json()
         console.log(summonerJson)
         if(summonerJson.status){
-            this.setState({
-                found: false,
-                foundMessage: "Summoner not found."
-            })
+            setTimeout(() =>
+                this.setState({
+                    found: false,
+                    foundMessage: "Summoner not found. Please try again.",
+                    isLoading: false
+            }), 2000)
             return null
         }
         else{
-            this.setState({
-                name: summonerJson.name,
-                level: summonerJson.summonerLevel,
-                found: true,
-                foundMessage: "",
-                loading: false,
-                redirect: true
-            })
+            setTimeout(() =>
+                this.setState({
+                    name: summonerJson.name,
+                    level: summonerJson.summonerLevel,
+                    found: true,
+                    foundMessage: "",
+                    isLoading: false,
+                    redirect: true
+            }), 2000)
         }
     }
 
@@ -69,21 +73,18 @@ class PlayerSearch extends Component {
                 </form>
                 <MoonLoader 
                     sizeUnit={"px"}
-                    size={150}
+                    size={20}
                     color={'#123abc'}
-                    loading={this.state.loading}/>
-                {/* {
-                    this.state.found === true
+                    loading={this.state.isLoading}/>
+                {
+                    this.state.found === false
                     ?
-                    <div>
-                        Found: {this.state.name}<br/>
-                        Level: {this.state.level}
-                    </div>
-                    :
-                    <div>
+                    <div className="error-message">
                         {this.state.foundMessage}
                     </div>
-                } */}
+                    :
+                    null
+                }
             </div>
         )
     }

@@ -42,7 +42,8 @@ class ShowPlayer extends Component {
         const lastFiveMatches = this.state.recentMatchStats.map((stat, i) => {
             return(
                 <div className="match-stats" key={i}>
-                    <img id="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`}/><br/>
+                    <img id="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                    {this.state.championsUsed[i]}<br/>
                     Kills: {stat.stats.kills}<br/>
                     Deaths: {stat.stats.deaths}<br/>
                     Assists: {stat.stats.assists}<br/>
