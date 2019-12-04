@@ -90,6 +90,38 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             let filteredStats = recentMatches[i].participants.filter((id) => id.participantId === filteredIds.participantId)[0]
             recentMatchStats.push(filteredStats)
         }
+        
+        // console.log(recentMatchStats[0].timeline.role)
+        // console.log(recentMatchStats[0].timeline.lane)
+        // console.log(recentMatches[0].participants[0].timeline.role)
+        // console.log(recentMatches[0].participants[0].timeline.lane)
+        let laneOpponent = []
+        for(let i = 0; i < recentMatches.length; i++){
+            for(let j = 0; j < recentMatches[i].participants.length; j++){
+                if(
+                    recentMatchStats[i].timeline.lane === recentMatches[i].participants[j].timeline.lane 
+                    && 
+                    recentMatchStats[i].teamId !== recentMatches[i].participants[j].teamId
+                    )
+                    {
+                    recentMatches[i].participants[j].gameId = recentMatches[i].gameId
+                    laneOpponent.push(recentMatches[i].participants[j])
+                }
+            }
+        }
+        console.log(laneOpponent, "LANE OPP")
+        for(let i = 0; i < laneOpponent.length; i++){
+            if(laneOpponent[i+1] && (laneOpponent[i].gameId === laneOpponent[i+1].gameId)){
+                console.log("this hit")
+                console.log(laneOpponent[i])
+                laneOpponent[i+1].duplicate = true
+                laneOpponent[i].duplicate = false
+            }
+            else if(laneOpponent[i+1] && laneOpponent[i].gameId !== laneOpponent[i+1].gameId){
+                laneOpponent[i].duplicate = false
+            }
+        }
+        console.log(laneOpponent, "LANE OPP REVISED")
         res.send({
             summoner: summonerJson,
             matches: recentMatches,

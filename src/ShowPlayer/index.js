@@ -50,6 +50,13 @@ class ShowPlayer extends Component {
                     Deaths: {stat.stats.deaths}<br/>
                     Assists: {stat.stats.assists}<br/>
                     Gold: {stat.stats.goldEarned}<br/>
+                    {
+                        stat.stats.win === true
+                        ?
+                        "Result: Won"
+                        :
+                        "Result: Loss"
+                    }
                 </div>
             )
         })
