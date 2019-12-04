@@ -16,6 +16,10 @@ class ShowPlayer extends Component {
         })
         const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
         console.log(summoner)
+        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+        console.log(champList, "CHAMPS")
+        const newChampArr = Object.entries(champList).map((e) => ({[e[0]]: e[1]}))
+        console.log(newChampArr)
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
