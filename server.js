@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require("express")
 const path = require("path")
 const app = express()
 const fetch = require("node-fetch")
 const PORT = process.env.PORT || 8000
-const key = "RGAPI-a9d5a9a5-d84b-4ac1-81b4-7e0ca73283b7"
+const key = process.env.LOL_API_KEY
 
 app.use(express.static(path.join(__dirname, "build")))
 
