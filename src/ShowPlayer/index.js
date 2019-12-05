@@ -188,6 +188,25 @@ class ShowPlayer extends Component {
                                 </div>
                             }
                             </div>
+                            <div className="advice" id="cs-analysis">
+                            {
+                                matchup.user.stats.totalMinionsKilled === matchup.opponents[0].stats.totalMinionsKilled
+                                ?
+                                <div className="advice-note" id="cs-comparison">
+                                    You and your opponent killed the same amount of minions. Great job keeping up with your lane opponent. 
+                                </div>
+                                :
+                                matchup.user.stats.totalMinionsKilled > matchup.opponents[0].stats.totalMinionsKilled
+                                ?
+                                <div className="advice-note" id="cs-comparison">
+                                    Your cs is on point. You beat your opponent in minion kills, giving you a game advantage with more gold to spend on items.
+                                </div>
+                                :
+                                <div className="advice-note" id="cs-comparison">
+                                    Your opponent out-cs'd you. Try to poke your opponent if they are going in to last hit a minion, making them pay for the gold gained. Focus on wave control, so you know when to base without missing out on too many minions.
+                                </div>
+                            }
+                            </div>
                             <div className="advice" id="gold-analysis">
                             {
                                 matchup.user.stats.goldEarned === matchup.opponents[0].stats.goldEarned
