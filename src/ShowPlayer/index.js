@@ -48,13 +48,34 @@ class ShowPlayer extends Component {
         }
         console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
 
-        // const roleMatchups = summoner.matchups.forEach((matchup) => {
-        //     if(matchup.opponents.length > 1){
-        //         for(let i = 0; i < matchup.opponents.length; i++){
-        //             if(matchup.opponents)
-        //         }
-        //     }
-        // })
+        const roleMatchups = summoner.matchups.forEach((matchup) => {
+            if(matchup.opponents.length > 1){
+                for(let i = 0; i < matchup.opponents.length; i++){
+                    if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
+                        console.log(matchup.user.timeline.role, "SAME ROLE BRO", i)
+                    }
+                    else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
+                        console.log("WERE SUPPORTS")
+                    }
+                    else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
+                        console.log("WERE CARRIES")
+                    }
+                    else if(
+                        (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
+                        ||(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("SUPPORT"))
+                        )
+                        {
+                        matchup.opponents.splice(i, 1)
+                    }
+                    else{
+                        matchup.opponents.splice(i+1, 1)
+                    }
+                }
+            }
+            else{
+                console.log("no need to calculate")
+            }
+        })
         
 
         this.setState({
