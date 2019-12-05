@@ -88,6 +88,8 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             let filteredIds = recentMatches[i].participantIdentities.filter((id) => id.player.summonerName === req.params.summonerName)[0]
             filteredIds.participantId
             let filteredStats = recentMatches[i].participants.filter((id) => id.participantId === filteredIds.participantId)[0]
+            filteredStats.queriedSummoner = true
+            filteredStats.gameId = recentMatches[i].gameId
             recentMatchStats.push(filteredStats)
         }
         
@@ -96,6 +98,20 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         // console.log(recentMatches[0].participants[0].timeline.role)
         // console.log(recentMatches[0].participants[0].timeline.lane)
         let laneOpponent = []
+        let matchup = {}
+        // for(let i = 0; i < recentMatches.length; i++){
+        //     for(let j = 0; j < recentMatches[i].participants.length; j++){
+        //         if(
+        //             recentMatchStats[i].timeline.lane === recentMatches[i].participants[j].timeline.lane 
+        //             && 
+        //             recentMatchStats[i].teamId !== recentMatches[i].participants[j].teamId
+        //             )
+        //             {
+        //             recentMatches[i].participants[j].gameId = recentMatches[i].gameId
+        //             laneOpponent.push(recentMatches[i].participants[j])
+        //         }
+        //     }
+        // }
         for(let i = 0; i < recentMatches.length; i++){
             for(let j = 0; j < recentMatches[i].participants.length; j++){
                 if(
@@ -112,18 +128,27 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         console.log(laneOpponent, "LANE OPP")
         for(let i = 0; i < laneOpponent.length; i++){
             if(laneOpponent[i+1] && (laneOpponent[i].gameId === laneOpponent[i+1].gameId)){
+                // if(laneOpponent[i].timeline.role === "DUO_CARRY" && )
+
                 console.log("this hit")
                 console.log(laneOpponent[i])
                 laneOpponent[i+1].duplicate = true
-                laneOpponent[i].duplicate = false
+                // laneOpponent[i].duplicate = false
             }
-            else if(laneOpponent[i+1] && laneOpponent[i].gameId !== laneOpponent[i+1].gameId){
-                laneOpponent[i].duplicate = false
-            }
+            // else if(laneOpponent[i+1] && laneOpponent[i].gameId !== laneOpponent[i+1].gameId){
+            //     laneOpponent[i].duplicate = false
+            // }
         }
+//TEST FOR BOTTOM
+        // for(let i = 0; i < recentMatches.length; i++){
+        //     for (let j = 0; j < laneOpponent.length; i++){
+
+        //     }
+        // }
+//TEST FOR BOTTOM
         let laneOpponentNoDupes = []
         for (let i = 0; i < laneOpponent.length; i++){
-            if(laneOpponent[i].duplicate === false){
+            if(laneOpponent[i].duplicate !== true){
                 laneOpponentNoDupes.push(laneOpponent[i])
             }
         }

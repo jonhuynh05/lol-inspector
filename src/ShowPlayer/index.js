@@ -96,13 +96,13 @@ class ShowPlayer extends Component {
         })
         return(
             <div id="show-player-container">
-                <div>
+                <div className="col">
                     {this.state.name}<br/>
                     {this.state.level}
                     <h3>Last 5 Matches</h3>
                     {lastFiveMatches}
                 </div>
-                <div>
+                <div className="col">
                     <h3>Opponents</h3>
                     {opponents}
                 </div>
