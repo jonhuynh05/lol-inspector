@@ -25,3 +25,10 @@
 .lost{
     color: red
 }
+
+#matches-header-col{
+    margin: 20px auto;
+}
+
+#matches-player-name{
+}

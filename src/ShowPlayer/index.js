@@ -13,11 +13,11 @@ class ShowPlayer extends Component {
         opponents: [],
         opposingChampionsUsed: [],
         matchups: [],
-        matchup1: [],
-        matchup2: [],
-        matchup3: [],
-        matchup4: [],
-        matchup5: []
+        // matchup1: [],
+        // matchup2: [],
+        // matchup3: [],
+        // matchup4: [],
+        // matchup5: []
     }
     async componentDidMount(){
         const summonerName = this.props.match.params.summoner
@@ -97,86 +97,137 @@ class ShowPlayer extends Component {
             opponents: opponents,
             opposingChampionsUsed: opponentChampsUsed,
             matchups: summoner.matchups,
-            matchup1: summoner.matchups[0],
-            matchup2: summoner.matchups[1],
-            matchup3: summoner.matchups[2],
-            matchup4: summoner.matchups[3],
-            matchup5: summoner.matchups[4],
+            // matchup1: summoner.matchups[0],
+            // matchup2: summoner.matchups[1],
+            // matchup3: summoner.matchups[2],
+            // matchup4: summoner.matchups[3],
+            // matchup5: summoner.matchups[4],
         })
     }
     render(){
-        const summonerStats = this.state.summonerMatchStats.map((stat, i) => {
+        const analysis = this.state.matchups.map((matchup, i) => {
             return(
                 <div className="match-stats" key={i}>
-                    <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
-                    {this.state.championsUsed[i]}<br/>
-                    <div>Role: {stat.timeline.role}</div>
-                    <div>Lane: {stat.timeline.lane}</div>
-                    <div
-                    
-                    className="kills"
-
-                    >Kills: {stat.stats.kills}</div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <div>Deaths: {stat.stats.deaths}</div>
-                    <div>Assists: {stat.stats.assists}</div>
-                    <div>Gold: {stat.stats.goldEarned}</div>
-                    {
-                        stat.stats.win === true
-                        ?
-                        "Result: Won"
-                        :
-                        "Result: Loss"
-                    }
+                    <div className="row" id={`matchup${i}`}>
+                        <div className="col" id={`summoner-col-${i}`}>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                            {this.state.championsUsed[i]}<br/>
+                            <div>Role: {matchup.user.timeline.role}</div>
+                            <div>Lane: {matchup.user.timeline.lane}</div>
+                            <div className="kills">Kills: {matchup.user.stats.kills}</div>
+                            <div>Deaths: {matchup.user.stats.deaths}</div>
+                            <div>Assists: {matchup.user.stats.assists}</div>
+                            <div>Gold: {matchup.user.stats.goldEarned}</div>
+                            {
+                                matchup.user.stats.win === true
+                                ?
+                                "Result: Won"
+                                :
+                                "Result: Loss"
+                            }
+                        </div>
+                        <div className="col" id={`analysis${i}`}>
+                            <div className="advice" id="kills-analysis">
+                            {
+                                matchup.user.stats.kills === matchup.opponents[0].stats.kills
+                                ?
+                                <div id="kills-comparison">
+                                    You and your opponent had the same number of kills. Nice work -- you kept up in gold advantage on this end.
+                                </div>
+                                :
+                                matchup.user.stats.kills > matchup.opponents[0].stats.kills
+                                ?
+                                <div id="kills-comparison">
+                                    You slayed more champions than your lane opponent. Keep it up to retain a gold/item advantage over your opponent.
+                                </div>
+                                :
+                                <div id="kills-comparison">
+                                    Your opponent gained the upperhand by gaining more kills. Keep an eye out for champions with low health for easy pickings.
+                                </div>
+                            }
+                            </div>
+                            <div className="advice" id="deaths-analysis">
+                            {
+                                matchup.user.stats.deaths === matchup.opponents[0].stats.deaths
+                                ?
+                                <div id="deaths-comparison">
+                                    You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
+                                </div>
+                                :
+                                matchup.user.stats.deaths < matchup.opponents[0].stats.deaths
+                                ?
+                                <div id="deaths-comparison">
+                                    Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
+                                </div>
+                                :
+                                <div id="deaths-comparison">
+                                    You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
+                                </div>
+                            }
+                            </div>
+                            <div className="advice" id="assist-analysis">
+                            {
+                                matchup.user.stats.assists === matchup.opponents[0].stats.assists
+                                ?
+                                <div id="assists-comparison">
+                                    You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
+                                </div>
+                                :
+                                matchup.user.stats.assists < matchup.opponents[0].stats.assists
+                                ?
+                                <div id="assists-comparison">
+                                    Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
+                                </div>
+                                :
+                                <div id="assists-comparison">
+                                    You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
+                                </div>
+                            }
+                            </div>
+                        </div>
+                        <div className="col" id={`opponent-col-${i}`}>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
+                            {this.state.opposingChampionsUsed[i]}<br/>
+                            <div>Role: {matchup.opponents[0].timeline.role}</div>
+                            <div>Lane: {matchup.opponents[0].timeline.lane}</div>
+                            <div className="kills">Kills: {matchup.opponents[0].stats.kills}</div>
+                            <div>Deaths: {matchup.opponents[0].stats.deaths}</div>
+                            <div>Assists: {matchup.opponents[0].stats.assists}</div>
+                            <div>Gold: {matchup.opponents[0].stats.goldEarned}</div>
+                            {
+                                matchup.opponents[0].stats.win === true
+                                ?
+                                "Result: Won"
+                                :
+                                "Result: Loss"
+                            }
+                        </div>
+                    </div>
                 </div>
             )
         })
-        const opponents = this.state.opponents.map((stat, i) => {
-            return(
-                <div className="match-stats" key={i}>
-                    <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
-                    {this.state.opposingChampionsUsed[i]}<br/>
-                    <div>Role: {stat.timeline.role}</div>
-                    <div>Lane: {stat.timeline.lane}</div>
-                    <div>Kills: {stat.stats.kills}</div>
-                    <div>Deaths: {stat.stats.deaths}</div>
-                    <div>Assists: {stat.stats.assists}</div>
-                    <div>Gold: {stat.stats.goldEarned}</div>
-                    {
-                        stat.stats.win === true
-                        ?
-                        "Result: Won"
-                        :
-                        "Result: Loss"
-                    }
-                </div>
-            )
-        })
-
-        const analysis = "abc"
 
         return(
             <div id="show-player-container">
-                <div className="row"></div>
-                    {this.state.name}<br/>
-                    {this.state.level}
-                    <h3>Last 5 Matches</h3>
-                <div className="row" id="matches-row">
-                    <div className="col" id="matches-summoner-col">
-                        <h3>Your Performance</h3>
-                        {summonerStats}
-                    </div>
-                    <div className="col" id="matches-opponents-col">
-                        <h3>Opponents</h3>
-                        {opponents}
+                <div className="row">
+                    <div className="col" id="matches-header-col">
+                        <h2 id="matches-player-name">{this.state.name}</h2>
+                        <h4>Level {this.state.level}</h4>
                     </div>
                 </div>
+                    <h3>Last 5 Matches</h3>
+                <div className="row" id="col-header-row">
+                    <div className="col" id="col-header-summoner">
+                        <h3>Your Performance</h3>
+                    </div>
+                    <div className="col" id="col-header-analysis">
+                        <h3>Analysis</h3>
+                    </div>
+                    <div className="col" id="col-header-opponent">
+                        <h3>Opponents</h3>
+                    </div>
+                </div>
+                {analysis}
             </div>
         )
     }
