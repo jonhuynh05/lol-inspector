@@ -12,7 +12,7 @@ app.get("/api/v1/champions", async (req, res) => {
     try{
         const data = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/wearydisciple?api_key=${key}`)
         const dataJson = await data.json()
-        res.send(dataJson)
+        res.json(dataJson)
     }
     catch(err){
         console.log(err)
@@ -45,7 +45,7 @@ app.get("/api/v1/search/:query", async (req, res) => {
         //     "X-Riot-Edge-Trace-Id": "058a7e58-0915-4d04-bb4a-5211e64dc04c",
         //     "Content-Type": "application/json;charset=utf-8"
         // })
-        res.send(dataJson)
+        res.json(dataJson)
     }
     catch(err){
         console.log(err)
@@ -164,7 +164,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         //     }
         // }
         // console.log(laneOpponentNoDupes, "LANE OPP REVISED")
-        res.send({
+        res.json({
             summoner: summonerJson,
             matches: recentMatches,
             stats: recentMatchStats,
