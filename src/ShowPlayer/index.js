@@ -29,36 +29,34 @@ class ShowPlayer extends Component {
         const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
         console.log(champList, "CHAMP LIST")
         const champListNames = Object.keys(champList)
-        const champsUsed = []
+
+        const summonerChamps = []
+        summoner.matchups.forEach((matchup) => {
+            summonerChamps.push(matchup.user)
+        })
+        console.log(summonerChamps, "summoner stats")
+        const summonerChampsUsed = []
         for(let i = 0; i < summoner.stats.length; i++){
             for(let j = 0; j < champListNames.length; j++){
                 if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
-                    champsUsed.push(champListNames[j])
+                    summonerChampsUsed.push(champListNames[j])
                 }
             }
         }
-        console.log(champsUsed, "CHAMPS USED")
-        const opponentChampsUsed = []
-        for(let i = 0; i < summoner.opponents.length; i++){
-            for(let j = 0; j < champListNames.length; j++){
-                if(summoner.opponents[i].championId === Number(champList[champListNames[j]].key)){
-                    opponentChampsUsed.push(champListNames[j])
-                }
-            }
-        }
-        console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+        console.log(summonerChampsUsed, "CHAMPS USED")
+
 
         summoner.matchups.forEach((matchup) => {
             if(matchup.opponents.length > 1){
                 for(let i = 0; i < matchup.opponents.length; i++){
                     if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
-                        console.log(matchup.user.timeline.role, "SAME ROLE BRO", i)
+                        matchup.opponents.splice(i+1, 1)
                     }
                     else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
-                        console.log("WERE SUPPORTS")
+                        matchup.opponents.splice(i+1, 1)
                     }
                     else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
-                        console.log("WERE CARRIES")
+                        matchup.opponents.splice(i+1, 1)
                     }
                     else if(
                         (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
@@ -72,21 +70,30 @@ class ShowPlayer extends Component {
                     }
                 }
             }
-            else{
-                console.log("no need to calculate")
-            }
         })
+
         const opponents = []
         summoner.matchups.forEach((matchup) => {
             opponents.push(matchup.opponents[0])
         })
-        console.log(opponents)
+        console.log(opponents, "Opponents")
+
+        const opponentChampsUsed = []
+        for(let i = 0; i < opponents.length; i++){
+            for(let j = 0; j < champListNames.length; j++){
+                if(opponents[i].championId === Number(champList[champListNames[j]].key)){
+                    opponentChampsUsed.push(champListNames[j])
+                }
+            }
+        }
+        console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
             recentMatches: summoner.matches,
-            summonerMatchStats: summoner.stats,
-            championsUsed: champsUsed,
+            summonerMatchStats: summonerChamps,
+            championsUsed: summonerChampsUsed,
             opponents: opponents,
             opposingChampionsUsed: opponentChampsUsed,
             matchups: summoner.matchups,
@@ -140,83 +147,6 @@ class ShowPlayer extends Component {
                 </div>
             )
         })
-
-
-
-
-        //TESTTTTTT
-        // if(this.state.matchup1){
-        //     return(
-        //         <div className="matchup-row">
-        //             <div className="matchup-col">
-        //                 <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
-        //                 {this.state.championsUsed[i]}<br/>
-        //                 Role: {stat.timeline.role}<br/>
-        //                 Lane: {stat.timeline.lane}<br/>
-        //                 Kills: {stat.stats.kills}<br/>
-        //                 Deaths: {stat.stats.deaths}<br/>
-        //                 Assists: {stat.stats.assists}<br/>
-        //                 Gold: {stat.stats.goldEarned}<br/>
-        //                 {
-        //                     stat.stats.win === true
-        //                     ?
-        //                     "Result: Won"
-        //                     :
-        //                     "Result: Loss"
-        //                 }
-        //             </div>
-        //         </div>
-        //     )
-        // }
-
-        // const matchups = this.state.matchups.map((matchup, i) => {
-        //     return(
-        //         <div>
-        //         <div className="match-stats" key={i}>
-        //             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
-        //             {this.state.championsUsed[i]}<br/>
-        //             Role: {matchup.user.timeline.role}<br/>
-        //             Lane: {matchup.user.timeline.lane}<br/>
-        //             Kills: {matchup.user.stats.kills}<br/>
-        //             Deaths: {matchup.user.stats.deaths}<br/>
-        //             Assists: {matchup.user.stats.assists}<br/>
-        //             Gold: {matchup.user.stats.goldEarned}<br/>
-        //             {
-        //                 matchup.user.stats.win === true
-        //                 ?
-        //                 "Result: Won"
-        //                 :
-        //                 "Result: Loss"
-        //             }
-        //         </div>
-        //         <div className="match-stats" key={i}>
-
-
-
-        //             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
-        //             {this.state.opposingChampionsUsed[i]}<br/>
-        //             Role: {stat.timeline.role}<br/>
-        //             Lane: {stat.timeline.lane}<br/>
-        //             Kills: {stat.stats.kills}<br/>
-        //             Deaths: {stat.stats.deaths}<br/>
-        //             Assists: {stat.stats.assists}<br/>
-        //             Gold: {stat.stats.goldEarned}<br/>
-        //             {
-        //                 stat.stats.win === true
-        //                 ?
-        //                 "Result: Won"
-        //                 :
-        //                 "Result: Loss"
-        //             }
-
-
-
-
-
-        //         </div>
-        //         </div>
-        //     )
-        // })
 
         return(
             <div id="show-player-container">
