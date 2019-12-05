@@ -2,10 +2,14 @@
     width: 200px;
 }
 
-.col{
-    margin: 0 auto;
-}
-
 #show-player-container{
     display: flex
+}
+
+.matchup-row{
+    display: flex
+}
+
+.matchup-col{
+    margin: 0 auto;
 }

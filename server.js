@@ -3,7 +3,7 @@ const path = require("path")
 const app = express()
 const fetch = require("node-fetch")
 const PORT = process.env.PORT || 8000
-const key = "RGAPI-1ea803f8-b621-42da-a92d-833152031362"
+const key = "RGAPI-a9d5a9a5-d84b-4ac1-81b4-7e0ca73283b7"
 
 app.use(express.static(path.join(__dirname, "build")))
 
@@ -128,6 +128,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         let matchup = {}
         let matchupArr = []
         for(let i = 0; i < recentMatchStats.length; i++){
+            matchup = {}
             let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
             // filteredMatchups.push(recentMatchStats[i])
             // filteredMatchups.forEach((e) => matchupArr.push(e))
@@ -136,6 +137,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             matchupArr.push(matchup)
         }
         // console.log(matchupArr)
+        // console.log(recentMatchStats.length)
         // for(let i = 0; i < laneOpponent.length; i++){
         //     if(laneOpponent[i+1] && (laneOpponent[i].gameId === laneOpponent[i+1].gameId)){
         //         console.log("this hit")

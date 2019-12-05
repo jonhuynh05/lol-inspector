@@ -47,6 +47,16 @@ class ShowPlayer extends Component {
             }
         }
         console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+
+        // const roleMatchups = summoner.matchups.forEach((matchup) => {
+        //     if(matchup.opponents.length > 1){
+        //         for(let i = 0; i < matchup.opponents.length; i++){
+        //             if(matchup.opponents)
+        //         }
+        //     }
+        // })
+        
+
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
@@ -64,30 +74,101 @@ class ShowPlayer extends Component {
         })
     }
     render(){
-        // const lastFiveMatches = this.state.summonerMatchStats.map((stat, i) => {
+        const lastFiveMatches = this.state.summonerMatchStats.map((stat, i) => {
+            return(
+                <div className="match-stats" key={i}>
+                    <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                    {this.state.championsUsed[i]}<br/>
+                    Role: {stat.timeline.role}<br/>
+                    Lane: {stat.timeline.lane}<br/>
+                    Kills: {stat.stats.kills}<br/>
+                    Deaths: {stat.stats.deaths}<br/>
+                    Assists: {stat.stats.assists}<br/>
+                    Gold: {stat.stats.goldEarned}<br/>
+                    {
+                        stat.stats.win === true
+                        ?
+                        "Result: Won"
+                        :
+                        "Result: Loss"
+                    }
+                </div>
+            )
+        })
+        const opponents = this.state.opponents.map((stat, i) => {
+            return(
+                <div className="match-stats" key={i}>
+                    <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
+                    {this.state.opposingChampionsUsed[i]}<br/>
+                    Role: {stat.timeline.role}<br/>
+                    Lane: {stat.timeline.lane}<br/>
+                    Kills: {stat.stats.kills}<br/>
+                    Deaths: {stat.stats.deaths}<br/>
+                    Assists: {stat.stats.assists}<br/>
+                    Gold: {stat.stats.goldEarned}<br/>
+                    {
+                        stat.stats.win === true
+                        ?
+                        "Result: Won"
+                        :
+                        "Result: Loss"
+                    }
+                </div>
+            )
+        })
+
+
+
+
+        //TESTTTTTT
+        // if(this.state.matchup1){
         //     return(
+        //         <div className="matchup-row">
+        //             <div className="matchup-col">
+        //                 <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+        //                 {this.state.championsUsed[i]}<br/>
+        //                 Role: {stat.timeline.role}<br/>
+        //                 Lane: {stat.timeline.lane}<br/>
+        //                 Kills: {stat.stats.kills}<br/>
+        //                 Deaths: {stat.stats.deaths}<br/>
+        //                 Assists: {stat.stats.assists}<br/>
+        //                 Gold: {stat.stats.goldEarned}<br/>
+        //                 {
+        //                     stat.stats.win === true
+        //                     ?
+        //                     "Result: Won"
+        //                     :
+        //                     "Result: Loss"
+        //                 }
+        //             </div>
+        //         </div>
+        //     )
+        // }
+
+        // const matchups = this.state.matchups.map((matchup, i) => {
+        //     return(
+        //         <div>
         //         <div className="match-stats" key={i}>
         //             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
         //             {this.state.championsUsed[i]}<br/>
-        //             Role: {stat.timeline.role}<br/>
-        //             Lane: {stat.timeline.lane}<br/>
-        //             Kills: {stat.stats.kills}<br/>
-        //             Deaths: {stat.stats.deaths}<br/>
-        //             Assists: {stat.stats.assists}<br/>
-        //             Gold: {stat.stats.goldEarned}<br/>
+        //             Role: {matchup.user.timeline.role}<br/>
+        //             Lane: {matchup.user.timeline.lane}<br/>
+        //             Kills: {matchup.user.stats.kills}<br/>
+        //             Deaths: {matchup.user.stats.deaths}<br/>
+        //             Assists: {matchup.user.stats.assists}<br/>
+        //             Gold: {matchup.user.stats.goldEarned}<br/>
         //             {
-        //                 stat.stats.win === true
+        //                 matchup.user.stats.win === true
         //                 ?
         //                 "Result: Won"
         //                 :
         //                 "Result: Loss"
         //             }
         //         </div>
-        //     )
-        // })
-        // const opponents = this.state.opponents.map((stat, i) => {
-        //     return(
         //         <div className="match-stats" key={i}>
+
+
+
         //             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
         //             {this.state.opposingChampionsUsed[i]}<br/>
         //             Role: {stat.timeline.role}<br/>
@@ -103,20 +184,27 @@ class ShowPlayer extends Component {
         //                 :
         //                 "Result: Loss"
         //             }
+
+
+
+
+
+        //         </div>
         //         </div>
         //     )
         // })
+
         return(
             <div id="show-player-container">
                 <div className="col">
                     {this.state.name}<br/>
                     {this.state.level}
                     <h3>Last 5 Matches</h3>
-                    {/* {lastFiveMatches} */}
+                    {lastFiveMatches}
                 </div>
                 <div className="col">
                     <h3>Opponents</h3>
-                    {/* {opponents} */}
+                    {opponents}
                 </div>
             </div>
         )
