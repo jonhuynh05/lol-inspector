@@ -98,7 +98,6 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         // console.log(recentMatches[0].participants[0].timeline.role)
         // console.log(recentMatches[0].participants[0].timeline.lane)
         let laneOpponent = []
-        let matchup = {}
         // for(let i = 0; i < recentMatches.length; i++){
         //     for(let j = 0; j < recentMatches[i].participants.length; j++){
         //         if(
@@ -126,19 +125,28 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             }
         }
         console.log(laneOpponent, "LANE OPP")
-        for(let i = 0; i < laneOpponent.length; i++){
-            if(laneOpponent[i+1] && (laneOpponent[i].gameId === laneOpponent[i+1].gameId)){
-                // if(laneOpponent[i].timeline.role === "DUO_CARRY" && )
-
-                console.log("this hit")
-                console.log(laneOpponent[i])
-                laneOpponent[i+1].duplicate = true
-                // laneOpponent[i].duplicate = false
-            }
-            // else if(laneOpponent[i+1] && laneOpponent[i].gameId !== laneOpponent[i+1].gameId){
-            //     laneOpponent[i].duplicate = false
-            // }
+        let matchup = {}
+        let matchupArr = []
+        for(let i = 0; i < recentMatchStats.length; i++){
+            let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
+            // filteredMatchups.push(recentMatchStats[i])
+            // filteredMatchups.forEach((e) => matchupArr.push(e))
+            matchup.user = recentMatchStats[i]
+            matchup.opponents = filteredMatchups
+            matchupArr.push(matchup)
         }
+        // console.log(matchupArr)
+        // for(let i = 0; i < laneOpponent.length; i++){
+        //     if(laneOpponent[i+1] && (laneOpponent[i].gameId === laneOpponent[i+1].gameId)){
+        //         console.log("this hit")
+        //         console.log(laneOpponent[i])
+        //         laneOpponent[i+1].duplicate = true
+        //         // laneOpponent[i].duplicate = false
+        //     }
+        //     // else if(laneOpponent[i+1] && laneOpponent[i].gameId !== laneOpponent[i+1].gameId){
+        //     //     laneOpponent[i].duplicate = false
+        //     // }
+        // }
 //TEST FOR BOTTOM
         // for(let i = 0; i < recentMatches.length; i++){
         //     for (let j = 0; j < laneOpponent.length; i++){
@@ -146,18 +154,19 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         //     }
         // }
 //TEST FOR BOTTOM
-        let laneOpponentNoDupes = []
-        for (let i = 0; i < laneOpponent.length; i++){
-            if(laneOpponent[i].duplicate !== true){
-                laneOpponentNoDupes.push(laneOpponent[i])
-            }
-        }
-        console.log(laneOpponentNoDupes, "LANE OPP REVISED")
+        // let laneOpponentNoDupes = []
+        // for (let i = 0; i < laneOpponent.length; i++){
+        //     if(laneOpponent[i].duplicate !== true){
+        //         laneOpponentNoDupes.push(laneOpponent[i])
+        //     }
+        // }
+        // console.log(laneOpponentNoDupes, "LANE OPP REVISED")
         res.send({
             summoner: summonerJson,
             matches: recentMatches,
             stats: recentMatchStats,
-            opponents: laneOpponentNoDupes
+            opponents: laneOpponent,
+            matchups: matchupArr
         })
     }
     catch(err){
