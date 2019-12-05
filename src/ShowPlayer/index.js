@@ -48,7 +48,7 @@ class ShowPlayer extends Component {
         }
         console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
 
-        const roleMatchups = summoner.matchups.forEach((matchup) => {
+        summoner.matchups.forEach((matchup) => {
             if(matchup.opponents.length > 1){
                 for(let i = 0; i < matchup.opponents.length; i++){
                     if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
@@ -76,15 +76,18 @@ class ShowPlayer extends Component {
                 console.log("no need to calculate")
             }
         })
-        
-
+        const opponents = []
+        summoner.matchups.forEach((matchup) => {
+            opponents.push(matchup.opponents[0])
+        })
+        console.log(opponents)
         this.setState({
             level: summoner.summoner.summonerLevel,
             id: summoner.summoner.id,
             recentMatches: summoner.matches,
             summonerMatchStats: summoner.stats,
             championsUsed: champsUsed,
-            opponents: summoner.opponents,
+            opponents: opponents,
             opposingChampionsUsed: opponentChampsUsed,
             matchups: summoner.matchups,
             matchup1: summoner.matchups[0],
