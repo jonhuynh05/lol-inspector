@@ -105,17 +105,28 @@ class ShowPlayer extends Component {
         })
     }
     render(){
-        const lastFiveMatches = this.state.summonerMatchStats.map((stat, i) => {
+        const summonerStats = this.state.summonerMatchStats.map((stat, i) => {
             return(
                 <div className="match-stats" key={i}>
                     <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
                     {this.state.championsUsed[i]}<br/>
-                    Role: {stat.timeline.role}<br/>
-                    Lane: {stat.timeline.lane}<br/>
-                    Kills: {stat.stats.kills}<br/>
-                    Deaths: {stat.stats.deaths}<br/>
-                    Assists: {stat.stats.assists}<br/>
-                    Gold: {stat.stats.goldEarned}<br/>
+                    <div>Role: {stat.timeline.role}</div>
+                    <div>Lane: {stat.timeline.lane}</div>
+                    <div
+                    
+                    className="kills"
+
+                    >Kills: {stat.stats.kills}</div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div>Deaths: {stat.stats.deaths}</div>
+                    <div>Assists: {stat.stats.assists}</div>
+                    <div>Gold: {stat.stats.goldEarned}</div>
                     {
                         stat.stats.win === true
                         ?
@@ -131,12 +142,12 @@ class ShowPlayer extends Component {
                 <div className="match-stats" key={i}>
                     <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
                     {this.state.opposingChampionsUsed[i]}<br/>
-                    Role: {stat.timeline.role}<br/>
-                    Lane: {stat.timeline.lane}<br/>
-                    Kills: {stat.stats.kills}<br/>
-                    Deaths: {stat.stats.deaths}<br/>
-                    Assists: {stat.stats.assists}<br/>
-                    Gold: {stat.stats.goldEarned}<br/>
+                    <div>Role: {stat.timeline.role}</div>
+                    <div>Lane: {stat.timeline.lane}</div>
+                    <div>Kills: {stat.stats.kills}</div>
+                    <div>Deaths: {stat.stats.deaths}</div>
+                    <div>Assists: {stat.stats.assists}</div>
+                    <div>Gold: {stat.stats.goldEarned}</div>
                     {
                         stat.stats.win === true
                         ?
@@ -148,17 +159,23 @@ class ShowPlayer extends Component {
             )
         })
 
+        const analysis = "abc"
+
         return(
             <div id="show-player-container">
-                <div className="col">
+                <div className="row"></div>
                     {this.state.name}<br/>
                     {this.state.level}
                     <h3>Last 5 Matches</h3>
-                    {lastFiveMatches}
-                </div>
-                <div className="col">
-                    <h3>Opponents</h3>
-                    {opponents}
+                <div className="row" id="matches-row">
+                    <div className="col" id="matches-summoner-col">
+                        <h3>Your Performance</h3>
+                        {summonerStats}
+                    </div>
+                    <div className="col" id="matches-opponents-col">
+                        <h3>Opponents</h3>
+                        {opponents}
+                    </div>
                 </div>
             </div>
         )

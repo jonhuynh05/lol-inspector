@@ -3,13 +3,25 @@
 }
 
 #show-player-container{
-    display: flex
+    /* display: flex */
 }
 
-.matchup-row{
-    display: flex
+.row{
+    display: flex;
 }
 
-.matchup-col{
+.col{
     margin: 0 auto;
+}
+
+.match-stats{
+    margin: 20px 0 40px 0;
+}
+
+.won{
+    color: green
+}
+
+.lost{
+    color: red
 }
