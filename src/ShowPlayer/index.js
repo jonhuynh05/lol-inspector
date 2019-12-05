@@ -117,6 +117,8 @@ class ShowPlayer extends Component {
                             <div className="kills">Kills: {matchup.user.stats.kills}</div>
                             <div>Deaths: {matchup.user.stats.deaths}</div>
                             <div>Assists: {matchup.user.stats.assists}</div>
+                            <div>Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
+                            <div>Vision Score: {matchup.user.stats.visionScore}</div>
                             <div>Gold: {matchup.user.stats.goldEarned}</div>
                             {
                                 matchup.user.stats.win === true
@@ -170,17 +172,36 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.assists === matchup.opponents[0].stats.assists
                                 ?
                                 <div id="assists-comparison">
-                                    You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
+                                    You and your opponent helped your respective teams equally. Great job keeping up with your lane opponent. 
                                 </div>
                                 :
-                                matchup.user.stats.assists < matchup.opponents[0].stats.assists
+                                matchup.user.stats.assists > matchup.opponents[0].stats.assists
                                 ?
                                 <div id="assists-comparison">
-                                    Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
+                                    You contributed to your team more than your lane opponent. Awesome! Keep participating in team fights and lane ganks when you can to secure team kills.
                                 </div>
                                 :
                                 <div id="assists-comparison">
-                                    You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
+                                    Your opponent took part in more team fights than you did. Look at your map often to see when you're able to jump into team fights or gank a lane. More team kills means more gold and a higher chance to win!
+                                </div>
+                            }
+                            </div>
+                            <div className="advice" id="gold-analysis">
+                            {
+                                matchup.user.stats.goldEarned === matchup.opponents[0].stats.goldEarned
+                                ?
+                                <div id="gold-comparison">
+                                    You and your opponent matched each other in gold. No advantage or disadvantage to your respective teams. 
+                                </div>
+                                :
+                                matchup.user.stats.goldEarned > matchup.opponents[0].stats.goldEarned
+                                ?
+                                <div id="gold-comparison">
+                                    You outearned your lane opponent in gold. Nice work. Keep doing this to ensure you have an item advantage, giving you the edge in skirmishes and lanes.
+                                </div>
+                                :
+                                <div id="gold-comparison">
+                                    Your opponent earned more gold than you, giving themselves and their team an advantage. Try to look for more opportunities to secure kills, participate in team fights, and cs more efficiently to gain the advantage.
                                 </div>
                             }
                             </div>
@@ -193,6 +214,8 @@ class ShowPlayer extends Component {
                             <div className="kills">Kills: {matchup.opponents[0].stats.kills}</div>
                             <div>Deaths: {matchup.opponents[0].stats.deaths}</div>
                             <div>Assists: {matchup.opponents[0].stats.assists}</div>
+                            <div>Minions Killed: {matchup.opponents[0].stats.totalMinionsKilled}</div>
+                            <div>Vision Score: {matchup.opponents[0].stats.visionScore}</div>
                             <div>Gold: {matchup.opponents[0].stats.goldEarned}</div>
                             {
                                 matchup.opponents[0].stats.win === true
