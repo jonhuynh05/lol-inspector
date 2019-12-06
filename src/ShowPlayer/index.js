@@ -15,6 +15,7 @@ class ShowPlayer extends Component {
         championsUsed: [],
         opponents: [],
         opposingChampionsUsed: [],
+        noOpponentError: "No opponent found.",
         matchups: [],
         // matchup1: [],
         // matchup2: [],
@@ -87,14 +88,17 @@ class ShowPlayer extends Component {
             console.log(opponents, "Opponents")
             const opponentChampsUsed = []
             for(let i = 0; i < opponents.length; i++){
+                if(opponents[i].message){
+                    opponentChampsUsed.push("None")
+                }
                 for(let j = 0; j < champListNames.length; j++){
-                    if(opponents[i].championId === Number(champList[champListNames[j]].key)){
+                    if (opponents[i].championId === Number(champList[champListNames[j]].key)){
                         opponentChampsUsed.push(champListNames[j])
                     }
                 }
             }
+            //IS SUMMONER.MATCHUPS A PROBLEM???
             console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
-
             this.setState({
                 isLoading: false,
                 level: summoner.summoner.summonerLevel,
@@ -105,12 +109,7 @@ class ShowPlayer extends Component {
                 championsUsed: summonerChampsUsed,
                 opponents: opponents,
                 opposingChampionsUsed: opponentChampsUsed,
-                matchups: summoner.matchups,
-                // matchup1: summoner.matchups[0],
-                // matchup2: summoner.matchups[1],
-                // matchup3: summoner.matchups[2],
-                // matchup4: summoner.matchups[3],
-                // matchup5: summoner.matchups[4],
+                matchups: summoner.matchups
             })
         }
     }
