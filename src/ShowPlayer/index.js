@@ -120,15 +120,9 @@ class ShowPlayer extends Component {
                 <div className="match-stats" key={i}>
                     <div className="row" id={`matchup${i}`}>
                         <div className="col" id={`summoner-col-${i}`}>
-                            {
-                                i === 0
-                                ?
-                                <div className="col match-category" id="col-category-summoner">
-                                    <h3>Your Performance</h3>
-                                </div>
-                                :
-                                null
-                            }
+                            <div className="col match-category" id="col-category-summoner">
+                                <h3>Your Performance</h3>
+                            </div>
                             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
@@ -210,15 +204,9 @@ class ShowPlayer extends Component {
                             }
                         </div>
                         <div className="col" id={`opponent-col-${i}`}>
-                            {
-                                i === 0
-                                ?
-                                <div className="col match-category" id="col-category-opponent">
-                                    <h3>Opponents</h3>
-                                </div>
-                                :
-                                null
-                            }
+                            <div className="col match-category" id="col-category-opponent">
+                                <h3>Opponents</h3>
+                            </div>
                             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
                             {this.state.opposingChampionsUsed[i]}<br/>
                             <div>Role: {matchup.opponents[0].timeline.role}</div>
@@ -300,15 +288,9 @@ class ShowPlayer extends Component {
                             }
                         </div>
                         <div className="col" id={`analysis${i}`}>
-                            {
-                                i === 0
-                                ?
-                                <div className="col" id="col-category-analysis">
-                                    <h3>Analysis</h3>
-                                </div>
-                                :
-                                null
-                            }
+                            <div className="col" id="col-category-analysis">
+                                <h3>Analysis</h3>
+                            </div>
                             <div className="advice" id="kills-analysis">
                             {
                                 matchup.user.stats.kills === matchup.opponents[0].stats.kills

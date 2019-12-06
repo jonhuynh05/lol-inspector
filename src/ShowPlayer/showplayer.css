@@ -2,10 +2,6 @@
     width: 200px;
 }
 
-#show-player-container{
-    /* display: flex */
-}
-
 .row{
     display: flex;
     justify-content: center;
@@ -46,4 +42,8 @@
 
 #no-matches-message{
     color: red;
+}
+
+#matches-header-col{
+    margin: 20px auto 0 auto;
 }
