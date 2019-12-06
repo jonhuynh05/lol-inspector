@@ -133,18 +133,80 @@ class ShowPlayer extends Component {
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
                             <div>Lane: {matchup.user.timeline.lane}</div>
-                            <div className="kills">Kills: {matchup.user.stats.kills}</div>
-                            <div>Deaths: {matchup.user.stats.deaths}</div>
-                            <div>Assists: {matchup.user.stats.assists}</div>
-                            <div>Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
-                            <div>Vision Score: {matchup.user.stats.visionScore}</div>
-                            <div>Gold: {matchup.user.stats.goldEarned}</div>
+                            {
+                                matchup.user.stats.kills === matchup.opponents[0].stats.kills
+                                ?
+                                <div>Kills: {matchup.user.stats.kills}</div>
+                                :
+                                matchup.user.stats.kills > matchup.opponents[0].stats.kills
+                                ?
+                                <div className="won">Kills: {matchup.user.stats.kills}</div>
+                                :
+                                <div className="lost">Kills: {matchup.user.stats.kills}</div>
+                            }
+                            {
+                                matchup.user.stats.deaths === matchup.opponents[0].stats.deaths
+                                ?
+                                <div>Deaths: {matchup.user.stats.deaths}</div>
+                                :
+                                matchup.user.stats.deaths < matchup.opponents[0].stats.deaths
+                                ?
+                                <div className="won">Deaths: {matchup.user.stats.deaths}</div>
+                                :
+                                <div className="lost">Deaths: {matchup.user.stats.deaths}</div>
+                            }
+                            {
+                                matchup.user.stats.assists === matchup.opponents[0].stats.assists
+                                ?
+                                <div>Assists: {matchup.user.stats.assists}</div>
+                                :
+                                matchup.user.stats.assists > matchup.opponents[0].stats.assists
+                                ?
+                                <div className="won">Assists: {matchup.user.stats.assists}</div>
+                                :
+                                <div className="lost">Assists: {matchup.user.stats.assists}</div>
+                            }
+                            {
+                                matchup.user.stats.totalMinionsKilled === matchup.opponents[0].stats.totalMinionsKilled
+                                ?
+                                <div>Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
+                                :
+                                matchup.user.stats.totalMinionsKilled > matchup.opponents[0].stats.totalMinionsKilled
+                                ?
+                                <div className="won">Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
+                                :
+                                <div className="lost">Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
+                            }
+                            {
+                                matchup.user.stats.visionScore === matchup.opponents[0].stats.visionScore
+                                ?
+                                <div>Vision Score: {matchup.user.stats.visionScore}</div>
+                                :
+                                matchup.user.stats.visionScore > matchup.opponents[0].stats.visionScore
+                                ?
+                                <div className="won">Vision Score: {matchup.user.stats.visionScore}</div>
+
+                                :
+                                <div className="lost">Vision Score: {matchup.user.stats.visionScore}</div>
+
+                            }
+                            {
+                                matchup.user.stats.goldEarned === matchup.opponents[0].stats.goldEarned
+                                ?
+                                <div>Gold: {matchup.user.stats.goldEarned}</div>
+                                :
+                                matchup.user.stats.goldEarned > matchup.opponents[0].stats.goldEarned
+                                ?
+                                <div className="won">Gold: {matchup.user.stats.goldEarned}</div>
+                                :
+                                <div className="lost">Gold: {matchup.user.stats.goldEarned}</div>
+                            }
                             {
                                 matchup.user.stats.win === true
                                 ?
-                                "Result: Won"
+                                <div className="won">Result: Won</div>
                                 :
-                                "Result: Loss"
+                                <div className="lost">Result: Loss</div>
                             }
                         </div>
                         <div className="col" id={`opponent-col-${i}`}>
