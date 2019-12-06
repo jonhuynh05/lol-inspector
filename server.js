@@ -74,7 +74,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         if(matchList.matches){
             let recentMatches = []
             //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
-            for(let i = 0; i < 2; i++){
+            for(let i = 0; i < 5; i++){
                 let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
                     "Origin": "https://developer.riotgames.com",
                     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -99,19 +99,34 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             let laneOpponent = []
             for(let i = 0; i < classicOnlyMatches.length; i++){
                 for(let j = 0; j < classicOnlyMatches[i].participants.length; j++){
-                    if(
-                        recentMatchStats[i].timeline.lane === classicOnlyMatches[i].participants[j].timeline.lane 
+                    // if(recentMatchStats[i].timeline.lane === "NONE" && (recentMatchStats[i].timeline.role === "DUO_CARRY" || recentMatchStats[i].timeline.role === "DUO_SUPPORT" || recentMatchStats[i].timeline.role === "DUO")){
+                    //     recentMatchStats[i].timeline.lane = "BOTTOM"
+                    // }
+                    // if(classicOnlyMatches[i].participants[j].timeline.lane === "NONE" && (classicOnlyMatches[i].participants[j].timeline.role === "DUO_CARRY" || classicOnlyMatches[i].participants[j].timeline.lane === "DUO_SUPPORT" || classicOnlyMatches[i].participants[j].timeline.lane === "DUO")){
+                    //     classicOnlyMatches[i].participants[j].timeline.lane = "BOTTOM"
+                    // }
+                    console.log(classicOnlyMatches[i].participants[j].teamId, classicOnlyMatches[i].participants[j].timeline.lane, classicOnlyMatches[i].participants[j].timeline.role, "OPP", recentMatchStats[i].teamId, recentMatchStats[i].timeline.lane, recentMatchStats[i].timeline.role, "USER", i, "I")
+                    if(//last game mightnow be hitting
+                        recentMatchStats[i].timeline.lane === classicOnlyMatches[i].participants[j].timeline.lane //this makes sure we are pushing same lane
                         && 
-                        recentMatchStats[i].teamId !== classicOnlyMatches[i].participants[j].teamId
+                        recentMatchStats[i].teamId !== classicOnlyMatches[i].participants[j].teamId //this makes sure we aren't pushing teammates
                         )
                         {
-                        classicOnlyMatches[i].participants[j].gameId = classicOnlyMatches[i].gameId
+                            console.log(i)
+                        classicOnlyMatches[i].participants[j].gameId = classicOnlyMatches[i].gameId //this gives the found participants a gameId
                         laneOpponent.push(classicOnlyMatches[i].participants[j])
                     }
                 }
             }
             let matchup = {}
             let matchupArr = []
+            for (let i = 0; i< laneOpponent.length; i++){
+                console.log(laneOpponent[i].timeline.role, "role", laneOpponent[i].timeline.lane, "lane", laneOpponent[i].gameId, "id")
+            }
+            console.log(laneOpponent.length)
+            for (let i = 0; i< recentMatchStats.length; i++){
+                console.log(recentMatchStats[i].timeline.role, "role", recentMatchStats[i].timeline.lane, "lane", recentMatchStats[i].gameId, "id")
+            }
             for(let i = 0; i < recentMatchStats.length; i++){
                 matchup = {}
                 let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
