@@ -32,9 +32,8 @@ class App extends Component{
     return (
       <div className="App">
         <Switch>
-          <Route exact path={ROUTES.HOME} render={() => <div>home</div>}/>
-          <Route exact path={ROUTES.SEARCH} render={() => <PlayerSearch />}/>
-          <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer />}/>
+          <Route exact path={ROUTES.HOME} render={() => <PlayerSearch />}/>
+          <Route exact path={`${ROUTES.HOME}:summoner`} render={() => <ShowPlayer />}/>
         </Switch>
         <Footer />
       </div>

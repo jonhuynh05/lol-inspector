@@ -28,7 +28,7 @@ class PlayerSearch extends Component {
         this.setState({
             isLoading: true
         })
-        const summoner = await fetch (`/api/v1/search/${this.state.query}`)
+        const summoner = await fetch (`/api/v1/${this.state.query}`)
         console.log(summoner)
         const summonerJson = await summoner.json()
         console.log(summonerJson)
@@ -62,7 +62,7 @@ class PlayerSearch extends Component {
 
     render(){
         if(this.state.redirect) {
-            return <Redirect to={`/search/${this.state.name}`}/>
+            return <Redirect to={`/${this.state.name}`}/>
         }
         return(
             <div>

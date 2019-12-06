@@ -7,19 +7,7 @@ const PORT = process.env.PORT || 8000
 const key = process.env.LOL_API_KEY
 app.use(express.static(path.join(__dirname, "build")))
 
-app.get("/api/v1/champions", async (req, res) => {
-    try{
-        const data = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/wearydisciple?api_key=${key}`)
-        const dataJson = await data.json()
-        res.send(dataJson)
-    }
-    catch(err){
-        console.log(err)
-        res.send(err)
-    }
-})
-
-app.get("/api/v1/search/:query", async (req, res) => {
+app.get("/api/v1/:query", async (req, res) => {
     try{
         const data = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.query}?api_key=${key}`,
             {
@@ -52,8 +40,9 @@ app.get("/api/v1/search/:query", async (req, res) => {
     }
 })
 
-app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
+app.get("/api/v1/:summonerName/matches", async (req, res) => {
     try{
+        console.log(req.params.summonerName)
         const summoner = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.summonerName}?api_key=${key}`,
             {
                 "Origin": "https://developer.riotgames.com",
