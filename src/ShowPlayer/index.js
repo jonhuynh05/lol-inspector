@@ -120,7 +120,7 @@ class ShowPlayer extends Component {
                     <div className="row" id={`matchup${i}`}>
                         <div className="col" id={`summoner-col-${i}`}>
                             <div className="col match-category" id="col-category-summoner">
-                                <h3>Your Performance</h3>
+                                <h3>{this.state.name}</h3>
                             </div>
                             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
                             {this.state.championsUsed[i]}<br/>
@@ -295,17 +295,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.kills === matchup.opponents[0].stats.kills
                                 ?
                                 <div className="advice-note" id="kills-comparison">
-                                    <strong>Kills:</strong> You and your opponent had the same number of kills. Nice work -- you kept up in gold advantage on this end.
+                                    <strong>Kills:</strong>{this.state.name} and the opponent had the same number of kills. Nice work -- {this.state.name} kept up in gold advantage on this end.
                                 </div>
                                 :
                                 matchup.user.stats.kills > matchup.opponents[0].stats.kills
                                 ?
                                 <div className="advice-note" id="kills-comparison">
-                                    <strong>Kills:</strong> You slayed more champions than your lane opponent. Keep it up to retain a gold/item advantage over your opponent.
+                                    <strong>Kills:</strong> {this.state.name} slayed more champions than the lane opponent. Keep it up to retain a gold/item advantage over the opponent.
                                 </div>
                                 :
                                 <div className="advice-note" id="kills-comparison">
-                                    <strong>Kills:</strong> Your opponent gained the upperhand by gaining more kills. Keep an eye out for champions with low health for easy pickings.
+                                    <strong>Kills:</strong> {this.state.name}'s opponent gained the upperhand by gaining more kills. Keep an eye out for champions with low health for easy pickings.
                                 </div>
                             }
                             </div>
@@ -314,17 +314,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.deaths === matchup.opponents[0].stats.deaths
                                 ?
                                 <div className="advice-note" id="deaths-comparison">
-                                    <strong>Deaths:</strong> You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
+                                    <strong>Deaths:</strong> {this.state.name} and {this.state.name}'s opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
                                 </div>
                                 :
                                 matchup.user.stats.deaths < matchup.opponents[0].stats.deaths
                                 ?
                                 <div className="advice-note" id="deaths-comparison">
-                                    <strong>Deaths:</strong> Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
+                                    <strong>Deaths:</strong> The opponent died more often than {this.state.name}. They gave {this.state.name}'s team an advantage in gold.
                                 </div>
                                 :
                                 <div className="advice-note" id="deaths-comparison">
-                                    <strong>Deaths:</strong> You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
+                                    <strong>Deaths:</strong> {this.state.name} died more often than their lane opponent. Keep an eye on the minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
                                 </div>
                             }
                             </div>
@@ -333,17 +333,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.assists === matchup.opponents[0].stats.assists
                                 ?
                                 <div className="advice-note" id="assists-comparison">
-                                    <strong>Assists:</strong> You and your opponent helped your respective teams equally. Great job keeping up with your lane opponent. 
+                                    <strong>Assists:</strong> {this.state.name} and {this.state.name}'s opponent helped their respective teams equally. They did a great job keeping up with their lane opponent. 
                                 </div>
                                 :
                                 matchup.user.stats.assists > matchup.opponents[0].stats.assists
                                 ?
                                 <div className="advice-note" id="assists-comparison">
-                                    <strong>Assists:</strong> You contributed to your team more than your lane opponent. Awesome! Keep participating in team fights and lane ganks when you can to secure team kills.
+                                    <strong>Assists:</strong> {this.state.name} contributed to their team more than {this.state.name}'s lane opponent did for theirs. Keep participating in team fights and lane ganks when you can to secure team kills.
                                 </div>
                                 :
                                 <div className="advice-note" id="assists-comparison">
-                                    <strong>Assists:</strong> Your opponent took part in more team fights than you did. Look at your map often to see when you're able to jump into team fights or gank a lane. More team kills means more gold and a higher chance to win!
+                                    <strong>Assists:</strong> {this.state.name}'s opponent took part in more team fights than {this.state.name} did. Look at the map often to find opportunities to jump into team fights or gank a lane. More team kills means more gold and a higher chance to win!
                                 </div>
                             }
                             </div>
@@ -352,17 +352,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.totalMinionsKilled === matchup.opponents[0].stats.totalMinionsKilled
                                 ?
                                 <div className="advice-note" id="cs-comparison">
-                                    <strong>CS:</strong> You and your opponent killed the same amount of minions. Great job keeping up with your lane opponent. 
+                                    <strong>CS:</strong> {this.state.name} and {this.state.name}'s opponent killed the same amount of minions. They did a great job keeping up with their lane opponent. 
                                 </div>
                                 :
                                 matchup.user.stats.totalMinionsKilled > matchup.opponents[0].stats.totalMinionsKilled
                                 ?
                                 <div className="advice-note" id="cs-comparison">
-                                    <strong>CS:</strong> Your cs is on point. You beat your opponent in minion kills, giving you a game advantage with more gold to spend on items.
+                                    <strong>CS:</strong> {this.state.name}'s cs is on point. {this.state.name} beat their opponent in minion kills, gaining a game advantage with more gold to spend on items.
                                 </div>
                                 :
                                 <div className="advice-note" id="cs-comparison">
-                                    <strong>CS:</strong> Your opponent out-cs'd you. Try to poke your opponent if they are going in to last hit a minion, making them pay for the gold gained. Focus on wave control, so you know when to base without missing out on too many minions.
+                                    <strong>CS:</strong> {this.state.name}'s opponent out-cs'd {this.state.name}. Try to poke the opponent if they are going in to last hit a minion, making them pay for the gold gained. Focus on wave control, so you know when to base without missing out on too many minions.
                                 </div>
                             }
                             </div>
@@ -371,17 +371,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.visionScore === matchup.opponents[0].stats.visionScore
                                 ?
                                 <div className="advice-note" id="vision-comparison">
-                                    <strong>Vision:</strong> Equal vision score. You and your lane opponent kept the map lit up equally.
+                                    <strong>Vision:</strong> Equal vision score. {this.state.name} and {this.state.name}'s opponent kept the map lit up equally.
                                 </div>
                                 :
                                 matchup.user.stats.visionScore > matchup.opponents[0].stats.visionScore
                                 ?
                                 <div className="advice-note" id="vision-comparison">
-                                    <strong>Vision:</strong> Your warding skills this match were strong. You beat your opponent in keeping vision on the map for your team. Keep it up to maintain an advantage.
+                                    <strong>Vision:</strong> {this.state.name}'s warding skills this match were strong. {this.state.name} beat the opponent in keeping vision on the map for {this.state.name}'s team. Keep it up to maintain an advantage.
                                 </div>
                                 :
                                 <div className="advice-note" id="vision-comparison">
-                                    <strong>Vision:</strong> Your opponent beat you in keeping the fog of war away. Consider buying more pinks, placing more wards, and destroying more enemy wards to ensure your team has sight of the enemy at all times.
+                                    <strong>Vision:</strong> {this.state.name}'s opponent beat {this.state.name} in keeping the fog of war away. Consider buying more pinks, placing more wards, and destroying more enemy wards to ensure your team has sight of the enemy at all times.
                                 </div>
                             }
                             </div>
@@ -390,17 +390,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.goldEarned === matchup.opponents[0].stats.goldEarned
                                 ?
                                 <div className="advice-note" id="gold-comparison">
-                                    <strong>Gold:</strong> You and your opponent matched each other in gold. No advantage or disadvantage to your respective teams. 
+                                    <strong>Gold:</strong> {this.state.name} and {this.state.name}'s opponent matched each other in gold. No advantage or disadvantage to their respective teams. 
                                 </div>
                                 :
                                 matchup.user.stats.goldEarned > matchup.opponents[0].stats.goldEarned
                                 ?
                                 <div className="advice-note" id="gold-comparison">
-                                    <strong>Gold:</strong> You outearned your lane opponent in gold. Nice work. Keep doing this to ensure you have an item advantage, giving you the edge in skirmishes and lanes.
+                                    <strong>Gold:</strong> {this.state.name} outearned their opponent in gold. Nice work. Keep doing this to ensure an item advantage, giving you the edge in skirmishes and lanes.
                                 </div>
                                 :
                                 <div className="advice-note" id="gold-comparison">
-                                    <strong>Gold:</strong> Your opponent earned more gold than you, giving themselves and their team an advantage. Try to look for more opportunities to secure kills, participate in team fights, and cs more efficiently to gain the advantage.
+                                    <strong>Gold:</strong> {this.state.name}'s opponent earned more gold than {this.state.name}, giving themselves and their team an advantage. Try to look for more opportunities to secure kills, participate in team fights, and cs more efficiently to gain the advantage.
                                 </div>
                             }
                             </div>
@@ -425,7 +425,7 @@ class ShowPlayer extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <h3>Last 5 Matches</h3>
+                    <h3>Recent Matches</h3>
                 </div>
                 <div id="spinner-row">
                     <div id="spinner-col">
