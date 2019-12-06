@@ -2,11 +2,28 @@ require('dotenv').config()
 const express = require("express")
 const path = require("path")
 const app = express()
+const methodOverride = require("method-override")
+const bodyParser = require("body-parser")
+const session = require("express-session")
 const fetch = require("node-fetch")
+const userController = require("./controllers/user")
 const PORT = process.env.PORT || 8000
 const key = process.env.LOL_API_KEY
-app.use(express.static(path.join(__dirname, "build")))
+const bcrypt = require("bcryptjs");
 
+require("./config/db")
+
+app.use(express.static(path.join(__dirname, "build")))
+app.use(session({
+    secret: "lol is best",
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(methodOverride("_method"));
+app.use(bodyParser.urlencoded({extended: true}));
+// app.use("/user", userController)
+
+//API CALLS
 app.get("/api/v1/:query", async (req, res) => {
     try{
         const data = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.query}?api_key=${key}`,

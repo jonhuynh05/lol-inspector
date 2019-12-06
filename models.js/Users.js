@@ -5,7 +5,11 @@ const userSchema = new Schema ({
     lastName: String,
     username: String,
     profileIconUrl: String,
-    password: String
+    password: String,
+    favorites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Favorite"
+    }]
 })
 
 const User = mongoose.model("User", userSchema)
