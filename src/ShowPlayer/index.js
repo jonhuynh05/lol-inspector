@@ -72,13 +72,11 @@ class ShowPlayer extends Component {
                 }
             }
         })
-
         const opponents = []
         summoner.matchups.forEach((matchup) => {
             opponents.push(matchup.opponents[0])
         })
         console.log(opponents, "Opponents")
-
         const opponentChampsUsed = []
         for(let i = 0; i < opponents.length; i++){
             for(let j = 0; j < champListNames.length; j++){
@@ -130,23 +128,42 @@ class ShowPlayer extends Component {
                                 "Result: Loss"
                             }
                         </div>
+                        <div className="col" id={`opponent-col-${i}`}>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
+                            {this.state.opposingChampionsUsed[i]}<br/>
+                            <div>Role: {matchup.opponents[0].timeline.role}</div>
+                            <div>Lane: {matchup.opponents[0].timeline.lane}</div>
+                            <div className="kills">Kills: {matchup.opponents[0].stats.kills}</div>
+                            <div>Deaths: {matchup.opponents[0].stats.deaths}</div>
+                            <div>Assists: {matchup.opponents[0].stats.assists}</div>
+                            <div>Minions Killed: {matchup.opponents[0].stats.totalMinionsKilled}</div>
+                            <div>Vision Score: {matchup.opponents[0].stats.visionScore}</div>
+                            <div>Gold: {matchup.opponents[0].stats.goldEarned}</div>
+                            {
+                                matchup.opponents[0].stats.win === true
+                                ?
+                                "Result: Won"
+                                :
+                                "Result: Loss"
+                            }
+                        </div>
                         <div className="col" id={`analysis${i}`}>
                             <div className="advice" id="kills-analysis">
                             {
                                 matchup.user.stats.kills === matchup.opponents[0].stats.kills
                                 ?
                                 <div className="advice-note" id="kills-comparison">
-                                    You and your opponent had the same number of kills. Nice work -- you kept up in gold advantage on this end.
+                                    Kills: You and your opponent had the same number of kills. Nice work -- you kept up in gold advantage on this end.
                                 </div>
                                 :
                                 matchup.user.stats.kills > matchup.opponents[0].stats.kills
                                 ?
                                 <div className="advice-note" id="kills-comparison">
-                                    You slayed more champions than your lane opponent. Keep it up to retain a gold/item advantage over your opponent.
+                                    Kills: You slayed more champions than your lane opponent. Keep it up to retain a gold/item advantage over your opponent.
                                 </div>
                                 :
                                 <div className="advice-note" id="kills-comparison">
-                                    Your opponent gained the upperhand by gaining more kills. Keep an eye out for champions with low health for easy pickings.
+                                    Kills: Your opponent gained the upperhand by gaining more kills. Keep an eye out for champions with low health for easy pickings.
                                 </div>
                             }
                             </div>
@@ -155,17 +172,17 @@ class ShowPlayer extends Component {
                                 matchup.user.stats.deaths === matchup.opponents[0].stats.deaths
                                 ?
                                 <div className="advice-note" id="deaths-comparison">
-                                    You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
+                                    Deaths: You and your opponent died the same number of times. No gold advantage or disadvantage given to the enemy team for this stat. 
                                 </div>
                                 :
                                 matchup.user.stats.deaths < matchup.opponents[0].stats.deaths
                                 ?
                                 <div className="advice-note" id="deaths-comparison">
-                                    Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
+                                    Deaths: Your opponent died more often than you. Nice -- they gave your team an advantage in gold compared to you.
                                 </div>
                                 :
                                 <div className="advice-note" id="deaths-comparison">
-                                    You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
+                                    Deaths: You died more often than your opponent. Keep an eye on your minimap to avoid getting outflanked, base when necessary, and listen to ally pings to avoid giving the enemy a gold advantage.
                                 </div>
                             }
                             </div>
@@ -227,25 +244,6 @@ class ShowPlayer extends Component {
                             }
                             </div>
                         </div>
-                        <div className="col" id={`opponent-col-${i}`}>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
-                            {this.state.opposingChampionsUsed[i]}<br/>
-                            <div>Role: {matchup.opponents[0].timeline.role}</div>
-                            <div>Lane: {matchup.opponents[0].timeline.lane}</div>
-                            <div className="kills">Kills: {matchup.opponents[0].stats.kills}</div>
-                            <div>Deaths: {matchup.opponents[0].stats.deaths}</div>
-                            <div>Assists: {matchup.opponents[0].stats.assists}</div>
-                            <div>Minions Killed: {matchup.opponents[0].stats.totalMinionsKilled}</div>
-                            <div>Vision Score: {matchup.opponents[0].stats.visionScore}</div>
-                            <div>Gold: {matchup.opponents[0].stats.goldEarned}</div>
-                            {
-                                matchup.opponents[0].stats.win === true
-                                ?
-                                "Result: Won"
-                                :
-                                "Result: Loss"
-                            }
-                        </div>
                     </div>
                 </div>
             )
@@ -269,11 +267,11 @@ class ShowPlayer extends Component {
                     <div className="col" id="col-header-summoner">
                         <h3>Your Performance</h3>
                     </div>
-                    <div className="col" id="col-header-analysis">
-                        <h3>Analysis</h3>
-                    </div>
                     <div className="col" id="col-header-opponent">
                         <h3>Opponents</h3>
+                    </div>
+                    <div className="col" id="col-header-analysis">
+                    <h3>Analysis</h3>
                     </div>
                 </div>
                 {analysis}
