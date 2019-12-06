@@ -29,7 +29,7 @@ class ShowPlayer extends Component {
             isLoading: true
         })
         const summonerName = this.props.match.params.summoner
-        const summoner = await (await fetch (`/api/v1/${summonerName}/matches`)).json()
+        const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
         console.log(summoner, "FROM BACKEND")
         if(summoner.summoner.noMatches){
             this.setState({

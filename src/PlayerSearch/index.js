@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Redirect} from "react-router-dom"
 import {MoonLoader} from "react-spinners"
+import * as ROUTES from "../constants/routes"
 import "./playersearch.css"
 
 class PlayerSearch extends Component {
@@ -62,7 +63,7 @@ class PlayerSearch extends Component {
 
     render(){
         if(this.state.redirect) {
-            return <Redirect to={`/${this.state.name}`}/>
+            return <Redirect to={`${ROUTES.SEARCH}/${this.state.name}`}/>
         }
         return(
             <div>

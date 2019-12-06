@@ -5,11 +5,17 @@ import Footer from "./Footer"
 import * as ROUTES from "./constants/routes"
 import PlayerSearch from "./PlayerSearch"
 import ShowPlayer from "./ShowPlayer"
+import Nav from "./Nav"
+import User from "./ShowUser"
+import Login from "./Login"
 
 
 class App extends Component{
   state = {
-    summoner: []
+    summoner: [],
+    isLoggedIn: false,
+    username: "",
+    userId: ""
   }
   async componentDidMount(){
     try{
@@ -31,9 +37,12 @@ class App extends Component{
   render(){
     return (
       <div className="App">
+        <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>
         <Switch>
-          <Route exact path={ROUTES.HOME} render={() => <PlayerSearch />}/>
-          <Route exact path={`${ROUTES.HOME}:summoner`} render={() => <ShowPlayer />}/>
+          <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+          <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>}/>
+          <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
+          <Route exact path={ROUTES.USER} render={() => <Login isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>}/>
         </Switch>
         <Footer />
       </div>

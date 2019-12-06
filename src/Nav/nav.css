@@ -1,0 +1,25 @@
+.nav-row {
+    display: flex;
+    background-color: rgb(231, 197, 84);
+    justify-content: left;
+}
+
+.nav-col {
+    margin: 15px 30px;
+}
+
+#logout-col{
+    margin-left: 30px;
+}
+
+#logo-col{
+    width: 85%;
+    text-align: left;
+    margin-left: 30px;
+}
+
+.nav-anchor {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+}
