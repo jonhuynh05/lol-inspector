@@ -8,10 +8,11 @@
 
 .row{
     display: flex;
+    justify-content: center;
 }
 
 .col{
-    margin: 0 auto;
+    margin: 20px;
 }
 
 .match-stats{
@@ -30,9 +31,14 @@
     margin: 20px auto;
 }
 
-#matches-player-name{
-}
-
 .advice-note{
     margin: 20px;
+}
+
+#spinner-row{
+    text-align: center;
+}
+#spinner-col{
+    width: 40px;
+    margin: 0 auto;
 }
