@@ -47,3 +47,12 @@
 #matches-header-col{
     margin: 20px auto 0 auto;
 }
+
+.no-opponent{
+    width: 200px;
+    min-width: 200px;
+}
+
+.no-analysis{
+    width: 920px;
+}

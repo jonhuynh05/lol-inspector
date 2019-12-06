@@ -117,10 +117,9 @@ class ShowPlayer extends Component {
     }
     render(){
         const analysis = this.state.matchups.map((matchup, i) => {
-
             if(matchup.opponents[0].message){
                 return(
-<div className="match-stats" key={i}>
+                <div className="match-stats" key={i}>
                     <div className="row" id={`matchup${i}`}>
                         <div className="col" id={`summoner-col-${i}`}>
                             <div className="col match-category" id="col-category-summoner">
@@ -144,13 +143,13 @@ class ShowPlayer extends Component {
                                 <div className="lost">Result: Loss</div>
                             }
                         </div>
-                        <div className="col" id={`opponent-col-${i}`}>
+                        <div className="col no-opponent" id={`opponent-col-${i}`}>
                             <div className="col match-category" id="col-category-opponent">
                                 <h3>Opponents</h3>
                             </div>
                             <div>No Opponents Identified</div>
                         </div>
-                        <div className="col" id={`analysis${i}`}>
+                        <div className="col no-analysis" id={`analysis${i}`}>
                             <div className="col" id="col-category-analysis">
                                 <h3>Analysis</h3>
                             </div>
