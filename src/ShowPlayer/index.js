@@ -99,11 +99,13 @@ class ShowPlayer extends Component {
             }
             //IS SUMMONER.MATCHUPS A PROBLEM???
             console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+            console.log(typeof summoner.matchups, "this is matchups")
+            console.log(summoner.matchups, "this is matchups")
             this.setState({
                 isLoading: false,
                 level: summoner.summoner.summonerLevel,
                 id: summoner.summoner.id,
-                noMatchesMessage: "",
+                noMatchesMessage: "",   
                 recentMatches: summoner.matches,
                 summonerMatchStats: summonerChamps,
                 championsUsed: summonerChampsUsed,
@@ -115,6 +117,50 @@ class ShowPlayer extends Component {
     }
     render(){
         const analysis = this.state.matchups.map((matchup, i) => {
+
+            if(matchup.opponents[0].message){
+                return(
+<div className="match-stats" key={i}>
+                    <div className="row" id={`matchup${i}`}>
+                        <div className="col" id={`summoner-col-${i}`}>
+                            <div className="col match-category" id="col-category-summoner">
+                                <h3>{this.state.name}</h3>
+                            </div>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                            {this.state.championsUsed[i]}<br/>
+                            <div>Role: {matchup.user.timeline.role}</div>
+                            <div>Lane: {matchup.user.timeline.lane}</div>
+                            <div>Kills: {matchup.user.stats.kills}</div>
+                            <div>Deaths: {matchup.user.stats.deaths}</div>
+                            <div>Assists: {matchup.user.stats.assists}</div>
+                            <div>Minions Killed: {matchup.user.stats.totalMinionsKilled}</div>
+                            <div>Vision Score: {matchup.user.stats.visionScore}</div>
+                            <div>Gold: {matchup.user.stats.goldEarned}</div>
+                            {
+                                matchup.user.stats.win === true
+                                ?
+                                <div className="won">Result: Won</div>
+                                :
+                                <div className="lost">Result: Loss</div>
+                            }
+                        </div>
+                        <div className="col" id={`opponent-col-${i}`}>
+                            <div className="col match-category" id="col-category-opponent">
+                                <h3>Opponents</h3>
+                            </div>
+                            <div>No Opponents Identified</div>
+                        </div>
+                        <div className="col" id={`analysis${i}`}>
+                            <div className="col" id="col-category-analysis">
+                                <h3>Analysis</h3>
+                            </div>
+                            <div>No Analysis</div>
+                        </div>
+                    </div>
+                </div>
+                )
+            }
+            else{
             return(
                 <div className="match-stats" key={i}>
                     <div className="row" id={`matchup${i}`}>
@@ -407,8 +453,9 @@ class ShowPlayer extends Component {
                         </div>
                     </div>
                 </div>
-            )
+            )}
         })
+        
 
         return(
             <div id="show-player-container">

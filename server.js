@@ -80,7 +80,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         if(matchList.matches){
             let recentMatches = []
             //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
-            for(let i = 0; i < 2; i++){
+            for(let i = 0; i < 5; i++){
                 let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
                     "Origin": "https://developer.riotgames.com",
                     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
