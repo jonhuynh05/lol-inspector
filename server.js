@@ -21,7 +21,7 @@ app.use(session({
 }))
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use("/user", userController)
+app.use("/user", userController)
 
 //API CALLS
 app.get("/api/v1/:query", async (req, res) => {
