@@ -9,6 +9,7 @@ class ShowPlayer extends Component {
         level: "",
         id: "",
         isLoading: false,
+        noMatchesMessage: "",
         recentMatches: [],
         summonerMatchStats: [],
         championsUsed: [],
@@ -29,80 +30,89 @@ class ShowPlayer extends Component {
         const summonerName = this.props.match.params.summoner
         const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
         console.log(summoner, "FROM BACKEND")
-        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
-        console.log(champList, "CHAMP LIST")
-        const champListNames = Object.keys(champList)
-
-        const summonerChamps = []
-        summoner.matchups.forEach((matchup) => {
-            summonerChamps.push(matchup.user)
-        })
-        console.log(summonerChamps, "summoner stats")
-        const summonerChampsUsed = []
-        for(let i = 0; i < summoner.stats.length; i++){
-            for(let j = 0; j < champListNames.length; j++){
-                if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
-                    summonerChampsUsed.push(champListNames[j])
-                }
-            }
+        if(summoner.summoner.noMatches){
+            this.setState({
+                noMatchesMessage: "This summoner does not have any recent matches. Please try a different summoner.",
+                isLoading: false
+            })
         }
-        console.log(summonerChampsUsed, "CHAMPS USED")
-        summoner.matchups.forEach((matchup) => {
-            if(matchup.opponents.length > 1){
-                for(let i = 0; i < matchup.opponents.length; i++){
-                    if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
-                        matchup.opponents.splice(i+1, 1)
-                    }
-                    else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
-                        matchup.opponents.splice(i+1, 1)
-                    }
-                    else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
-                        matchup.opponents.splice(i+1, 1)
-                    }
-                    else if(
-                        (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
-                        ||(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("SUPPORT"))
-                        )
-                        {
-                        matchup.opponents.splice(i, 1)
-                    }
-                    else{
-                        matchup.opponents.splice(i+1, 1)
-                    }
-                }
-            }
-        })
-        const opponents = []
-        summoner.matchups.forEach((matchup) => {
-            opponents.push(matchup.opponents[0])
-        })
-        console.log(opponents, "Opponents")
-        const opponentChampsUsed = []
-        for(let i = 0; i < opponents.length; i++){
-            for(let j = 0; j < champListNames.length; j++){
-                if(opponents[i].championId === Number(champList[champListNames[j]].key)){
-                    opponentChampsUsed.push(champListNames[j])
-                }
-            }
-        }
-        console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+        else{
+            const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+            console.log(champList, "CHAMP LIST")
+            const champListNames = Object.keys(champList)
 
-        this.setState({
-            isLoading: false,
-            level: summoner.summoner.summonerLevel,
-            id: summoner.summoner.id,
-            recentMatches: summoner.matches,
-            summonerMatchStats: summonerChamps,
-            championsUsed: summonerChampsUsed,
-            opponents: opponents,
-            opposingChampionsUsed: opponentChampsUsed,
-            matchups: summoner.matchups,
-            // matchup1: summoner.matchups[0],
-            // matchup2: summoner.matchups[1],
-            // matchup3: summoner.matchups[2],
-            // matchup4: summoner.matchups[3],
-            // matchup5: summoner.matchups[4],
-        })
+            const summonerChamps = []
+            summoner.matchups.forEach((matchup) => {
+                summonerChamps.push(matchup.user)
+            })
+            console.log(summonerChamps, "summoner stats")
+            const summonerChampsUsed = []
+            for(let i = 0; i < summoner.stats.length; i++){
+                for(let j = 0; j < champListNames.length; j++){
+                    if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
+                        summonerChampsUsed.push(champListNames[j])
+                    }
+                }
+            }
+            console.log(summonerChampsUsed, "CHAMPS USED")
+            summoner.matchups.forEach((matchup) => {
+                if(matchup.opponents.length > 1){
+                    for(let i = 0; i < matchup.opponents.length; i++){
+                        if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
+                            matchup.opponents.splice(i+1, 1)
+                        }
+                        else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
+                            matchup.opponents.splice(i+1, 1)
+                        }
+                        else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
+                            matchup.opponents.splice(i+1, 1)
+                        }
+                        else if(
+                            (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
+                            ||(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("SUPPORT"))
+                            )
+                            {
+                            matchup.opponents.splice(i, 1)
+                        }
+                        else{
+                            matchup.opponents.splice(i+1, 1)
+                        }
+                    }
+                }
+            })
+            const opponents = []
+            summoner.matchups.forEach((matchup) => {
+                opponents.push(matchup.opponents[0])
+            })
+            console.log(opponents, "Opponents")
+            const opponentChampsUsed = []
+            for(let i = 0; i < opponents.length; i++){
+                for(let j = 0; j < champListNames.length; j++){
+                    if(opponents[i].championId === Number(champList[champListNames[j]].key)){
+                        opponentChampsUsed.push(champListNames[j])
+                    }
+                }
+            }
+            console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
+
+            this.setState({
+                isLoading: false,
+                level: summoner.summoner.summonerLevel,
+                id: summoner.summoner.id,
+                noMatchesMessage: "",
+                recentMatches: summoner.matches,
+                summonerMatchStats: summonerChamps,
+                championsUsed: summonerChampsUsed,
+                opponents: opponents,
+                opposingChampionsUsed: opponentChampsUsed,
+                matchups: summoner.matchups,
+                // matchup1: summoner.matchups[0],
+                // matchup2: summoner.matchups[1],
+                // matchup3: summoner.matchups[2],
+                // matchup4: summoner.matchups[3],
+                // matchup5: summoner.matchups[4],
+            })
+        }
     }
     render(){
         const analysis = this.state.matchups.map((matchup, i) => {
@@ -300,7 +310,13 @@ class ShowPlayer extends Component {
                 <div className="row">
                     <div className="col" id="matches-header-col">
                         <h2 id="matches-player-name">{this.state.name}</h2>
-                        <h4>Level {this.state.level}</h4>
+                        {
+                            this.state.noMatchesMessage !== ""
+                            ?
+                            null
+                            :
+                            <h4>Level {this.state.level}</h4>
+                        }
                     </div>
                 </div>
                 <div className="row">
@@ -315,7 +331,17 @@ class ShowPlayer extends Component {
                             loading={this.state.isLoading}/>
                     </div>
                 </div>
-                {analysis}
+                {
+                    this.state.noMatchesMessage !== ""
+                    ?
+                    <div id="no-matches-message">
+                        {this.state.noMatchesMessage}
+                    </div>
+                    :
+                    <div>
+                        {analysis}
+                    </div>
+                }
             </div>
         )
     }

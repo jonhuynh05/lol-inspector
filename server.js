@@ -71,60 +71,68 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             "Accept-Language": "en-US,en;q=0.9",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
         })).json()
-        let recentMatches = []
-        //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
-        for(let i = 0; i < 2; i++){
-            let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
-                "Origin": "https://developer.riotgames.com",
-                "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-                "X-Riot-Token": "RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d",
-                "Accept-Language": "en-US,en;q=0.9",
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
-            })).json()
-            recentMatches.push(matchStats)
-        }
-        let classicOnlyMatches = recentMatches.filter((match) => {
-            return match.gameMode === "CLASSIC"
-        })
-        let recentMatchStats = []
-        for (let i=0; i < classicOnlyMatches.length; i++){
-            let filteredIds = classicOnlyMatches[i].participantIdentities.filter((id) => id.player.summonerName.toLowerCase() === req.params.summonerName.toLowerCase())[0]
-            filteredIds.participantId
-            let filteredStats = classicOnlyMatches[i].participants.filter((id) => id.participantId === filteredIds.participantId)[0]
-            filteredStats.queriedSummoner = true
-            filteredStats.gameId = classicOnlyMatches[i].gameId
-            recentMatchStats.push(filteredStats)
-        }
-        let laneOpponent = []
-        for(let i = 0; i < classicOnlyMatches.length; i++){
-            for(let j = 0; j < classicOnlyMatches[i].participants.length; j++){
-                if(
-                    recentMatchStats[i].timeline.lane === classicOnlyMatches[i].participants[j].timeline.lane 
-                    && 
-                    recentMatchStats[i].teamId !== classicOnlyMatches[i].participants[j].teamId
-                    )
-                    {
-                    classicOnlyMatches[i].participants[j].gameId = classicOnlyMatches[i].gameId
-                    laneOpponent.push(classicOnlyMatches[i].participants[j])
+        if(matchList.matches){
+            let recentMatches = []
+            //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
+            for(let i = 0; i < 2; i++){
+                let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
+                    "Origin": "https://developer.riotgames.com",
+                    "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "X-Riot-Token": "RGAPI-b6ac37f9-a7d0-44f4-b167-62d30f8b358d",
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+                })).json()
+                recentMatches.push(matchStats)
+            }
+            let classicOnlyMatches = recentMatches.filter((match) => {
+                return match.gameMode === "CLASSIC"
+            })
+            let recentMatchStats = []
+            for (let i=0; i < classicOnlyMatches.length; i++){
+                let filteredIds = classicOnlyMatches[i].participantIdentities.filter((id) => id.player.summonerName.toLowerCase() === req.params.summonerName.toLowerCase())[0]
+                filteredIds.participantId
+                let filteredStats = classicOnlyMatches[i].participants.filter((id) => id.participantId === filteredIds.participantId)[0]
+                filteredStats.queriedSummoner = true
+                filteredStats.gameId = classicOnlyMatches[i].gameId
+                recentMatchStats.push(filteredStats)
+            }
+            let laneOpponent = []
+            for(let i = 0; i < classicOnlyMatches.length; i++){
+                for(let j = 0; j < classicOnlyMatches[i].participants.length; j++){
+                    if(
+                        recentMatchStats[i].timeline.lane === classicOnlyMatches[i].participants[j].timeline.lane 
+                        && 
+                        recentMatchStats[i].teamId !== classicOnlyMatches[i].participants[j].teamId
+                        )
+                        {
+                        classicOnlyMatches[i].participants[j].gameId = classicOnlyMatches[i].gameId
+                        laneOpponent.push(classicOnlyMatches[i].participants[j])
+                    }
                 }
             }
+            let matchup = {}
+            let matchupArr = []
+            for(let i = 0; i < recentMatchStats.length; i++){
+                matchup = {}
+                let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
+                matchup.user = recentMatchStats[i]
+                matchup.opponents = filteredMatchups
+                matchupArr.push(matchup)
+            }
+            res.send({
+                summoner: summonerJson,
+                matches: classicOnlyMatches,
+                stats: recentMatchStats,
+                opponents: laneOpponent,
+                matchups: matchupArr
+            })
         }
-        let matchup = {}
-        let matchupArr = []
-        for(let i = 0; i < recentMatchStats.length; i++){
-            matchup = {}
-            let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
-            matchup.user = recentMatchStats[i]
-            matchup.opponents = filteredMatchups
-            matchupArr.push(matchup)
+        else{
+            summonerJson.noMatches = true
+            res.send({
+                summoner: summonerJson
+            })
         }
-        res.send({
-            summoner: summonerJson,
-            matches: classicOnlyMatches,
-            stats: recentMatchStats,
-            opponents: laneOpponent,
-            matchups: matchupArr
-        })
     }
     catch(err){
         console.log(err)

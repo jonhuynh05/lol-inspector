@@ -43,3 +43,7 @@
     width: 40px;
     margin: 0 auto;
 }
+
+#no-matches-message{
+    color: red;
+}
