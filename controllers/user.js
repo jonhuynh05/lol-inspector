@@ -23,25 +23,36 @@ router.get("/", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try{
-        const password = req.body.password
-        // const foundEmail = await User.findOne({
-        //     email: req.params.email
-        // })
-        // if(foundEmail){
-        //     res.json({
-        //         emailExists: true
-        //     })
-        // }
-        // const foundUsername = await User.findOne({
-        //     username: req.params.username
-        // })
-        // if(foundUsername){
-        //     res.json({
-        //         usernameExists: true
-        //     })
-        // }
-
-
+        const foundEmail = await User.findOne({
+            email: req.body.email
+        })
+        const foundUsername = await User.findOne({
+            username: req.body.username
+        })
+        if(foundEmail){
+            res.json({
+                message: "Email already exists."
+            })
+        }
+        else if(foundUsername){
+            res.json({
+                message: "Username already exists."
+            })
+        }
+        else{
+            const userDbEntry = {}
+            const password = req.body.password
+            const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+            userDbEntry.firstName = req.body.firstName
+            userDbEntry.lastName = req.body.lastName
+            userDbEntry.username = req.body.username
+            userDbEntry.email = req.body.email
+            userDbEntry.password = passwordHash
+            const newUser = await User.create(userDbEntry)
+            res.json({
+                message: "Success."
+            })
+        }
     }
     catch(err){
         res.send(err)
