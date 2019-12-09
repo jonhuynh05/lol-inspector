@@ -117,7 +117,7 @@ class ShowPlayer extends Component {
     }
 
     handleFollow = () => {
-        
+
     }
 
 
@@ -476,7 +476,13 @@ class ShowPlayer extends Component {
                             :
                             <h4>Level {this.state.level}</h4>
                         }
-                        <button id="follow-button">Follow</button>
+                        {
+                            this.props.isLoggedIn
+                            ?
+                            <button id="follow-button">Follow</button>
+                            :
+                            null
+                        }
                     </div>
                 </div>
                 <div className="row">
