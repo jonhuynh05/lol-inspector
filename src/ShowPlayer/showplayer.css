@@ -28,6 +28,10 @@
     margin: 20px auto;
 }
 
+.advice{
+    text-align: left;
+}
+
 .advice-note{
     margin: 20px;
 }

@@ -249,7 +249,7 @@ class ShowPlayer extends Component {
                         </div>
                         <div className="col" id={`opponent-col-${i}`}>
                             <div className="col match-category" id="col-category-opponent">
-                                <h3>Opponents</h3>
+                                <h3>Opponent</h3>
                             </div>
                             <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
                             {this.state.opposingChampionsUsed[i]}<br/>

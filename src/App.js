@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css';
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch, withRouter} from "react-router-dom"
 import Footer from "./Footer"
 import * as ROUTES from "./constants/routes"
 import PlayerSearch from "./PlayerSearch"
@@ -23,18 +23,11 @@ class App extends Component{
     loginUsername: "",
     loginPassword: "",
     loginErrorMessage: "",
-    goHome: false
   }
 
   onChange = (e) => {
     this.setState({
         [e.target.name]: e.target.value
-    })
-}
-
-afterLogin() {
-    this.setState({
-        goHome: true
     })
 }
 
@@ -78,7 +71,7 @@ handleRegister = async (e) => {
                         loginPassword: "",
                         userId: response.userId,
                     })
-                    this.afterLogin()
+                    this.props.history.push("/");
                 }
             })
         }
@@ -119,7 +112,7 @@ handleLogin = async (e) => {
                         loginPassword: "",
                         userId: response.userId,
                     })
-                    this.afterLogin()
+                    this.props.history.push("/");
                 }
             })
         }
@@ -141,8 +134,8 @@ handleLogout = async() => {
         loginUsername: "",
         loginPassword: "",
         loginErrorMessage: "",
-        goHome: false
     })
+    this.props.history.push("/");
     const logout = await fetch(`/user/logout`)
 }
 
@@ -154,9 +147,22 @@ handleLogout = async() => {
         <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} logout={this.handleLogout}/>
         <Switch>
           <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
-          <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>}/>
           <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
-          <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
+
+        {
+            this.state.isLoggedIn
+            ?
+            <Route exact path={ROUTES.USER} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+            :
+            <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
+        }
+        {
+            this.state.isLoggedIn
+            ?
+            <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+            :
+            <Route exact path={`${ROUTES.USER}/:userId`} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+        }
         </Switch>
         <Footer />
       </div>
@@ -164,4 +170,4 @@ handleLogout = async() => {
   }
 }
 
-export default App;
+export default withRouter(App);
