@@ -23,7 +23,8 @@ class Login extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault()
-        const registerUser = await fetch(`/user/register`, {
+        console.log(this.state)
+        const registerResponse = await fetch(`/user/register`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(this.state),
@@ -31,7 +32,6 @@ class Login extends Component {
                 "Content-Type": "application/json"
             }
         })
-        console.log(registerUser)
     }
 
     render(){

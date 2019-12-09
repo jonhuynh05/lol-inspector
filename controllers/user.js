@@ -23,8 +23,7 @@ router.get("/", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try{
-        res.json("hits")
-        console.log("hello")
+        const password = req.body.password
         // const foundEmail = await User.findOne({
         //     email: req.params.email
         // })
