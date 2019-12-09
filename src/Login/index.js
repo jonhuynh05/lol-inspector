@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import "./login.css"
-import * as ROUTES from "../constants/routes"
-import {Redirect} from "react-router-dom"
-
-
 
 class Login extends Component {
     async componentDidMount () {
@@ -12,9 +8,6 @@ class Login extends Component {
     }
     
     render(){
-        if(this.props.state.goHome) {
-            return <Redirect to={`${ROUTES.HOME}`}/>
-        }
         return(
             <div className="container">
                 <div id="register-container">

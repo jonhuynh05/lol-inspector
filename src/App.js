@@ -41,7 +41,7 @@ handleLoginReset = () => {
 handleRegister = async (e) => {
     e.preventDefault()
     try{
-        const registerResponse = await fetch(`/user/register`, {
+        const registerResponse = await fetch(`${ROUTES.USER}/register`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(this.state),
@@ -83,7 +83,7 @@ handleRegister = async (e) => {
 handleLogin = async (e) => {
     e.preventDefault()
     try{
-        const login = await fetch(`/user/login`, {
+        const login = await fetch(`${ROUTES.USER}/login`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(this.state),
@@ -136,7 +136,7 @@ handleLogout = async() => {
         loginErrorMessage: "",
     })
     this.props.history.push("/");
-    const logout = await fetch(`/user/logout`)
+    const logout = await fetch(`${ROUTES.USER}/logout`)
 }
 
 
@@ -146,16 +146,9 @@ handleLogout = async() => {
       <div className="App">
         <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} logout={this.handleLogout}/>
         <Switch>
-          <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
-          <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
-
-        {
-            this.state.isLoggedIn
-            ?
-            <Route exact path={ROUTES.USER} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
-            :
+            <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+            <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
-        }
         {
             this.state.isLoggedIn
             ?

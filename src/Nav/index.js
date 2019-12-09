@@ -3,7 +3,6 @@ import {Link} from "react-router-dom"
 import "./nav.css"
 import * as ROUTES from "../constants/routes"
 
-
 class Nav extends Component{
     render(){
         return(
