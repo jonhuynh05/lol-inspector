@@ -9,6 +9,8 @@ const fetch = require("node-fetch")
 const userController = require("./controllers/user")
 const PORT = process.env.PORT || 8000
 const key = process.env.LOL_API_KEY
+const User = require("./models/Users")
+const Favorite = require("./models/Favorites")
 const bcrypt = require("bcryptjs");
 
 require("./config/db")
@@ -157,10 +159,24 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
     }
 })
 
-app.get("/search/:summonerName/follow", async (req, res) => {
+app.post("/search/:summonerName/follow", async (req, res) => {
     try{
-        console.log("this is hitting")
-        res.send("hi")
+        User.findById(req.session.userId, (err, foundUser) => {
+            console.log(foundUser, "this is in follow route")
+            Favorite.create(req.body, (err, createdFavorite) => {
+                if(err){
+                    res.send(err)
+                    console.log(err)
+                }
+                else{
+                    foundUser.favorites.push(createdFavorite)
+                    foundUser.save((err, data) => {
+                        console.log(foundUser)
+                        res.json("added favorite")
+                    })
+                }
+            })
+        })
     }
     catch(err){
         console.log(err)

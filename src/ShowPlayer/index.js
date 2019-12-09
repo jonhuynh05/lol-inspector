@@ -117,7 +117,17 @@ class ShowPlayer extends Component {
     }
 
     handleFollow = async () => {
-        const follow = await fetch(`/search/${this.state.name}/follow`)
+        const follow = await fetch(`/search/${this.state.name}/follow`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({
+                summonerName: this.state.name,
+                summonerUrl: `/search/${this.state.name}`,
+            }),
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
     }
 
 
