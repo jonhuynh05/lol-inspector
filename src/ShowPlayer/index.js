@@ -115,6 +115,14 @@ class ShowPlayer extends Component {
             })
         }
     }
+
+    handleFollow = () => {
+        
+    }
+
+
+
+
     render(){
         const analysis = this.state.matchups.map((matchup, i) => {
             if(matchup.opponents[0].message){
@@ -468,6 +476,7 @@ class ShowPlayer extends Component {
                             :
                             <h4>Level {this.state.level}</h4>
                         }
+                        <button id="follow-button">Follow</button>
                     </div>
                 </div>
                 <div className="row">
