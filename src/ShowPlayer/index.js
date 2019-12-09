@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {withRouter} from "react-router-dom"
 import {MoonLoader} from "react-spinners"
 import "./showplayer.css"
+import { thisExpression } from '@babel/types'
 
 class ShowPlayer extends Component {
     state = {
@@ -129,6 +130,34 @@ class ShowPlayer extends Component {
 
 
     render(){
+        // const followButton = () => {
+        //     let favoriteCounter = 0
+        //     for(let i = 0; i < this.props.favorites.length; i++){
+        //         if(this.props.favorites[i] === this.state.name){
+        //             favoriteCounter++
+        //         }
+        //     }
+        //     if (favoriteCounter > 0){
+        //         return <button className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
+        //     }
+        //     else{
+        //         return <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+        //     }
+        // }
+
+        let favoriteCounter = 0
+        const unfollowButton = this.props.favorites.map((favorite, i) => {
+            if(favorite.summonerName === this.state.name){
+                favoriteCounter++
+            }
+            if(i === this.props.favorites.length-1 && favoriteCounter > 0){
+                return <button className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
+            }
+            else if (i === this.props.favorites.length-1) {
+                return <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+            }
+        })
+
         const analysis = this.state.matchups.map((matchup, i) => {
             if(matchup.opponents[0].message){
                 return(
@@ -484,7 +513,7 @@ class ShowPlayer extends Component {
                         {
                             this.props.isLoggedIn
                             ?
-                            <button id="follow-button" onClick={this.handleFollow}>Follow</button>
+                            unfollowButton
                             :
                             null
                         }
