@@ -21,11 +21,10 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.post("/:email/:username", async (req, res) => {
+router.post("/register", async (req, res) => {
     try{
-
-        console.log(req.params.email)
-        console.log(req.params.username)
+        res.json("hits")
+        console.log("hello")
         // const foundEmail = await User.findOne({
         //     email: req.params.email
         // })

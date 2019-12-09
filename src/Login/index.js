@@ -21,11 +21,24 @@ class Login extends Component {
         })
     }
 
+    onSubmit = async (e) => {
+        e.preventDefault()
+        const registerUser = await fetch(`/user/register`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(this.state),
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+        console.log(registerUser)
+    }
+
     render(){
         return(
             <div className="container">
                 <h3>Register</h3>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <input pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
                     <input pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
                     <input pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
