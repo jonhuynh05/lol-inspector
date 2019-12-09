@@ -21,6 +21,18 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.get("/logout", async (req, res) => {
+    try{
+        console.log(req.session)
+        req.session.destroy()
+        console.log(req.session)
+    }
+    catch(err) {
+        res.send(err)
+    }
+
+})
+
 router.post("/login", async (req, res) => {
     try{
         const foundUsername = await User.findOne({
@@ -28,9 +40,16 @@ router.post("/login", async (req, res) => {
         })
         if(foundUsername){
             if(bcrypt.compareSync(req.body.loginPassword, foundUsername.password)){
-                res.json(
-                    foundUsername
-                )
+                req.session.firstName = foundUsername.firstName
+                req.session.email = foundUsername.email
+                req.session.username = foundUsername.username
+                req.session.userId = foundUsername._id
+                res.json({
+                    firstName: req.session.firstName,
+                    email: req.session.email,
+                    username: req.session.username,
+                    userId: req.session.userId
+                })
             }
             else {
                 res.json({
@@ -78,9 +97,16 @@ router.post("/register", async (req, res) => {
             userDbEntry.email = req.body.email
             userDbEntry.password = passwordHash
             const newUser = await User.create(userDbEntry)
+            req.session.firstName = newUser.firstName
+            req.session.email = newUser.email
+            req.session.username = newUser.username
+            req.session.userId = newUser._id
             res.json({
+                firstName: req.session.firstName,
+                email: req.session.email,
+                username: req.session.username,
+                userId: req.session.userId,
                 message: "Success.",
-                newUser
             })
         }
     }
