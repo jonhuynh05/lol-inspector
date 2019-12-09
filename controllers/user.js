@@ -79,7 +79,8 @@ router.post("/register", async (req, res) => {
             userDbEntry.password = passwordHash
             const newUser = await User.create(userDbEntry)
             res.json({
-                message: "Success."
+                message: "Success.",
+                newUser
             })
         }
     }
