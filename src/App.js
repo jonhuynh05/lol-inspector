@@ -23,6 +23,7 @@ class App extends Component{
     loginUsername: "",
     loginPassword: "",
     loginErrorMessage: "",
+    favorites: []
   }
 
   onChange = (e) => {
@@ -93,7 +94,7 @@ handleLogin = async (e) => {
         })
             .then(async res => {
                 const response = await res.json()
-                console.log(response)
+                console.log(response, "login response")
                 if(response.message === "Incorrect username or password."){
                     this.setState({
                         loginErrorMessage: response.message
@@ -111,6 +112,7 @@ handleLogin = async (e) => {
                         loginErrorMessage: "",
                         loginPassword: "",
                         userId: response.userId,
+                        favorites: response.favorites
                     })
                     this.props.history.push("/");
                 }

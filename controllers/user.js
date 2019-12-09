@@ -43,11 +43,16 @@ router.post("/login", async (req, res) => {
                 req.session.email = foundUsername.email
                 req.session.username = foundUsername.username
                 req.session.userId = foundUsername._id
-                res.json({
+                const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
+                    let foundFavorite = Favorite.findById(favorite)
+                    return foundFavorite
+                }))                
+                res.json({ 
                     firstName: req.session.firstName,
                     email: req.session.email,
                     username: req.session.username,
-                    userId: req.session.userId
+                    userId: req.session.userId,
+                    favorites: userFavorites
                 })
             }
             else {

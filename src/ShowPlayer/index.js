@@ -17,11 +17,6 @@ class ShowPlayer extends Component {
         opposingChampionsUsed: [],
         noOpponentError: "No opponent found.",
         matchups: [],
-        // matchup1: [],
-        // matchup2: [],
-        // matchup3: [],
-        // matchup4: [],
-        // matchup5: []
     }
     async componentDidMount(){
         this.setState({
