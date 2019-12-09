@@ -23,9 +23,8 @@ router.get("/", async (req, res) => {
 
 router.get("/logout", async (req, res) => {
     try{
-        console.log(req.session)
         req.session.destroy()
-        console.log(req.session)
+        res.json("logout successful")
     }
     catch(err) {
         res.send(err)

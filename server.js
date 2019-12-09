@@ -80,7 +80,6 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
         })).json()
         if(matchList.matches){
             let recentMatches = []
-            //UPDATE THE THIS TO MAYBE TOP 5 MATCHES
             for(let i = 0; i < 5; i++){
                 let matchStats = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matches/${matchList.matches[i].gameId}?api_key=${key}`, {
                     "Origin": "https://developer.riotgames.com",
@@ -112,14 +111,12 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
                     if(classicOnlyMatches[i].participants[j].timeline.lane === "NONE" && (classicOnlyMatches[i].participants[j].timeline.role === "DUO_CARRY" || classicOnlyMatches[i].participants[j].timeline.lane === "DUO_SUPPORT" || classicOnlyMatches[i].participants[j].timeline.lane === "DUO")){
                         classicOnlyMatches[i].participants[j].timeline.lane = "BOTTOM"
                     }
-                    console.log(classicOnlyMatches[i].participants[j].teamId, classicOnlyMatches[i].participants[j].timeline.lane, classicOnlyMatches[i].participants[j].timeline.role, "OPP", recentMatchStats[i].teamId, recentMatchStats[i].timeline.lane, recentMatchStats[i].timeline.role, "USER", i, "I")
                     if(//last game mightnow be hitting
                         recentMatchStats[i].timeline.lane === classicOnlyMatches[i].participants[j].timeline.lane //this makes sure we are pushing same lane
                         && 
                         recentMatchStats[i].teamId !== classicOnlyMatches[i].participants[j].teamId //this makes sure we aren't pushing teammates
                         )
                         {
-                            console.log(i)
                         classicOnlyMatches[i].participants[j].gameId = classicOnlyMatches[i].gameId //this gives the found participants a gameId
                         laneOpponent.push(classicOnlyMatches[i].participants[j])
                     }
@@ -127,13 +124,6 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
             }
             let matchup = {}
             let matchupArr = []
-            for (let i = 0; i< laneOpponent.length; i++){
-                console.log(laneOpponent[i].timeline.role, "role", laneOpponent[i].timeline.lane, "lane", laneOpponent[i].gameId, "id")
-            }
-            console.log(laneOpponent.length)
-            for (let i = 0; i< recentMatchStats.length; i++){
-                console.log(recentMatchStats[i].timeline.role, "role", recentMatchStats[i].timeline.lane, "lane", recentMatchStats[i].gameId, "id")
-            }
             for(let i = 0; i < recentMatchStats.length; i++){
                 matchup = {}
                 let filteredMatchups = laneOpponent.filter((id) => id.gameId === recentMatchStats[i].gameId)
@@ -164,6 +154,16 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
     catch(err){
         console.log(err)
         res.send(err)
+    }
+})
+
+app.get("/search/:summonerName/follow", async (req, res) => {
+    try{
+        console.log("this is hitting")
+        res.send("hi")
+    }
+    catch(err){
+        console.log(err)
     }
 })
 

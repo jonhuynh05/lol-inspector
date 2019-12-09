@@ -116,8 +116,8 @@ class ShowPlayer extends Component {
         }
     }
 
-    handleFollow = () => {
-
+    handleFollow = async () => {
+        const follow = await fetch(`/search/${this.state.name}/follow`)
     }
 
 
@@ -479,7 +479,7 @@ class ShowPlayer extends Component {
                         {
                             this.props.isLoggedIn
                             ?
-                            <button id="follow-button">Follow</button>
+                            <button id="follow-button" onClick={this.handleFollow}>Follow</button>
                             :
                             null
                         }
