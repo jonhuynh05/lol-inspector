@@ -14,7 +14,7 @@ class User extends Component {
         return(
             <div className="favorite-container">
                 <div className="favorite-header-row">
-                    <div className="favorite-greeting">Hi, {this.props.username}.</div>
+                    {/* <div className="favorite-greeting">Hi, {this.props.username}.</div> */}
                     <div className="favorite-header">Favorites:</div>
                 </div>
                 <div className="favorite-row">

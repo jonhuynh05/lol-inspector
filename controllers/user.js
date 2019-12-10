@@ -48,6 +48,7 @@ router.post("/login", async (req, res) => {
                 }))                
                 res.json({ 
                     firstName: req.session.firstName,
+                    lastName: foundUsername.lastName,
                     email: req.session.email,
                     username: req.session.username,
                     userId: req.session.userId,
@@ -116,6 +117,17 @@ router.post("/register", async (req, res) => {
     catch(err){
         res.send(err)
         console.log(err)
+    }
+})
+
+router.put("/:id/edit", async (req, res) => {
+    try{
+        console.log(req)
+        console.log("hits")
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
     }
 })
 

@@ -52,6 +52,16 @@ handleFavoritesUpdate = async (e) => {
     }
 }
 
+handleUserEdit = async(e) => {
+    try{
+        const user = await(await fetch(`${ROUTES.USER}`)).json()
+        console.log(user, "THIS IS UPDATED USER")
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 handleRegister = async (e) => {
     e.preventDefault()
     try{
@@ -116,7 +126,7 @@ handleLogin = async (e) => {
                 else if(response.firstName){
                     this.setState({
                         firstName: response.firstName,
-                        lastName: "",
+                        lastName: response.lastName,
                         username: response.username,
                         email: response.email,
                         isLoggedIn: true,
@@ -165,7 +175,7 @@ handleLogout = async() => {
             <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} favorites={this.state.favorites} handleFavoritesUpdate={this.handleFavoritesUpdate}/>}/>
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
             <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User favorites={this.state.favorites} isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
-            <Route exact path={`${ROUTES.USER}/:userId/edit`} render={() => <EditUser isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
+            <Route exact path={`${ROUTES.USER}/:userId/edit`} render={() => <EditUser onChange={this.onChange} state={this.state} handleUserEdit={this.handleUserEdit}/>}/>
         </Switch>
         <Footer />
       </div>
