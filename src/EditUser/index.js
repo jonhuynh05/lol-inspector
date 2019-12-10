@@ -52,12 +52,7 @@ class EditUser extends Component {
         })
             .then(async res => {
                 const response = await res.json()
-                if(response.message === "Incorrect password."){
-                    this.setState({
-                        errorMessage: response.message
-                    })
-                }
-                else if(response.message === "Something went wrong. Please try again later."){
+                if(response.message === "Incorrect password." || response.message === "Something went wrong. Please try again later." || response.message === "Email already exists." || response.message === "Username already exists."){
                     this.setState({
                         errorMessage: response.message
                     })
@@ -83,7 +78,7 @@ class EditUser extends Component {
                     <input pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
                     <input pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
                     <input type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
-                    <input type="text" placeholder="Old Password" name="password" onChange={this.onChange} value={this.state.password}></input><br/>
+                    <input type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
                     <input type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button type="submit">Submit</button><br/>

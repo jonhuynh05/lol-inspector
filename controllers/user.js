@@ -122,24 +122,64 @@ router.post("/register", async (req, res) => {
 
 router.put("/:id/edit", async (req, res) => {
     try{
+        console.log("this hits")
         const foundUser = await User.findById(req.session.userId)
+        console.log(foundUser, "USER")
+        const foundEmail = await User.findOne({
+            email: req.body.email
+        })
+        console.log(foundEmail,"email")
+        const foundUsername = await User.findOne({
+            username: req.body.username
+        })
+        console.log(foundUsername, "USERNAME")
         if(foundUser){
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
-                console.log(foundUser, "original")
-                const userDbEntry = {}
-                console.log(req.body.newPassword)
-                const password = req.body.newPassword
-                const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-                userDbEntry.firstName = req.body.firstName
-                userDbEntry.lastName = req.body.lastName
-                userDbEntry.username = req.body.username
-                userDbEntry.email = req.body.email
-                userDbEntry.password = passwordHash
-                const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
-                console.log(editUser, "updated")
-                res.json({
-                    message: "Success."
-                })
+                if(req.session.email !== req.body.email){
+                    if(foundEmail){
+                        console.log("foundemail hits")
+                        res.json({
+                            message: "Email already exists."
+                        })
+                    }
+                }
+                if(req.session.username !== req.body.username){
+                    if(foundUsername){
+                        console.log("foundusername hits")
+                        res.json({
+                            message: "Username already exists."
+                        })
+                    }
+                }
+                else{
+                    console.log(foundUser, "original")
+                    const userDbEntry = {}
+                    if(req.body.newPassword){
+                        const password = req.body.newPassword
+                        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+                        userDbEntry.firstName = req.body.firstName
+                        userDbEntry.lastName = req.body.lastName
+                        userDbEntry.username = req.body.username
+                        userDbEntry.email = req.body.email
+                        userDbEntry.password = passwordHash
+                        const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
+                        console.log(editUser, "updated")
+                        res.json({
+                            message: "Success."
+                        })
+                    }
+                    else{
+                        userDbEntry.firstName = req.body.firstName
+                        userDbEntry.lastName = req.body.lastName
+                        userDbEntry.username = req.body.username
+                        userDbEntry.email = req.body.email
+                        const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
+                        console.log(editUser, "updated")
+                        res.json({
+                            message: "Success."
+                        })
+                    }
+                }
             }
             else {
                 res.json({
