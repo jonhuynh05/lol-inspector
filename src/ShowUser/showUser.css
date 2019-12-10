@@ -28,3 +28,22 @@
     color: rgb(231, 197, 84);
     background-color: black
 }
+
+.favorite-header-row{
+
+}
+
+.favorite-header{
+    font-weight: bold;
+    font-size: 25px;
+    margin: 10px;
+    color: rgb(231, 197, 84);
+    background-color: black;
+    padding: 15px 0;
+}
+
+.favorite-greeting{
+    font-weight: bold;
+    font-size: 40px;
+    margin: 30px
+}
