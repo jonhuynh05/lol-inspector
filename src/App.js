@@ -8,6 +8,7 @@ import ShowPlayer from "./ShowPlayer"
 import Nav from "./Nav"
 import User from "./ShowUser"
 import Login from "./Login"
+import EditUser from "./EditUser"
 
 
 class App extends Component{
@@ -163,13 +164,8 @@ handleLogout = async() => {
             <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
             <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} favorites={this.state.favorites} handleFavoritesUpdate={this.handleFavoritesUpdate}/>}/>
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
-        {
-            this.state.isLoggedIn
-            ?
             <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User favorites={this.state.favorites} isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
-            :
-            <Route exact path={`${ROUTES.USER}/:userId`} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
-        }
+            <Route exact path={`${ROUTES.USER}/:userId/edit`} render={() => <EditUser isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
         </Switch>
         <Footer />
       </div>

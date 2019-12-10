@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link} from 'react-router-dom'
-import "./showUser.css"
+import "./showuser.css"
 
 class User extends Component {
     render(){

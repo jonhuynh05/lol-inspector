@@ -17,7 +17,12 @@ class Nav extends Component{
                         this.props.isLoggedIn
                         ?
                         <>
-                        <div className="nav-col" id="fav-col">
+                        <div className="nav-col" id="profile-col">
+                            <Link className="nav-anchor"  to={`${ROUTES.USER}/${this.props.userId}/edit`}>
+                                Profile
+                            </Link>
+                        </div>
+                        <div className="nav-col" id="profile-col">
                             <Link className="nav-anchor"  to={`${ROUTES.USER}/${this.props.userId}`}>
                                 Favorites
                             </Link>
