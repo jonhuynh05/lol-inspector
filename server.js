@@ -199,32 +199,9 @@ app.put("/search/:summonerName/unfollow", async (req, res) => {
         console.log(req.session, "SESSION")
         const foundUser = await User.findById(req.session.userId)
         const foundFavorite = await Favorite.findOne({summonerName: req.params.summonerName})
-        console.log(foundUser, "FOUND USER")
         foundUser.favorites.remove(foundFavorite._id)
-        // for(let i = 0; i < foundUser.favorites.length; i++) {
-        //     if(foundUser.favorites[i].toString() === foundFavorite._id.toString()){
-        //         console.log(foundUser, "preremove")
-        //         foundUser.favorites[i].splice(i, 1)
-        //         console.log(foundUser, "postremove")
-        //     }
-        // }
-        console.log(foundUser, "post remove")
         await foundUser.save()
-
-        // const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
-        //     let foundFavorite = Favorite.findById(favorite)
-        //     return foundFavorite
-        // }))   
-
-
-        // User.findById(req.session.userId, (err, foundUser) => {
-        //     console.log(foundUser, "foundUser")
-        //     const foundFavorite = Favorite.findOne({"summonerName": req.params.summonerName})
-        //     console.log(foundFavorite, "foundFave")
-        //     console.log(foundFavorite._id, "id?????")
-        //     console.log(foundUser.favorites, "user faves")
-        //     console.log(foundUser.favorites.id(foundFavorite), "id?")
-        // })
+        res.send("unfollowed")
     }
     catch(err){
         console.log(err)
