@@ -39,6 +39,18 @@ handleLoginReset = () => {
   })
 }
 
+handleFavoritesUpdate = async (e) => {
+    try{
+        const favorites = await(await fetch(`${ROUTES.USER}`)).json()
+        this.setState({
+            favorites: favorites
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 handleRegister = async (e) => {
     e.preventDefault()
     try{
@@ -149,7 +161,7 @@ handleLogout = async() => {
         <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} logout={this.handleLogout}/>
         <Switch>
             <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
-            <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} favorites={this.state.favorites}/>}/>
+            <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} favorites={this.state.favorites} handleFavoritesUpdate={this.handleFavoritesUpdate}/>}/>
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
         {
             this.state.isLoggedIn

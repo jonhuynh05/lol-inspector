@@ -7,13 +7,12 @@ const bcrypt = require("bcryptjs");
 
 router.get("/", async (req, res) => {
     try{
-        res.json("hi")
-        console.log("hi")
-        // const foundUser = await User.findOne({
-        //     username: req.params.id
-        // })
-        // res.json(foundUser)
-        
+        const foundUser = await User.findById(req.session.userId)
+        const userFavorites = await Promise.all(foundUser.favorites.map((favorite) => {
+            let foundFavorite = Favorite.findById(favorite)
+            return foundFavorite
+        }))
+        res.json(userFavorites)
     }
     catch(err){
         res.send(err)

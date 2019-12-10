@@ -125,6 +125,7 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
+        this.props.handleFavoritesUpdate()
         this.setState({
             followed: true
         })
@@ -142,6 +143,9 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
+            .then(
+                this.props.handleFavoritesUpdate()
+            )
             .then(
                 this.setState({
                     followed: false
