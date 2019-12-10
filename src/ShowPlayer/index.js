@@ -143,12 +143,10 @@ class ShowPlayer extends Component {
             }
         })
             .then(
-                console.log("next")
-
+                this.setState({
+                    followed: false
+                })
             )
-        // this.setState({
-        //     followed: false
-        // })
     }
 
     render(){

@@ -209,7 +209,7 @@ app.put("/search/:summonerName/unfollow", async (req, res) => {
         //     }
         // }
         console.log(foundUser, "post remove")
-
+        await foundUser.save()
 
         // const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
         //     let foundFavorite = Favorite.findById(favorite)
