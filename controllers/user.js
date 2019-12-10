@@ -122,8 +122,16 @@ router.post("/register", async (req, res) => {
 
 router.put("/:id/edit", async (req, res) => {
     try{
-        console.log(req)
-        console.log("hits")
+        const userDbEntry = {}
+        const password = req.body.password
+        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+        userDbEntry.firstName = req.body.firstName
+        userDbEntry.lastName = req.body.lastName
+        userDbEntry.username = req.body.username
+        userDbEntry.email = req.body.email
+        userDbEntry.password = passwordHash
+        const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
+        console.log(editUser)
     }
     catch(err){
         console.log(err)
