@@ -160,7 +160,6 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
 })
 
 
-
 app.post("/search/:summonerName/follow", async (req, res) => {
     try{
         User.findById(req.session.userId, async (err, foundUser) => {

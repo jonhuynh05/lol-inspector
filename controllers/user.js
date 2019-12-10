@@ -32,17 +32,6 @@ router.get("/logout", async (req, res) => {
 
 })
 
-router.get("/:id/favorites", async (req, res) => {
-    try{
-        const foundUser = await User.findById(req.session.userId)
-        foundUser
-    }
-    catch(err){
-        console.log(err)
-        res.send(err)
-    }
-})
-
 router.post("/login", async (req, res) => {
     try{
         const foundUsername = await User.findOne({

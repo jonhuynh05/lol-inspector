@@ -148,24 +148,6 @@ class ShowPlayer extends Component {
     }
 
     render(){
-        // let favoriteCounter = 0
-        // let favoriteButton
-        // if(this.props.favorites.length === 0){
-        //     favoriteButton = <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
-        // }
-        // else{
-        //     favoriteButton = this.props.favorites.map((favorite, i) => {
-        //         if(favorite.summonerName === this.state.name){
-        //             favoriteCounter++
-        //         }
-        //         if(i === this.props.favorites.length-1 && favoriteCounter > 0){
-        //             return <button key={i} className = "button" id="unfollow-button" onClick={this.handleUnfollow}>Unfollow</button>
-        //         }
-        //         else if (i === this.props.favorites.length-1) {
-        //             return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
-        //         }
-        //     })
-        // }
 
         let favoriteButton
         if(this.state.followed === true){
