@@ -42,9 +42,9 @@ handleLoginReset = () => {
 
 handleFavoritesUpdate = async (e) => {
     try{
-        const favorites = await(await fetch(`${ROUTES.USER}`)).json()
+        const user = await(await fetch(`${ROUTES.USER}`)).json()
         this.setState({
-            favorites: favorites
+            favorites: user.favorites
         })
     }
     catch(err){
@@ -55,7 +55,12 @@ handleFavoritesUpdate = async (e) => {
 handleUserEdit = async(e) => {
     try{
         const user = await(await fetch(`${ROUTES.USER}`)).json()
-        console.log(user, "THIS IS UPDATED USER")
+        this.setState({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email
+        })
     }
     catch(err){
         console.log(err)

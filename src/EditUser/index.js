@@ -34,7 +34,6 @@ class EditUser extends Component {
 
     handleEdit = async (e) => {
         e.preventDefault()
-        console.log("hit 1")
         const editUser = await fetch (`${ROUTES.USER}/${this.props.state.userId}/edit`, {
             method: "PUT",
             credentials: "include",
@@ -51,6 +50,7 @@ class EditUser extends Component {
             }
         })
             .then(async res => {
+                console.log("this hits")
                 const response = await res.json()
                 if(response.message === "Incorrect password." || response.message === "Something went wrong. Please try again later." || response.message === "Email already exists." || response.message === "Username already exists."){
                     this.setState({
@@ -64,6 +64,7 @@ class EditUser extends Component {
                         password: "",
                         newPassword: "",
                     })
+                    this.props.handleUserEdit()
                     this.props.history.push("/");
                 }
             })

@@ -7,12 +7,21 @@ const bcrypt = require("bcryptjs");
 
 router.get("/", async (req, res) => {
     try{
+        console.log("this hits")
         const foundUser = await User.findById(req.session.userId)
+        console.log(foundUser, "USER")
         const userFavorites = await Promise.all(foundUser.favorites.map((favorite) => {
             let foundFavorite = Favorite.findById(favorite)
             return foundFavorite
         }))
-        res.json(userFavorites)
+        res.json({ 
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName,
+            email: foundUser.email,
+            username: foundUser.username,
+            userId: foundUser.userId,
+            favorites: userFavorites
+        })
     }
     catch(err){
         res.send(err)
@@ -122,22 +131,17 @@ router.post("/register", async (req, res) => {
 
 router.put("/:id/edit", async (req, res) => {
     try{
-        console.log("this hits")
         const foundUser = await User.findById(req.session.userId)
-        console.log(foundUser, "USER")
         const foundEmail = await User.findOne({
             email: req.body.email
         })
-        console.log(foundEmail,"email")
         const foundUsername = await User.findOne({
             username: req.body.username
         })
-        console.log(foundUsername, "USERNAME")
         if(foundUser){
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
                 if(req.session.email !== req.body.email){
                     if(foundEmail){
-                        console.log("foundemail hits")
                         res.json({
                             message: "Email already exists."
                         })
@@ -145,14 +149,12 @@ router.put("/:id/edit", async (req, res) => {
                 }
                 if(req.session.username !== req.body.username){
                     if(foundUsername){
-                        console.log("foundusername hits")
                         res.json({
                             message: "Username already exists."
                         })
                     }
                 }
                 else{
-                    console.log(foundUser, "original")
                     const userDbEntry = {}
                     if(req.body.newPassword){
                         const password = req.body.newPassword
@@ -163,7 +165,6 @@ router.put("/:id/edit", async (req, res) => {
                         userDbEntry.email = req.body.email
                         userDbEntry.password = passwordHash
                         const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
-                        console.log(editUser, "updated")
                         res.json({
                             message: "Success."
                         })
@@ -174,7 +175,6 @@ router.put("/:id/edit", async (req, res) => {
                         userDbEntry.username = req.body.username
                         userDbEntry.email = req.body.email
                         const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
-                        console.log(editUser, "updated")
                         res.json({
                             message: "Success."
                         })
