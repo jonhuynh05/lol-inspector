@@ -197,7 +197,25 @@ app.post("/search/:summonerName/follow", async (req, res) => {
 app.put("/search/:summonerName/unfollow", async (req, res) => {
     try{
         console.log(req.session, "SESSION")
-        // const foundUser = await User.findById(req.session.userId)
+        const foundUser = await User.findById(req.session.userId)
+        const foundFavorite = await Favorite.findOne({summonerName: req.params.summonerName})
+        console.log(foundUser, "FOUND USER")
+        foundUser.favorites.remove(foundFavorite._id)
+        // for(let i = 0; i < foundUser.favorites.length; i++) {
+        //     if(foundUser.favorites[i].toString() === foundFavorite._id.toString()){
+        //         console.log(foundUser, "preremove")
+        //         foundUser.favorites[i].splice(i, 1)
+        //         console.log(foundUser, "postremove")
+        //     }
+        // }
+        console.log(foundUser, "post remove")
+
+
+        // const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
+        //     let foundFavorite = Favorite.findById(favorite)
+        //     return foundFavorite
+        // }))   
+
 
         // User.findById(req.session.userId, (err, foundUser) => {
         //     console.log(foundUser, "foundUser")
