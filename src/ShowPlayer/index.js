@@ -143,14 +143,10 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
-            .then(
-                this.props.handleFavoritesUpdate()
-            )
-            .then(
-                this.setState({
-                    followed: false
-                })
-            )
+        this.props.handleFavoritesUpdate()
+        this.setState({
+            followed: false
+        })
     }
 
     render(){
