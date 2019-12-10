@@ -86,9 +86,11 @@ class EditUser extends Component {
                 "Content-Type": "application/json"
             }
         })
-            .then(
-                console.log("this hits")
-            )
+            .then(async(res) => {
+                this.props.handleUserDelete()
+                this.props.history.push("/");
+            })
+
     }
 
     render(){

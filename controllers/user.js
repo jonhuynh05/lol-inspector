@@ -199,7 +199,9 @@ router.put("/:id/edit", async (req, res) => {
 
 router.delete("/:id/delete", async (req, res) => {
     try{
-        console.log("this hits")
+        const user = await User.findByIdAndRemove(req.session.userId)
+        req.session.destroy()
+        res.json({message: "Success."})
     }
     catch(err){
         console.log(err)

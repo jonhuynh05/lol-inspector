@@ -187,6 +187,7 @@ handleLogout = async() => {
         loginUsername: "",
         loginPassword: "",
         loginErrorMessage: "",
+        favorites: []
     })
     this.props.history.push("/");
     const logout = await fetch(`${ROUTES.USER}/logout`)
