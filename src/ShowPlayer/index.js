@@ -18,6 +18,7 @@ class ShowPlayer extends Component {
         opposingChampionsUsed: [],
         noOpponentError: "No opponent found.",
         matchups: [],
+        followed: false
     }
     async componentDidMount(){
         this.setState({
@@ -27,6 +28,14 @@ class ShowPlayer extends Component {
         const summonerName = this.props.match.params.summoner
         const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
         console.log(summoner, "FROM BACKEND")
+        console.log(summonerName)
+        for (let i = 0; i < this.props.favorites.length; i++){
+            if(this.props.favorites[i].summonerName === summonerName){
+                this.setState({
+                    followed: true
+                })
+            }
+        }
         if(summoner.summoner.noMatches){
             this.setState({
                 noMatchesMessage: "This summoner does not have any recent matches. Please try a different summoner.",
@@ -35,14 +44,12 @@ class ShowPlayer extends Component {
         }
         else{
             const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
-            console.log(champList, "CHAMP LIST")
             const champListNames = Object.keys(champList)
 
             const summonerChamps = []
             summoner.matchups.forEach((matchup) => {
                 summonerChamps.push(matchup.user)
             })
-            console.log(summonerChamps, "summoner stats")
             const summonerChampsUsed = []
             for(let i = 0; i < summoner.stats.length; i++){
                 for(let j = 0; j < champListNames.length; j++){
@@ -51,7 +58,6 @@ class ShowPlayer extends Component {
                     }
                 }
             }
-            console.log(summonerChampsUsed, "CHAMPS USED")
             summoner.matchups.forEach((matchup) => {
                 if(matchup.opponents.length > 1){
                     for(let i = 0; i < matchup.opponents.length; i++){
@@ -81,7 +87,6 @@ class ShowPlayer extends Component {
             summoner.matchups.forEach((matchup) => {
                 opponents.push(matchup.opponents[0])
             })
-            console.log(opponents, "Opponents")
             const opponentChampsUsed = []
             for(let i = 0; i < opponents.length; i++){
                 if(opponents[i].message){
@@ -93,10 +98,6 @@ class ShowPlayer extends Component {
                     }
                 }
             }
-            //IS SUMMONER.MATCHUPS A PROBLEM???
-            console.log(opponentChampsUsed, "OPPOSING CHAMPS USED")
-            console.log(typeof summoner.matchups, "this is matchups")
-            console.log(summoner.matchups, "this is matchups")
             this.setState({
                 isLoading: false,
                 level: summoner.summoner.summonerLevel,
@@ -124,6 +125,9 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
+        this.setState({
+            followed: true
+        })
     }
 
     handleUnfollow = async () => {
@@ -138,26 +142,37 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
+        this.setState({
+            followed: false
+        })
     }
 
     render(){
-        let favoriteCounter = 0
+        // let favoriteCounter = 0
+        // let favoriteButton
+        // if(this.props.favorites.length === 0){
+        //     favoriteButton = <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+        // }
+        // else{
+        //     favoriteButton = this.props.favorites.map((favorite, i) => {
+        //         if(favorite.summonerName === this.state.name){
+        //             favoriteCounter++
+        //         }
+        //         if(i === this.props.favorites.length-1 && favoriteCounter > 0){
+        //             return <button key={i} className = "button" id="unfollow-button" onClick={this.handleUnfollow}>Unfollow</button>
+        //         }
+        //         else if (i === this.props.favorites.length-1) {
+        //             return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+        //         }
+        //     })
+        // }
+
         let favoriteButton
-        if(this.props.favorites.length === 0){
-            favoriteButton = <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+        if(this.state.followed === true){
+            favoriteButton = <button className = "button" id="unfollow-button" onClick={this.handleUnfollow}>Unfollow</button>
         }
         else{
-            favoriteButton = this.props.favorites.map((favorite, i) => {
-                if(favorite.summonerName === this.state.name){
-                    favoriteCounter++
-                }
-                if(i === this.props.favorites.length-1 && favoriteCounter > 0){
-                    return <button key={i} className = "button" id="unfollow-button" onClick={this.handleUnfollow}>Unfollow</button>
-                }
-                else if (i === this.props.favorites.length-1) {
-                    return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
-                }
-            })
+            favoriteButton = <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
         }
 
         const analysis = this.state.matchups.map((matchup, i) => {
