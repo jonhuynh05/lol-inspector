@@ -130,31 +130,16 @@ class ShowPlayer extends Component {
 
 
     render(){
-        // const followButton = () => {
-        //     let favoriteCounter = 0
-        //     for(let i = 0; i < this.props.favorites.length; i++){
-        //         if(this.props.favorites[i] === this.state.name){
-        //             favoriteCounter++
-        //         }
-        //     }
-        //     if (favoriteCounter > 0){
-        //         return <button className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
-        //     }
-        //     else{
-        //         return <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
-        //     }
-        // }
-
         let favoriteCounter = 0
-        const unfollowButton = this.props.favorites.map((favorite, i) => {
+        const favoriteButton = this.props.favorites.map((favorite, i) => {
             if(favorite.summonerName === this.state.name){
                 favoriteCounter++
             }
             if(i === this.props.favorites.length-1 && favoriteCounter > 0){
-                return <button className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
+                return <button key={i} className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
             }
             else if (i === this.props.favorites.length-1) {
-                return <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+                return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
             }
         })
 
@@ -513,7 +498,7 @@ class ShowPlayer extends Component {
                         {
                             this.props.isLoggedIn
                             ?
-                            unfollowButton
+                            favoriteButton
                             :
                             null
                         }

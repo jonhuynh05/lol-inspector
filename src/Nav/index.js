@@ -23,9 +23,9 @@ class Nav extends Component{
                             </Link>
                         </div>
                         <div className="nav-col" id="logout-col">
-                            <a className="nav-anchor" onClick={this.props.logout}>
+                            <div className="nav-anchor" onClick={this.props.logout}>
                                 Logout
-                            </a>
+                            </div>
                         </div>
                         </>
                         :
