@@ -10,6 +10,7 @@ class EditUser extends Component {
         username: "",
         email: "",
         password: "",
+        newPassword:"",
         errorMessage: ""
     }
 
@@ -19,6 +20,9 @@ class EditUser extends Component {
             lastName: this.props.state.lastName,
             username: this.props.state.username,
             email: this.props.state.email,
+            password: "",
+            newPassword:"",
+            errorMessage: ""
         })
     }
 
@@ -40,12 +44,34 @@ class EditUser extends Component {
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
+                newPassword: this.state.newPassword,
             }),
             headers:{
                 "Content-Type": "application/json"
             }
         })
-        console.log("hit 2")
+            .then(async res => {
+                const response = await res.json()
+                if(response.message === "Incorrect password."){
+                    this.setState({
+                        errorMessage: response.message
+                    })
+                }
+                else if(response.message === "Something went wrong. Please try again later."){
+                    this.setState({
+                        errorMessage: response.message
+                    })
+                }
+                else if(response.message === "Success."){
+                    console.log(response)
+                    this.setState({
+                        errorMessage: "",
+                        password: "",
+                        newPassword: "",
+                    })
+                    this.props.history.push("/");
+                }
+            })
     }
 
     render(){
@@ -57,7 +83,8 @@ class EditUser extends Component {
                     <input pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
                     <input pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
                     <input type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
-                    <input type="text" placeholder="Password" name="password" onChange={this.onChange} value={this.state.password}></input><br/>
+                    <input type="text" placeholder="Old Password" name="password" onChange={this.onChange} value={this.state.password}></input><br/>
+                    <input type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button type="submit">Submit</button><br/>
                 </form>

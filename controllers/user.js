@@ -122,16 +122,36 @@ router.post("/register", async (req, res) => {
 
 router.put("/:id/edit", async (req, res) => {
     try{
-        const userDbEntry = {}
-        const password = req.body.password
-        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-        userDbEntry.firstName = req.body.firstName
-        userDbEntry.lastName = req.body.lastName
-        userDbEntry.username = req.body.username
-        userDbEntry.email = req.body.email
-        userDbEntry.password = passwordHash
-        const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
-        console.log(editUser)
+        const foundUser = await User.findById(req.session.userId)
+        if(foundUser){
+            if(bcrypt.compareSync(req.body.password, foundUser.password)){
+                console.log(foundUser, "original")
+                const userDbEntry = {}
+                console.log(req.body.newPassword)
+                const password = req.body.newPassword
+                const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+                userDbEntry.firstName = req.body.firstName
+                userDbEntry.lastName = req.body.lastName
+                userDbEntry.username = req.body.username
+                userDbEntry.email = req.body.email
+                userDbEntry.password = passwordHash
+                const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
+                console.log(editUser, "updated")
+                res.json({
+                    message: "Success."
+                })
+            }
+            else {
+                res.json({
+                    message: "Incorrect password."
+                })
+            }
+        }
+        else{
+            res.json({
+                message: "Something went wrong. Please try again later."
+            })
+        }
     }
     catch(err){
         console.log(err)
