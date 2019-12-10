@@ -137,6 +137,7 @@ handleLogin = async (e) => {
                         isLoggedIn: true,
                         errorMessage: "",
                         password: "",
+                        loginUsername: "",
                         loginErrorMessage: "",
                         loginPassword: "",
                         userId: response.userId,
