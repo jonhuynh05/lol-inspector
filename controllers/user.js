@@ -138,34 +138,24 @@ router.put("/:id/edit", async (req, res) => {
         const foundUsername = await User.findOne({
             username: req.body.username
         })
-        console.log("here1")
         if(foundUser){
-            console.log("here2")
-
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
-                console.log("here3")
                 if(req.session.email !== req.body.email){
-                    console.log("here4")
                     if(foundEmail){
-                        console.log("here5")
                         res.json({
                             message: "Email already exists."
                         })
                     }
                 }
                 if(req.session.username !== req.body.username){
-                    console.log("here6")
                     if(foundUsername){
-                        console.log("here7")
                         res.json({
                             message: "Username already exists."
                         })
                     }
                 }
-                console.log("here8")
                 const userDbEntry = {}
                 if(req.body.newPassword){
-                    console.log("here9")
                     const password = req.body.newPassword
                     const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
                     userDbEntry.firstName = req.body.firstName
@@ -179,7 +169,6 @@ router.put("/:id/edit", async (req, res) => {
                     })
                 }
                 else{
-                    console.log("here10")
                     userDbEntry.firstName = req.body.firstName
                     userDbEntry.lastName = req.body.lastName
                     userDbEntry.username = req.body.username
