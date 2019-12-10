@@ -166,7 +166,7 @@ handleLogout = async() => {
         {
             this.state.isLoggedIn
             ?
-            <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+            <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User favorites={this.state.favorites} isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
             :
             <Route exact path={`${ROUTES.USER}/:userId`} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
         }

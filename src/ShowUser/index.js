@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link} from 'react-router-dom'
 
 class User extends Component {
     render(){
+
+        const favorites = this.props.favorites.map((favorite, i) => {
+            return (
+                <div className="favorite-col" key={i}>
+                    <Link to={favorite.summonerUrl}>{favorite.summonerName}</Link>
+                </div>
+            )
+        })
+
         return(
             <div className="container">
-                this is user/favorites
+                <div className="favorite-row">
+                    {favorites}
+                </div>
             </div>
         )
     }
