@@ -163,25 +163,55 @@ app.post("/search/:summonerName/follow", async (req, res) => {
     try{
         User.findById(req.session.userId, (err, foundUser) => {
             console.log(foundUser, "this is in follow route")
-            Favorite.create(req.body, (err, createdFavorite) => {
-                if(err){
-                    res.send(err)
-                    console.log(err)
-                }
-                else{
-                    foundUser.favorites.push(createdFavorite)
-                    foundUser.save((err, data) => {
-                        console.log(foundUser)
-                        res.json("added favorite")
-                    })
-                }
-            })
+            const foundFavorite = Favorite.findOne({summonerName: req.params.summonerName})
+            if(foundFavorite){
+                foundUser.favorites.push(foundFavorite)
+                foundUser.save((err, data) => {
+                    console.log(foundUser)
+                    res.json("added favorite")
+                })
+            }
+            else{
+                Favorite.create(req.body, (err, createdFavorite) => {
+                    if(err){
+                        res.send(err)
+                        console.log(err)
+                    }
+                    else{
+                        foundUser.favorites.push(createdFavorite)
+                        foundUser.save((err, data) => {
+                            console.log(foundUser)
+                            res.json("added favorite")
+                        })
+                    }
+                })
+            }
         })
     }
     catch(err){
         console.log(err)
     }
 })
+
+// app.delete("/search/:summonerName/unfollow", async (req, res) => {
+//     try{
+//         console.log(req.session, "SESSION")
+//         const foundUser = await User.findById(req.session.userId)
+
+//         // User.findById(req.session.userId, (err, foundUser) => {
+//         //     console.log(foundUser, "foundUser")
+//         //     const foundFavorite = Favorite.findOne({"summonerName": req.params.summonerName})
+//         //     console.log(foundFavorite, "foundFave")
+//         //     console.log(foundFavorite._id, "id?????")
+//         //     console.log(foundUser.favorites, "user faves")
+//         //     console.log(foundUser.favorites.id(foundFavorite), "id?")
+//         })
+//     }
+//     catch(err){
+//         console.log(err)
+//         res.send(err)
+//     }
+// })
 
 
 

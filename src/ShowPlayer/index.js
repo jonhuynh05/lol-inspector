@@ -126,22 +126,40 @@ class ShowPlayer extends Component {
         })
     }
 
-
-
-
-    render(){
-        let favoriteCounter = 0
-        const favoriteButton = this.props.favorites.map((favorite, i) => {
-            if(favorite.summonerName === this.state.name){
-                favoriteCounter++
-            }
-            if(i === this.props.favorites.length-1 && favoriteCounter > 0){
-                return <button key={i} className = "button" id="unfollow-button" onClick={this.handleFollow}>Unfollow</button>
-            }
-            else if (i === this.props.favorites.length-1) {
-                return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+    handleUnfollow = async () => {
+        const unfollow = await fetch(`/search/${this.state.name}/unfollow`, {
+            method: "DELETE",
+            credentials: "include",
+            body: JSON.stringify({
+                summonerName: this.state.name,
+                summonerUrl: `/search/${this.state.name}`,
+            }),
+            headers:{
+                "Content-Type": "application/json"
             }
         })
+    }
+
+    render(){
+        console.log(this.props.favorites.length, "FAVES")
+        let favoriteCounter = 0
+        let favoriteButton
+        if(this.props.favorites.length === 0){
+            favoriteButton = <button className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+        }
+        else{
+            favoriteButton = this.props.favorites.map((favorite, i) => {
+                if(favorite.summonerName === this.state.name){
+                    favoriteCounter++
+                }
+                if(i === this.props.favorites.length-1 && favoriteCounter > 0){
+                    return <button key={i} className = "button" id="unfollow-button" onClick={this.handleUnfollow}>Unfollow</button>
+                }
+                else if (i === this.props.favorites.length-1) {
+                    return <button key={i} className = "button" id="follow-button" onClick={this.handleFollow}>Follow</button>
+                }
+            })
+        }
 
         const analysis = this.state.matchups.map((matchup, i) => {
             if(matchup.opponents[0].message){
