@@ -197,4 +197,15 @@ router.put("/:id/edit", async (req, res) => {
     }
 })
 
+router.delete("/:id/delete", async (req, res) => {
+    try{
+        console.log("this hits")
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+
 module.exports = router

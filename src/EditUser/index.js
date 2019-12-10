@@ -70,6 +70,27 @@ class EditUser extends Component {
             })
     }
 
+    handleDelete = async (e) => {
+        const deleteUser = await fetch (`${ROUTES.USER}/${this.props.state.userId}/delete`, {
+            method: "DELETE",
+            credentials: "include",
+            body: JSON.stringify({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                newPassword: this.state.newPassword,
+            }),
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+            .then(
+                console.log("this hits")
+            )
+    }
+
     render(){
         return(
             <div className="edit-container">
@@ -84,6 +105,7 @@ class EditUser extends Component {
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button type="submit">Submit</button><br/>
                 </form>
+                <button onClick={this.handleDelete}>Delete</button>
             </div>
         )
     }
