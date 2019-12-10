@@ -1,0 +1,30 @@
+.favorite-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 30px
+}
+
+/* .favorite-col{
+    width: 300px;
+    border: 1px solid black;
+    margin: 20px;
+    padding: 20px;
+    cursor: pointer;
+} */
+
+.favorite-summoner{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    width: 200px;
+    border: 1px solid black;
+    margin: 20px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.favorite-summoner:hover{
+    color: rgb(231, 197, 84);
+    background-color: black
+}
