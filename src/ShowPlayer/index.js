@@ -36,9 +36,9 @@ class ShowPlayer extends Component {
                 })
             }
         }
-        if(summoner.summoner.noMatches){
+        if(summoner.summoner.noMatches || summoner.matches.length === 0){
             this.setState({
-                noMatchesMessage: "This summoner does not have any recent matches. Please try a different summoner.",
+                noMatchesMessage: "This summoner does not have any recent classic-mode matches. Please try a different summoner.",
                 isLoading: false
             })
         }
