@@ -161,26 +161,26 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
 
 app.post("/search/:summonerName/follow", async (req, res) => {
     try{
-        User.findById(req.session.userId, (err, foundUser) => {
+        User.findById(req.session.userId, async (err, foundUser) => {
             console.log(foundUser, "this is in follow route")
-            const foundFavorite = Favorite.findOne({summonerName: req.params.summonerName})
+            const foundFavorite = await Favorite.findOne({summonerName: req.params.summonerName})
             if(foundFavorite){
                 foundUser.favorites.push(foundFavorite)
                 foundUser.save((err, data) => {
-                    console.log(foundUser)
+                    console.log(foundUser, "found existing fave")
                     res.json("added favorite")
                 })
             }
             else{
                 Favorite.create(req.body, (err, createdFavorite) => {
                     if(err){
+                        console.log("not created")
                         res.send(err)
-                        console.log(err)
                     }
                     else{
                         foundUser.favorites.push(createdFavorite)
                         foundUser.save((err, data) => {
-                            console.log(foundUser)
+                            console.log("created")
                             res.json("added favorite")
                         })
                     }

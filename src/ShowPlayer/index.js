@@ -141,7 +141,6 @@ class ShowPlayer extends Component {
     }
 
     render(){
-        console.log(this.props.favorites.length, "FAVES")
         let favoriteCounter = 0
         let favoriteButton
         if(this.props.favorites.length === 0){
