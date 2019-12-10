@@ -132,7 +132,7 @@ class ShowPlayer extends Component {
 
     handleUnfollow = async () => {
         const unfollow = await fetch(`/search/${this.state.name}/unfollow`, {
-            method: "DELETE",
+            method: "PUT",
             credentials: "include",
             body: JSON.stringify({
                 summonerName: this.state.name,
@@ -142,9 +142,13 @@ class ShowPlayer extends Component {
                 "Content-Type": "application/json"
             }
         })
-        this.setState({
-            followed: false
-        })
+            .then(
+                console.log("next")
+
+            )
+        // this.setState({
+        //     followed: false
+        // })
     }
 
     render(){

@@ -194,25 +194,25 @@ app.post("/search/:summonerName/follow", async (req, res) => {
     }
 })
 
-// app.delete("/search/:summonerName/unfollow", async (req, res) => {
-//     try{
-//         console.log(req.session, "SESSION")
-//         const foundUser = await User.findById(req.session.userId)
+app.put("/search/:summonerName/unfollow", async (req, res) => {
+    try{
+        console.log(req.session, "SESSION")
+        // const foundUser = await User.findById(req.session.userId)
 
-//         // User.findById(req.session.userId, (err, foundUser) => {
-//         //     console.log(foundUser, "foundUser")
-//         //     const foundFavorite = Favorite.findOne({"summonerName": req.params.summonerName})
-//         //     console.log(foundFavorite, "foundFave")
-//         //     console.log(foundFavorite._id, "id?????")
-//         //     console.log(foundUser.favorites, "user faves")
-//         //     console.log(foundUser.favorites.id(foundFavorite), "id?")
-//         })
-//     }
-//     catch(err){
-//         console.log(err)
-//         res.send(err)
-//     }
-// })
+        // User.findById(req.session.userId, (err, foundUser) => {
+        //     console.log(foundUser, "foundUser")
+        //     const foundFavorite = Favorite.findOne({"summonerName": req.params.summonerName})
+        //     console.log(foundFavorite, "foundFave")
+        //     console.log(foundFavorite._id, "id?????")
+        //     console.log(foundUser.favorites, "user faves")
+        //     console.log(foundUser.favorites.id(foundFavorite), "id?")
+        // })
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 
 
