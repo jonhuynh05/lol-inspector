@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {withRouter} from "react-router-dom"
 import {MoonLoader} from "react-spinners"
 import "./showplayer.css"
-import { thisExpression } from '@babel/types'
 
 class ShowPlayer extends Component {
     state = {
