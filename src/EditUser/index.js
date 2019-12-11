@@ -118,6 +118,7 @@ class EditUser extends Component {
         return(
             <div className="edit-container">
                 <div className="edit-header">Edit Your Profile</div>
+                <img id="edit-profile-icon" src={this.state.profileIconUrl}/>
                 <form onSubmit={this.handleEdit}>
                     <input className="edit-input" pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
                     <input className="edit-input"  pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>

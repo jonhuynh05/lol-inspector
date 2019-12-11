@@ -45,5 +45,10 @@
 .favorite-greeting{
     font-weight: bold;
     font-size: 40px;
-    margin: 30px
+    margin: 20px 30px 30px 30px;
+}
+
+#fave-profile-icon{
+    width: 300px;
+    margin: 30px 30px 0 30px;
 }
