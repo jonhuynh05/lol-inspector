@@ -67,6 +67,20 @@ class PlayerSearch extends Component {
         }
         return(
             <div>
+                <div className="welcome-container">
+                    <div className="welcome-row">
+                        <div className="welcome-col" id="welcome-header">
+                            LoL Inspector
+                        </div>
+                    </div>
+                    <div className="welcome-row">
+                        <div className="welcome-col" id="welcome-description">
+                            Welcome to LoL Inspector. This is your tool to help improve your League of Legends gameplay. Use the search bar below to look for your yourself and other players. Receive deep insights against your lane opponents through statistical comparisons and tips based on your match performances.
+                            
+                            Note that searches are restricted to classic-mode matches in North America.
+                        </div>   
+                    </div>
+                </div>
                 <div id="player-search-header">Player Search</div>
                 <form id="search-form" onSubmit={this.handleSubmit}>
                     <div className="search-row">

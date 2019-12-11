@@ -5,7 +5,11 @@
 #player-search-header{
     font-weight: bold;
     font-size: 35px;
-    margin: 30px
+    margin: 30px auto;
+    color: rgb(231, 197, 84);
+    background: black;
+    padding: 10px;
+    width: 30%
 }
 
 #player-search-input{
@@ -32,3 +36,23 @@
     color: rgb(231, 197, 84);
 }
 
+#welcome-header{
+    background-color: black;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px auto;
+    color: rgb(231, 197, 84);
+    padding: 10px;
+    width: 30%
+
+}
+
+#welcome-description{
+    font-size: 15px;
+    width: 70%;
+    margin: 10px auto;
+}
+
+.welcome-container{
+    padding: 20px;
+}
