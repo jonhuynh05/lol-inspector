@@ -113,7 +113,7 @@ class ShowPlayer extends Component {
     }
 
     handleFollow = async () => {
-        const follow = await fetch(`/search/${this.state.name}/follow`, {
+        await fetch(`/search/${this.state.name}/follow`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify({
@@ -131,7 +131,7 @@ class ShowPlayer extends Component {
     }
 
     handleUnfollow = async () => {
-        const unfollow = await fetch(`/search/${this.state.name}/unfollow`, {
+        await fetch(`/search/${this.state.name}/unfollow`, {
             method: "PUT",
             credentials: "include",
             body: JSON.stringify({
@@ -167,7 +167,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-summoner">
                                 <h3>{this.state.name}</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
                             <div>Lane: {matchup.user.timeline.lane}</div>
@@ -209,7 +209,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-summoner">
                                 <h3>{this.state.name}</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`}/><br/>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
                             <div>Lane: {matchup.user.timeline.lane}</div>
@@ -293,7 +293,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-opponent">
                                 <h3>Opponent</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`}/><br/>
+                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`} alt={`${this.state.opposingChampionsUsed[i]}`}/><br/>
                             {this.state.opposingChampionsUsed[i]}<br/>
                             <div>Role: {matchup.opponents[0].timeline.role}</div>
                             <div>Lane: {matchup.opponents[0].timeline.lane}</div>

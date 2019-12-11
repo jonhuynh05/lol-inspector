@@ -14,7 +14,7 @@ class User extends Component {
         return(
             <div className="favorite-container">
                 <div className="favorite-header-row">
-                    <img id="fave-profile-icon" src={this.props.profileIconUrl}/>
+                    <img id="fave-profile-icon" src={this.props.profileIconUrl} alt="Champion Icon"/>
                     <div className="favorite-greeting">Hi, {this.props.username}!</div>
                     <div className="favorite-header">Favorites:</div>
                 </div>

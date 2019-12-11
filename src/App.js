@@ -96,7 +96,7 @@ handleUserEdit = async(e) => {
 handleRegister = async (e) => {
     e.preventDefault()
     try{
-        const registerResponse = await fetch(`${ROUTES.USER}/register`, {
+        await fetch(`${ROUTES.USER}/register`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(this.state),
@@ -138,7 +138,7 @@ handleRegister = async (e) => {
 handleLogin = async (e) => {
     e.preventDefault()
     try{
-        const login = await fetch(`${ROUTES.USER}/login`, {
+        await fetch(`${ROUTES.USER}/login`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(this.state),
@@ -195,7 +195,7 @@ handleLogout = async() => {
         favorites: []
     })
     this.props.history.push("/");
-    const logout = await fetch(`${ROUTES.USER}/logout`)
+    await fetch(`${ROUTES.USER}/logout`)
 }
 
   render(){

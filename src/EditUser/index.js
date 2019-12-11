@@ -42,7 +42,7 @@ class EditUser extends Component {
 
     handleEdit = async (e) => {
         e.preventDefault()
-        const editUser = await fetch (`${ROUTES.USER}/${this.props.state.userId}/edit`, {
+        await fetch (`${ROUTES.USER}/${this.props.state.userId}/edit`, {
             method: "PUT",
             credentials: "include",
             body: JSON.stringify({
@@ -79,7 +79,7 @@ class EditUser extends Component {
     }
 
     handleDelete = async (e) => {
-        const deleteUser = await fetch (`${ROUTES.USER}/${this.props.state.userId}/delete`, {
+        await fetch (`${ROUTES.USER}/${this.props.state.userId}/delete`, {
             method: "DELETE",
             credentials: "include",
             body: JSON.stringify({
@@ -118,7 +118,7 @@ class EditUser extends Component {
         return(
             <div className="edit-container">
                 <div className="edit-header">Edit Your Profile</div>
-                <img id="edit-profile-icon" src={this.state.profileIconUrl}/>
+                <img id="edit-profile-icon" src={this.state.profileIconUrl} alt="Champion Icon"/>
                 <form onSubmit={this.handleEdit}>
                     <input className="edit-input" pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
                     <input className="edit-input"  pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
