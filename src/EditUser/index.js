@@ -13,7 +13,8 @@ class EditUser extends Component {
         profileIconUrl: "",
         newPassword:"",
         errorMessage: "",
-        champList: []
+        champList: [],
+        deleteModal: false
     }
 
     async componentDidMount () {
@@ -30,7 +31,8 @@ class EditUser extends Component {
             profileIconUrl: this.props.state.profileIconUrl,
             password: "",
             newPassword:"",
-            errorMessage: ""
+            errorMessage: "",
+            deleteModal: false
         })
     }
 
@@ -78,6 +80,18 @@ class EditUser extends Component {
             })
     }
 
+    openDeleteModal = () => {
+        this.setState({
+            deleteModal: true
+        })
+    }
+
+    closeDeleteModal = () => {
+        this.setState({
+            deleteModal: false
+        })
+    }
+
     handleDelete = async (e) => {
         await fetch (`${ROUTES.USER}/${this.props.state.userId}/delete`, {
             method: "DELETE",
@@ -96,6 +110,9 @@ class EditUser extends Component {
             }
         })
             .then(async(res) => {
+                this.setState({
+                    deleteModal: false
+                })
                 this.props.handleUserDelete()
                 this.props.history.push("/");
             })
@@ -133,7 +150,22 @@ class EditUser extends Component {
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button className="submit-button" type="submit">Submit</button><br/>
                 </form>
-                <button className="delete-button" id="delete-button-edit" onClick={this.handleDelete}>Delete Account</button>
+                <button className="delete-button" id="delete-button-edit" onClick={this.openDeleteModal}>Delete Account</button>
+                {
+                    this.state.deleteModal
+                    ?
+                    <div className="modal">
+                        <div className="modal-content">
+                            <div className="confirm-delete">
+                                Are you sure?
+                            </div>
+                            <button className="delete-button" id="delete-button-modal" onClick={this.handleDelete}>Delete</button>
+                            <button className="cancel-button" id="cancel-button-modal" onClick={this.closeDeleteModal}>Cancel</button>
+                        </div>
+                    </div>
+                    :
+                    null
+                }
             </div>
         )
     }
