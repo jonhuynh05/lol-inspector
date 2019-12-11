@@ -3,11 +3,25 @@ import { withRouter } from 'react-router-dom'
 import "./login.css"
 
 class Login extends Component {
+    state = {
+        champList: []
+    }
     async componentDidMount () {
+        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+        const champListNames = Object.keys(champList)
+        this.setState({
+            champList: champListNames
+        })
         this.props.handleLoginReset()
     }
     
     render(){
+
+        const champs = this.state.champList.map((champ, i) => {
+            return(
+                <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
+            )
+        })
         return(
             <div className="container">
                 <div id="register-container">
@@ -18,6 +32,9 @@ class Login extends Component {
                         <input className="login-input" pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.props.onChange} value={this.props.state.username}></input><br/>
                         <input className="login-input" type="text" placeholder="Email" name="email" onChange={this.props.onChange} value={this.props.state.email}></input><br/>
                         <input className="login-input" type="text" placeholder="Password" name="password" onChange={this.props.onChange} value={this.props.state.password}></input><br/>
+                        <select name="profileIconUrl" onChange={this.props.onChange}>
+                            {champs}
+                        </select>
                         <div className="error-message">{this.props.state.errorMessage}</div>
                         <button className="submit-button" type="submit">Submit</button><br/>
                     </form>

@@ -108,6 +108,7 @@ router.post("/register", async (req, res) => {
             userDbEntry.lastName = req.body.lastName
             userDbEntry.username = req.body.username
             userDbEntry.email = req.body.email
+            userDbEntry.profileIconUrl = req.body.profileIconUrl
             userDbEntry.password = passwordHash
             const newUser = await User.create(userDbEntry)
             req.session.firstName = newUser.firstName
