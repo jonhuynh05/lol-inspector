@@ -84,7 +84,8 @@ handleUserEdit = async(e) => {
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,
-            email: user.email
+            email: user.email,
+            profileIconUrl: user.profileIconUrl
         })
     }
     catch(err){

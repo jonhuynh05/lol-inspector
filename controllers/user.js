@@ -20,7 +20,8 @@ router.get("/", async (req, res) => {
             email: foundUser.email,
             username: foundUser.username,
             userId: foundUser.userId,
-            favorites: userFavorites
+            favorites: userFavorites,
+            profileIconUrl: foundUser.profileIconUrl
         })
     }
     catch(err){
@@ -164,6 +165,7 @@ router.put("/:id/edit", async (req, res) => {
                     userDbEntry.lastName = req.body.lastName
                     userDbEntry.username = req.body.username
                     userDbEntry.email = req.body.email
+                    userDbEntry.profileIconUrl = req.body.profileIconUrl
                     userDbEntry.password = passwordHash
                     const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
                     res.json({
@@ -175,6 +177,7 @@ router.put("/:id/edit", async (req, res) => {
                     userDbEntry.lastName = req.body.lastName
                     userDbEntry.username = req.body.username
                     userDbEntry.email = req.body.email
+                    userDbEntry.profileIconUrl = req.body.profileIconUrl
                     const editUser = await User.findByIdAndUpdate(req.session.userId, userDbEntry, {new: true})
                     res.json({
                         message: "Success."

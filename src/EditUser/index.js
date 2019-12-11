@@ -10,16 +10,24 @@ class EditUser extends Component {
         username: "",
         email: "",
         password: "",
+        profileIconUrl: "",
         newPassword:"",
-        errorMessage: ""
+        errorMessage: "",
+        champList: []
     }
 
     async componentDidMount () {
+        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+        const champListNames = Object.keys(champList)
+        this.setState({
+            champList: champListNames
+        })
         this.setState({
             firstName: this.props.state.firstName,
             lastName: this.props.state.lastName,
             username: this.props.state.username,
             email: this.props.state.email,
+            profileIconUrl: this.props.state.profileIconUrl,
             password: "",
             newPassword:"",
             errorMessage: ""
@@ -43,6 +51,7 @@ class EditUser extends Component {
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
+                profileIconUrl: this.state.profileIconUrl,
                 newPassword: this.state.newPassword,
             }),
             headers:{
@@ -50,7 +59,6 @@ class EditUser extends Component {
             }
         })
             .then(async res => {
-                console.log("this hits")
                 const response = await res.json()
                 if(response.message === "Incorrect password." || response.message === "Something went wrong. Please try again later." || response.message === "Email already exists." || response.message === "Username already exists."){
                     this.setState({
@@ -80,6 +88,7 @@ class EditUser extends Component {
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
+                profileIconUrl: this.state.profileIconUrl,
                 newPassword: this.state.newPassword,
             }),
             headers:{
@@ -94,6 +103,18 @@ class EditUser extends Component {
     }
 
     render(){
+        const champs = this.state.champList.map((champ, i) => {
+            if(this.state.profileIconUrl === `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`){
+                return(
+                    <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`} selected>{champ}</option>
+                )
+            }
+            else{
+                return(
+                    <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
+                )
+            }
+        })
         return(
             <div className="edit-container">
                 <div className="edit-header">Edit Your Profile</div>
@@ -104,6 +125,9 @@ class EditUser extends Component {
                     <input className="edit-input"  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
                     <input className="edit-input"  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
                     <input className="edit-input"  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
+                    <select name="profileIconUrl" onChange={this.onChange}>
+                        {champs}
+                    </select>
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button className="submit-button" type="submit">Submit</button><br/>
                 </form>
