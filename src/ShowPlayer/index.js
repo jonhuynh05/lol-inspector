@@ -503,7 +503,7 @@ class ShowPlayer extends Component {
             <div id="show-player-container">
                 <div className="row">
                     <div className="col" id="matches-header-col">
-                        <h2 id="matches-player-name">{this.state.name}</h2>
+                        <div id="matches-player-name">{this.state.name}</div>
                         {
                             this.state.noMatchesMessage !== ""
                             ?
@@ -521,7 +521,7 @@ class ShowPlayer extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <h3>Recent Matches</h3>
+                    <div id="recent-matches-header">Recent Matches</div>
                 </div>
                 <div id="spinner-row">
                     <div id="spinner-col">

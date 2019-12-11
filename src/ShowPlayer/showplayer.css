@@ -24,10 +24,6 @@
     color: red
 }
 
-#matches-header-col{
-    margin: 20px auto;
-}
-
 .advice{
     text-align: left;
 }
@@ -59,4 +55,27 @@
 
 .no-analysis{
     width: 920px;
+}
+
+#matches-player-name{
+    font-weight: bold;
+    font-size: 30px;
+    margin: 20px auto;
+    color: rgb(231, 197, 84);
+    background: black;
+    padding: 10px;
+}
+
+#matches-header-col{
+    width: 60%
+}
+
+#recent-matches-header{
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 auto 20px auto;
+    color: rgb(231, 197, 84);
+    background: black;
+    padding: 10px;
+    width: 50%
 }
