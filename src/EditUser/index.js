@@ -125,7 +125,8 @@ class EditUser extends Component {
                     <input className="edit-input"  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
                     <input className="edit-input"  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
                     <input className="edit-input"  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
-                    <select name="profileIconUrl" onChange={this.onChange}>
+                    <div id="main-question">Who's your main?</div>
+                    <select id="main-selection" name="profileIconUrl" onChange={this.onChange}>
                         {champs}
                     </select>
                     <div className="error-message">{this.state.errorMessage}</div>

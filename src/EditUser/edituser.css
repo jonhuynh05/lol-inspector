@@ -37,3 +37,11 @@
     background-color: black;
     color: rgb(231, 197, 84);
 }
+
+#main-question{
+    margin: 5px 0;
+}
+
+#main-selection{
+    margin-bottom: 5px;
+}

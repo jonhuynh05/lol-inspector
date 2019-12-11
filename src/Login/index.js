@@ -32,7 +32,8 @@ class Login extends Component {
                         <input className="login-input" pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.props.onChange} value={this.props.state.username}></input><br/>
                         <input className="login-input" type="text" placeholder="Email" name="email" onChange={this.props.onChange} value={this.props.state.email}></input><br/>
                         <input className="login-input" type="text" placeholder="Password" name="password" onChange={this.props.onChange} value={this.props.state.password}></input><br/>
-                        <select name="profileIconUrl" onChange={this.props.onChange}>
+                        <div id="main-question">Who's your main?</div>
+                        <select id="main-selection" name="profileIconUrl" onChange={this.props.onChange}>
                             {champs}
                         </select>
                         <div className="error-message">{this.props.state.errorMessage}</div>
