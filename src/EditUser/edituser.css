@@ -1,0 +1,32 @@
+.edit-header{
+    font-weight: bold;
+    font-size: 30px;
+    margin: 30px auto;
+    color: rgb(231, 197, 84);
+    background: black;
+    padding: 10px;
+    width: 50%
+}
+
+.edit-input{
+    border: 1px solid black;
+    font-size: 15px;
+    text-align: center;
+    margin: 2px
+}
+
+.submit-button{
+    border: 1px solid black;
+    background-color: white;
+    font-weight: bold;
+    margin: 5px
+}
+
+.delete-button{
+    border: 1px solid black;
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    font-size: 12px;
+    margin: 0 5px 5px 5px
+}

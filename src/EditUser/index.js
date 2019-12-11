@@ -96,18 +96,18 @@ class EditUser extends Component {
     render(){
         return(
             <div className="edit-container">
-                <h3>Edit Your Profile</h3>
+                <div className="edit-header">Edit Your Profile</div>
                 <form onSubmit={this.handleEdit}>
-                    <input pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
-                    <input pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
-                    <input pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
-                    <input type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
-                    <input type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
-                    <input type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
+                    <input className="edit-input" pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
+                    <input className="edit-input"  pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
+                    <input className="edit-input"  pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
+                    <input className="edit-input"  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
+                    <input className="edit-input"  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
+                    <input className="edit-input"  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
                     <div className="error-message">{this.state.errorMessage}</div>
-                    <button type="submit">Submit</button><br/>
+                    <button className="submit-button" type="submit">Submit</button><br/>
                 </form>
-                <button onClick={this.handleDelete}>Delete</button>
+                <button className="delete-button" onClick={this.handleDelete}>Delete</button>
             </div>
         )
     }
