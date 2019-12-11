@@ -159,6 +159,7 @@ handleLogin = async (e) => {
                         lastName: response.lastName,
                         username: response.username,
                         email: response.email,
+                        profileIconUrl: response.profileIconUrl,
                         isLoggedIn: true,
                         errorMessage: "",
                         password: "",

@@ -61,7 +61,8 @@ router.post("/login", async (req, res) => {
                     email: req.session.email,
                     username: req.session.username,
                     userId: req.session.userId,
-                    favorites: userFavorites
+                    favorites: userFavorites,
+                    profileIconUrl: foundUsername.profileIconUrl
                 })
             }
             else {
