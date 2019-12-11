@@ -120,12 +120,12 @@ class EditUser extends Component {
                 <div className="edit-header">Edit Your Profile</div>
                 <img id="edit-profile-icon" src={this.state.profileIconUrl} alt="Champion Icon"/>
                 <form onSubmit={this.handleEdit}>
-                    <input className="edit-input" pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName}></input><br/>
-                    <input className="edit-input"  pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName}></input><br/>
-                    <input className="edit-input"  pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username}></input><br/>
-                    <input className="edit-input"  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email}></input><br/>
-                    <input className="edit-input"  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
-                    <input className="edit-input"  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces." type="text" placeholder="First Name" name="firstName" onChange={this.onChange} value={this.state.firstName} required></input><br/>
+                    <input className="edit-input"  pattern="\S+" title="No spaces." type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName} required></input><br/>
+                    <input className="edit-input"  pattern="\S+" title="No spaces." type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username} required></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email} required></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
                     <div id="main-question">Who's your main?</div>
                     <select id="main-selection" name="profileIconUrl" onChange={this.onChange}>
                         {champs}
