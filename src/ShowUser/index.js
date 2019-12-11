@@ -19,7 +19,13 @@ class User extends Component {
                     <div className="favorite-header">Favorites:</div>
                 </div>
                 <div className="favorite-row">
-                    {favorites}
+                    {
+                        this.props.favorites.length > 0
+                        ?
+                        favorites
+                        :
+                        <div id="add-favorites-message">No favorites! Find and follow summoners to add them to your favorites list.</div>
+                    }
                 </div>
             </div>
         )

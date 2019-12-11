@@ -40,3 +40,9 @@
     width: 300px;
     margin: 30px 30px 0 30px;
 }
+
+#add-favorites-message{
+    margin: 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
