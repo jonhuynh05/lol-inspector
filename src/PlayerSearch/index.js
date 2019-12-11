@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Redirect} from "react-router-dom"
+import {withRouter} from "react-router-dom"
 import {MoonLoader} from "react-spinners"
 import * as ROUTES from "../constants/routes"
 import "./playersearch.css"
@@ -9,9 +9,7 @@ class PlayerSearch extends Component {
         query: "",
         name: "",
         level: "",
-        found: false,
         foundMessage: "",
-        redirect: false,
         isLoading: false
     }
     handleChange = (e) => {
@@ -32,7 +30,6 @@ class PlayerSearch extends Component {
         if(this.state.query === ""){
             setTimeout(() =>
                 this.setState({
-                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
@@ -43,7 +40,6 @@ class PlayerSearch extends Component {
         if(summoner.status === 404){
             setTimeout(() =>
                 this.setState({
-                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
@@ -54,35 +50,23 @@ class PlayerSearch extends Component {
         if(summonerJson.status){
             setTimeout(() =>
                 this.setState({
-                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
             return null
         }
         else{
-            setTimeout(() =>
-                this.setState({
-                    name: summonerJson.name,
-                    level: summonerJson.summonerLevel,
-                    found: true,
-                    foundMessage: "",
-                    isLoading: false,
-                    redirect: true
-            }), 2000)
+            this.setState({
+                name: summonerJson.name,
+                level: summonerJson.summonerLevel,
+                foundMessage: "",
+                isLoading: false,
+            })
+            this.props.history.push(`${ROUTES.SEARCH}/${this.state.name}`)
         }
-    }
-
-    routeChange() {
-        this.setState({
-            redirect: true
-        })
     }
 
     render(){
-        if(this.state.redirect) {
-            return <Redirect to={`${ROUTES.SEARCH}/${this.state.name}`}/>
-        }
         return(
             <div>
                 <div className="welcome-container">
@@ -129,4 +113,4 @@ class PlayerSearch extends Component {
     }
 }
 
-export default PlayerSearch
+export default withRouter(PlayerSearch)

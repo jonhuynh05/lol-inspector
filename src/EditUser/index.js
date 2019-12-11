@@ -124,8 +124,8 @@ class EditUser extends Component {
                     <input className="edit-input"  pattern="\S+" title="No spaces." type="text" placeholder="Last Name" name="lastName" onChange={this.onChange} value={this.state.lastName} required></input><br/>
                     <input className="edit-input"  pattern="\S+" title="No spaces." type="text" placeholder="Username" name="username" onChange={this.onChange} value={this.state.username} required></input><br/>
                     <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="Email" name="email" onChange={this.onChange} value={this.state.email} required></input><br/>
-                    <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
-                    <input className="edit-input" pattern="\S+" title="No spaces."  type="text" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces."  type="password" placeholder="Confirm Password" name="password" onChange={this.onChange} value={this.state.password} required></input><br/>
+                    <input className="edit-input" pattern="\S+" title="No spaces."  type="password" placeholder="New Password" name="newPassword" onChange={this.onChange} value={this.state.newPassword}></input><br/>
                     <div id="main-question">Who's your main?</div>
                     <select id="main-selection" name="profileIconUrl" onChange={this.onChange}>
                         {champs}
