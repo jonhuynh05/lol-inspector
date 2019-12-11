@@ -67,10 +67,12 @@ class PlayerSearch extends Component {
         }
         return(
             <div>
-                <h1>Player Search</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="query" value={this.state.query} onChange={this.handleChange}/>
-                    <button type="submit">Submit</button>
+                <div id="player-search-header">Player Search</div>
+                <form id="search-form" onSubmit={this.handleSubmit}>
+                    <div className="search-row">
+                        <input id="player-search-input" type="text" name="query" value={this.state.query} onChange={this.handleChange}/>
+                        <button id="search-button" type="submit">Inspect</button>
+                    </div>
                 </form>
                 <MoonLoader 
                     sizeUnit={"px"}
