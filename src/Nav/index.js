@@ -9,7 +9,7 @@ class Nav extends Component{
             <div className="nav-container">
                 <div className="nav-row">
                     <div className="nav-col" id="logo-col">
-                        <Link className="nav-anchor" to={ROUTES.HOME}>
+                        <Link className="nav-anchor" id="home-anchor" to={ROUTES.HOME}>
                             LoL Inspector
                         </Link>
                     </div>

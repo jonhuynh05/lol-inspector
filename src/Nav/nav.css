@@ -23,5 +23,9 @@
 .nav-anchor {
     text-decoration: none;
     color: rgb(0, 0, 0);
-    font-weight: bolder;
+    font-weight: bold;
+}
+
+.nav-anchor:hover{
+    color: white;
 }
