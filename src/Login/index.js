@@ -11,24 +11,24 @@ class Login extends Component {
         return(
             <div className="container">
                 <div id="register-container">
-                    <h3>Register</h3>
+                    <div className="login-header">Register</div>
                     <form onSubmit={this.props.handleRegister}>
-                        <input pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.props.onChange} value={this.props.state.firstName}></input><br/>
-                        <input pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.props.onChange} value={this.props.state.lastName}></input><br/>
-                        <input pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.props.onChange} value={this.props.state.username}></input><br/>
-                        <input type="text" placeholder="Email" name="email" onChange={this.props.onChange} value={this.props.state.email}></input><br/>
-                        <input type="text" placeholder="Password" name="password" onChange={this.props.onChange} value={this.props.state.password}></input><br/>
+                        <input className="login-input" pattern="\S+" type="text" placeholder="First Name" name="firstName" onChange={this.props.onChange} value={this.props.state.firstName}></input><br/>
+                        <input className="login-input" pattern="\S+" type="text" placeholder="Last Name" name="lastName" onChange={this.props.onChange} value={this.props.state.lastName}></input><br/>
+                        <input className="login-input" pattern="\S+" type="text" placeholder="Username" name="username" onChange={this.props.onChange} value={this.props.state.username}></input><br/>
+                        <input className="login-input" type="text" placeholder="Email" name="email" onChange={this.props.onChange} value={this.props.state.email}></input><br/>
+                        <input className="login-input" type="text" placeholder="Password" name="password" onChange={this.props.onChange} value={this.props.state.password}></input><br/>
                         <div className="error-message">{this.props.state.errorMessage}</div>
-                        <button type="submit">Submit</button><br/>
+                        <button className="submit-button" type="submit">Submit</button><br/>
                     </form>
                 </div>
                 <div id="login-container">
-                    <h3>Login</h3>
+                    <div className="login-header">Login</div>
                     <form onSubmit={this.props.handleLogin}>
-                        <input pattern="\S+" type="text" placeholder="Username" name="loginUsername" onChange={this.props.onChange} value={this.props.state.loginUsername}></input><br/>
-                        <input type="text" placeholder="Password" name="loginPassword" onChange={this.props.onChange} value={this.props.state.loginPassword}></input><br/>
+                        <input className="login-input" pattern="\S+" type="text" placeholder="Username" name="loginUsername" onChange={this.props.onChange} value={this.props.state.loginUsername}></input><br/>
+                        <input className="login-input" type="text" placeholder="Password" name="loginPassword" onChange={this.props.onChange} value={this.props.state.loginPassword}></input><br/>
                         <div className="error-message">{this.props.state.loginErrorMessage}</div>
-                        <button type="submit">Submit</button><br/>
+                        <button className="submit-button" type="submit">Submit</button><br/>
                     </form>
                 </div>
             </div>
