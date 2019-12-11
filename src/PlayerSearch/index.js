@@ -29,6 +29,15 @@ class PlayerSearch extends Component {
         this.setState({
             isLoading: true
         })
+        if(this.state.query === ""){
+            setTimeout(() =>
+                this.setState({
+                    found: false,
+                    foundMessage: "Summoner not found. Please try again.",
+                    isLoading: false
+            }), 2000)
+            return null
+        }
         const summoner = await fetch (`/api/v1/${this.state.query}`)
         console.log(summoner)
         const summonerJson = await summoner.json()
