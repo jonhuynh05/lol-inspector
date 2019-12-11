@@ -84,8 +84,10 @@ class PlayerSearch extends Component {
                     </div>
                     <div className="welcome-row">
                         <div className="welcome-col" id="welcome-description">
-                            Welcome to LoL Inspector. This is your tool to help improve your League of Legends gameplay. Use the search bar below to look for your yourself and other players. Receive deep insights against your lane opponents through statistical comparisons and tips based on your match performances.
-                            
+                            Welcome to LoL Inspector. This is your tool to help improve your League of Legends gameplay. Use the search bar below to look for your yourself and other players. Receive deep insights against your lane opponents through statistical comparisons and tips based on your match performances.<br/>
+                            <br/>
+                            If you'd like to follow your favorite summoners, create an account!<br/>
+                            <br/>
                             Note that searches are restricted to classic-mode matches in North America.
                         </div>   
                     </div>

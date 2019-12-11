@@ -23,7 +23,16 @@ class Login extends Component {
             )
         })
         return(
-            <div className="container">
+            <div>
+                <div id="login-container">
+                    <div className="login-header">Login</div>
+                    <form onSubmit={this.props.handleLogin}>
+                        <input className="login-input" type="text" placeholder="Username" name="loginUsername" onChange={this.props.onChange} value={this.props.state.loginUsername} required></input><br/>
+                        <input className="login-input" type="password" placeholder="Password" name="loginPassword" onChange={this.props.onChange} value={this.props.state.loginPassword} required></input><br/>
+                        <div className="error-message">{this.props.state.loginErrorMessage}</div>
+                        <button className="submit-button" type="submit">Submit</button><br/>
+                    </form>
+                </div>
                 <div id="register-container">
                     <div className="login-header">Register</div>
                     <form onSubmit={this.props.handleRegister}>
@@ -40,15 +49,7 @@ class Login extends Component {
                         <button className="submit-button" type="submit">Submit</button><br/>
                     </form>
                 </div>
-                <div id="login-container">
-                    <div className="login-header">Login</div>
-                    <form onSubmit={this.props.handleLogin}>
-                        <input className="login-input" type="text" placeholder="Username" name="loginUsername" onChange={this.props.onChange} value={this.props.state.loginUsername} required></input><br/>
-                        <input className="login-input" type="password" placeholder="Password" name="loginPassword" onChange={this.props.onChange} value={this.props.state.loginPassword} required></input><br/>
-                        <div className="error-message">{this.props.state.loginErrorMessage}</div>
-                        <button className="submit-button" type="submit">Submit</button><br/>
-                    </form>
-                </div>
+            
             </div>
         )
     }
