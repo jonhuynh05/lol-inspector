@@ -133,7 +133,7 @@ class EditUser extends Component {
                     <div className="error-message">{this.state.errorMessage}</div>
                     <button className="submit-button" type="submit">Submit</button><br/>
                 </form>
-                <button className="delete-button" onClick={this.handleDelete}>Delete</button>
+                <button className="delete-button" id="delete-button-edit" onClick={this.handleDelete}>Delete Account</button>
             </div>
         )
     }

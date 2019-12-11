@@ -9,7 +9,9 @@ class PlayerSearch extends Component {
         query: "",
         name: "",
         level: "",
+        found: false,
         foundMessage: "",
+        redirect: false,
         isLoading: false
     }
     handleChange = (e) => {
@@ -30,6 +32,7 @@ class PlayerSearch extends Component {
         if(this.state.query === ""){
             setTimeout(() =>
                 this.setState({
+                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
@@ -40,6 +43,7 @@ class PlayerSearch extends Component {
         if(summoner.status === 404){
             setTimeout(() =>
                 this.setState({
+                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
@@ -50,6 +54,7 @@ class PlayerSearch extends Component {
         if(summonerJson.status){
             setTimeout(() =>
                 this.setState({
+                    found: false,
                     foundMessage: "Summoner not found. Please try again.",
                     isLoading: false
             }), 2000)
@@ -59,8 +64,10 @@ class PlayerSearch extends Component {
             this.setState({
                 name: summonerJson.name,
                 level: summonerJson.summonerLevel,
+                found: true,
                 foundMessage: "",
                 isLoading: false,
+                redirect: true
             })
             this.props.history.push(`${ROUTES.SEARCH}/${this.state.name}`)
         }

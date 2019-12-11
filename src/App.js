@@ -203,7 +203,7 @@ handleLogout = async() => {
       <div className="App">
         <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} logout={this.handleLogout}/>
         <Switch>
-            <Route exact path={ROUTES.HOME} render={() => <PlayerSearch props={this.props} isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
+            <Route exact path={ROUTES.HOME} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
             <Route exact path={ROUTES.SEARCH} render={() => <PlayerSearch isLoggedIn={this.state.isLoggedIn}/>} username={this.state.username} userId={this.state.userId}/>
             <Route exact path={`${ROUTES.SEARCH}/:summoner`} render={() => <ShowPlayer isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} favorites={this.state.favorites} handleFavoritesUpdate={this.handleFavoritesUpdate}/>}/>
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
