@@ -5,14 +5,6 @@
     padding: 0 30px
 }
 
-/* .favorite-col{
-    width: 300px;
-    border: 1px solid black;
-    margin: 20px;
-    padding: 20px;
-    cursor: pointer;
-} */
-
 .favorite-summoner{
     text-decoration: none;
     color: black;
@@ -27,10 +19,6 @@
 .favorite-summoner:hover{
     color: rgb(231, 197, 84);
     background-color: black
-}
-
-.favorite-header-row{
-
 }
 
 .favorite-header{
