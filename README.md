@@ -1,74 +1,22 @@
+# LoL Inspector
 
 <img width="1440" alt="Screen Shot 2019-12-11 at 1 03 15 PM" src="https://user-images.githubusercontent.com/53237744/70662139-84258400-1c1a-11ea-83a0-a701bccdc0de.png">
 
+LoL Inspector is a learning tool for any League of Legends player. Players are able to search by summoner name to view recent matches of players (North America classic-mode only). While other sites will display match stats of all players within a given match, LoL inspector takes the data from a player's match and compares the player's individual stats against an opposing lane player. This will allow people to see where a player can improve whether it be garnering kills or placing more wards during a game. Ultimately, the goal of LoL inspector is to help make the community improve their gameplay.
 
+## User Flow
+1. User searches for a player.
 
+2. Analyses are generated from a player's recent match history.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+3. If a user would like to follow a player, they can create an account and add the player to their Favorites list.
 
-## Available Scripts
+## Technology
 
-In the project directory, you can run:
+Mongo | Express | React | Node
 
-### `npm start`
+## Future Goals
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Add a search function on the nav bar.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+2. Add more in-depth analyses depending on a player's role and lane. Examples would be a strong focus on vision control for supports and damage dealt for ADC's.
