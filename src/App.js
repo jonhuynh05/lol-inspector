@@ -9,6 +9,7 @@ import Nav from "./Nav"
 import User from "./ShowUser"
 import Login from "./Login"
 import EditUser from "./EditUser"
+import Page404 from "./Page404"
 
 
 class App extends Component{
@@ -193,12 +194,7 @@ handleLogout = async() => {
     const logout = await fetch(`${ROUTES.USER}/logout`)
 }
 
-
-
   render(){
-
-    const the404 = <div>You are lost</div>
-
     return (
       <div className="App">
         <Nav isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId} logout={this.handleLogout}/>
@@ -209,7 +205,7 @@ handleLogout = async() => {
             <Route exact path={ROUTES.USER} render={() => <Login onChange={this.onChange} handleLoginReset={this.handleLoginReset} handleLogin={this.handleLogin} handleRegister={this.handleRegister} state={this.state}/>}/>
             <Route exact path={`${ROUTES.USER}/:userId`} render={() => <User favorites={this.state.favorites} isLoggedIn={this.state.isLoggedIn} username={this.state.username} userId={this.state.userId}/>}/>
             <Route exact path={`${ROUTES.USER}/:userId/edit`} render={() => <EditUser onChange={this.onChange} state={this.state} handleUserEdit={this.handleUserEdit} handleUserDelete={this.handleUserDelete}/>}/>
-            <Route render={() => the404}/>
+            <Route render={() => <Page404 />}/>
         </Switch>
         <Footer />
       </div>

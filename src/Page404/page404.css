@@ -1,0 +1,18 @@
+.container-404{
+    background-image: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Heimerdinger_0.jpg");
+    background-size: cover;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.message-404{
+    font-size: 25px;
+    margin: 20px;
+}
+
+.background-layer-404{
+    background-color: rgba(255, 255, 255, 0.685);
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}

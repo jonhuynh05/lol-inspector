@@ -45,7 +45,6 @@ class ShowPlayer extends Component {
         else{
             const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
             const champListNames = Object.keys(champList)
-
             const summonerChamps = []
             summoner.matchups.forEach((matchup) => {
                 summonerChamps.push(matchup.user)
