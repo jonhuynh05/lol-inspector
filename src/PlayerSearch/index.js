@@ -97,11 +97,15 @@ class PlayerSearch extends Component {
                         <button id="search-button" type="submit">Inspect</button>
                     </div>
                 </form>
-                <MoonLoader 
-                    sizeUnit={"px"}
-                    size={20}
-                    color={'#123abc'}
-                    loading={this.state.isLoading}/>
+                <div id="search-spinner-row">
+                    <div id="search-spinner-col">
+                        <MoonLoader 
+                            sizeUnit={"px"}
+                            size={20}
+                            color={'#123abc'}
+                            loading={this.state.isLoading}/>
+                    </div>
+                </div>
                 {
                     this.state.found === false
                     ?

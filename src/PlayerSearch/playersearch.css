@@ -56,3 +56,12 @@
 .welcome-container{
     padding: 20px;
 }
+
+#search-spinner-row{
+    margin: 10px;
+    text-align: center;
+}
+#search-spinner-col{
+    width: 40px;
+    margin: 0 auto;
+}
