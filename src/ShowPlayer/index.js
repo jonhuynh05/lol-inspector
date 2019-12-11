@@ -20,95 +20,100 @@ class ShowPlayer extends Component {
         followed: false
     }
     async componentDidMount(){
-        this.setState({
-            name: this.props.match.params.summoner,
-            isLoading: true
-        })
-        const summonerName = this.props.match.params.summoner
-        const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
-        console.log(summoner, "FROM BACKEND")
-        console.log(summonerName)
-        for (let i = 0; i < this.props.favorites.length; i++){
-            if(this.props.favorites[i].summonerName === summonerName){
+        try{
+            this.setState({
+                name: this.props.match.params.summoner,
+                isLoading: true
+            })
+            const summonerName = this.props.match.params.summoner
+            const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
+            console.log(summoner, "FROM BACKEND")
+            console.log(summonerName)
+            for (let i = 0; i < this.props.favorites.length; i++){
+                if(this.props.favorites[i].summonerName === summonerName){
+                    this.setState({
+                        followed: true
+                    })
+                }
+            }
+        
+            if(Object.entries(summoner).length === 0 || summoner.summoner.noMatches || summoner.matches.length === 0 || summoner === {}){
                 this.setState({
-                    followed: true
+                    noMatchesMessage: "This summoner does not have any recent classic-mode matches. Please try a different summoner.",
+                    isLoading: false
+                })
+            }
+            else{
+                const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+                const champListNames = Object.keys(champList)
+                const summonerChamps = []
+                summoner.matchups.forEach((matchup) => {
+                    summonerChamps.push(matchup.user)
+                })
+                const summonerChampsUsed = []
+                for(let i = 0; i < summoner.stats.length; i++){
+                    for(let j = 0; j < champListNames.length; j++){
+                        if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
+                            summonerChampsUsed.push(champListNames[j])
+                        }
+                    }
+                }
+                summoner.matchups.forEach((matchup) => {
+                    if(matchup.opponents.length > 1){
+                        for(let i = 0; i < matchup.opponents.length; i++){
+                            if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
+                                matchup.opponents.splice(i+1, 1)
+                            }
+                            else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
+                                matchup.opponents.splice(i+1, 1)
+                            }
+                            else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
+                                matchup.opponents.splice(i+1, 1)
+                            }
+                            else if(
+                                (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
+                                ||(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("SUPPORT"))
+                                )
+                                {
+                                matchup.opponents.splice(i, 1)
+                            }
+                            else{
+                                matchup.opponents.splice(i+1, 1)
+                            }
+                        }
+                    }
+                })
+                const opponents = []
+                summoner.matchups.forEach((matchup) => {
+                    opponents.push(matchup.opponents[0])
+                })
+                const opponentChampsUsed = []
+                for(let i = 0; i < opponents.length; i++){
+                    if(opponents[i].message){
+                        opponentChampsUsed.push("None")
+                    }
+                    for(let j = 0; j < champListNames.length; j++){
+                        if (opponents[i].championId === Number(champList[champListNames[j]].key)){
+                            opponentChampsUsed.push(champListNames[j])
+                        }
+                    }
+                }
+                this.setState({
+                    isLoading: false,
+                    level: summoner.summoner.summonerLevel,
+                    id: summoner.summoner.id,
+                    noMatchesMessage: "",   
+                    recentMatches: summoner.matches,
+                    summonerMatchStats: summonerChamps,
+                    championsUsed: summonerChampsUsed,
+                    opponents: opponents,
+                    opposingChampionsUsed: opponentChampsUsed,
+                    matchups: summoner.matchups
                 })
             }
         }
-    
-        if(Object.entries(summoner).length === 0 || summoner.summoner.noMatches || summoner.matches.length === 0 || summoner === {}){
-            this.setState({
-                noMatchesMessage: "This summoner does not have any recent classic-mode matches. Please try a different summoner.",
-                isLoading: false
-            })
-        }
-        else{
-            const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
-            const champListNames = Object.keys(champList)
-            const summonerChamps = []
-            summoner.matchups.forEach((matchup) => {
-                summonerChamps.push(matchup.user)
-            })
-            const summonerChampsUsed = []
-            for(let i = 0; i < summoner.stats.length; i++){
-                for(let j = 0; j < champListNames.length; j++){
-                    if(summoner.stats[i].championId === Number(champList[champListNames[j]].key)){
-                        summonerChampsUsed.push(champListNames[j])
-                    }
-                }
-            }
-            summoner.matchups.forEach((matchup) => {
-                if(matchup.opponents.length > 1){
-                    for(let i = 0; i < matchup.opponents.length; i++){
-                        if(matchup.user.timeline.role === matchup.opponents[i].timeline.role){
-                            matchup.opponents.splice(i+1, 1)
-                        }
-                        else if(matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("SUPPORT")){
-                            matchup.opponents.splice(i+1, 1)
-                        }
-                        else if(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("CARRY")){
-                            matchup.opponents.splice(i+1, 1)
-                        }
-                        else if(
-                            (matchup.user.timeline.role.includes("SUPPORT") && matchup.opponents[i].timeline.role.includes("CARRY"))
-                            ||(matchup.user.timeline.role.includes("CARRY") && matchup.opponents[i].timeline.role.includes("SUPPORT"))
-                            )
-                            {
-                            matchup.opponents.splice(i, 1)
-                        }
-                        else{
-                            matchup.opponents.splice(i+1, 1)
-                        }
-                    }
-                }
-            })
-            const opponents = []
-            summoner.matchups.forEach((matchup) => {
-                opponents.push(matchup.opponents[0])
-            })
-            const opponentChampsUsed = []
-            for(let i = 0; i < opponents.length; i++){
-                if(opponents[i].message){
-                    opponentChampsUsed.push("None")
-                }
-                for(let j = 0; j < champListNames.length; j++){
-                    if (opponents[i].championId === Number(champList[champListNames[j]].key)){
-                        opponentChampsUsed.push(champListNames[j])
-                    }
-                }
-            }
-            this.setState({
-                isLoading: false,
-                level: summoner.summoner.summonerLevel,
-                id: summoner.summoner.id,
-                noMatchesMessage: "",   
-                recentMatches: summoner.matches,
-                summonerMatchStats: summonerChamps,
-                championsUsed: summonerChampsUsed,
-                opponents: opponents,
-                opposingChampionsUsed: opponentChampsUsed,
-                matchups: summoner.matchups
-            })
+        catch(err){
+            console.log(err, "this is the error")
         }
     }
 
