@@ -27,8 +27,6 @@ class ShowPlayer extends Component {
             })
             const summonerName = this.props.match.params.summoner
             const summoner = await (await fetch (`/api/v1/search/${summonerName}/matches`)).json()
-            console.log(summoner, "FROM BACKEND")
-            console.log(summonerName)
             for (let i = 0; i < this.props.favorites.length; i++){
                 if(this.props.favorites[i].summonerName === summonerName){
                     this.setState({

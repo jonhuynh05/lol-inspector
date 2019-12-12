@@ -39,7 +39,6 @@ class PlayerSearch extends Component {
             return null
         }
         const summoner = await fetch (`/api/v1/${this.state.query}`)
-        console.log(summoner, "1")
         if(summoner.status === 404){
             setTimeout(() =>
                 this.setState({
@@ -50,7 +49,6 @@ class PlayerSearch extends Component {
             return null
         }
         const summonerJson = await summoner.json()
-        console.log(summonerJson, "2")
         if(summonerJson.status){
             setTimeout(() =>
                 this.setState({

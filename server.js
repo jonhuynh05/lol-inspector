@@ -39,19 +39,6 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const dataJson = await data.json()
-        // res.set({
-        //     "X-App-Rate-Limit-Count": "1:1,1:120",
-        //     "Content-Encoding": "gzip",
-        //     "X-Method-Rate-Limit-Count": "1:60",
-        //     "Vary": "Accept-Encoding",
-        //     "X-App-Rate-Limit": "20:1,100:120",
-        //     "X-Method-Rate-Limit": "2000:60",
-        //     "transfer-encoding": "chunked",
-        //     "Connection": "keep-alive",
-        //     "Date": "Tue, 3 Dec 2019  23:04:59 GMT",
-        //     "X-Riot-Edge-Trace-Id": "058a7e58-0915-4d04-bb4a-5211e64dc04c",
-        //     "Content-Type": "application/json;charset=utf-8"
-        // })
         res.send(dataJson)
     }
     catch(err){
@@ -62,7 +49,6 @@ app.get("/api/v1/:query", async (req, res) => {
 
 app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
     try{
-        console.log(req.params.summonerName)
         const summoner = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.summonerName}?api_key=${key}`,
             {
                 "Origin": "https://developer.riotgames.com",
@@ -173,13 +159,11 @@ app.post("/search/:summonerName/follow", async (req, res) => {
             else{
                 Favorite.create(req.body, (err, createdFavorite) => {
                     if(err){
-                        console.log("not created")
                         res.send(err)
                     }
                     else{
                         foundUser.favorites.push(createdFavorite)
                         foundUser.save((err, data) => {
-                            console.log("created")
                             res.json("added favorite")
                         })
                     }
@@ -198,7 +182,6 @@ app.put("/search/:summonerName/unfollow", async (req, res) => {
         const foundFavorite = await Favorite.findOne({summonerName: req.params.summonerName})
         foundUser.favorites.remove(foundFavorite._id)
         await foundUser.save()
-        console.log("unfollowed")
         res.send("unfollowed")
     }
     catch(err){

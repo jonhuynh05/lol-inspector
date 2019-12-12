@@ -117,7 +117,6 @@ handleRegister = async (e) => {
                     })
                 }
                 else if(response.message === "Success."){
-                    console.log(response)
                     this.setState({
                         isLoggedIn: true,
                         errorMessage: "",
@@ -148,7 +147,6 @@ handleLogin = async (e) => {
         })
             .then(async res => {
                 const response = await res.json()
-                console.log(response, "login response")
                 if(response.message === "Incorrect username or password."){
                     this.setState({
                         loginErrorMessage: response.message

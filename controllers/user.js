@@ -5,11 +5,10 @@ const Favorite = require("../models/Favorites")
 const bcrypt = require("bcryptjs");
 
 
+//RETREIVE USER
 router.get("/", async (req, res) => {
     try{
-        console.log("this hits")
         const foundUser = await User.findById(req.session.userId)
-        console.log(foundUser, "USER")
         const userFavorites = await Promise.all(foundUser.favorites.map((favorite) => {
             let foundFavorite = Favorite.findById(favorite)
             return foundFavorite
@@ -30,6 +29,9 @@ router.get("/", async (req, res) => {
     }
 })
 
+
+// LOGOUT
+
 router.get("/logout", async (req, res) => {
     try{
         req.session.destroy()
@@ -40,6 +42,9 @@ router.get("/logout", async (req, res) => {
     }
 
 })
+
+
+// LOGIN
 
 router.post("/login", async (req, res) => {
     try{
@@ -83,6 +88,8 @@ router.post("/login", async (req, res) => {
         console.log(err)
     }
 })
+
+//REGISTER
 
 router.post("/register", async (req, res) => {
     try{
@@ -131,6 +138,8 @@ router.post("/register", async (req, res) => {
         console.log(err)
     }
 })
+
+//EDIT USER
 
 router.put("/:id/edit", async (req, res) => {
     try{

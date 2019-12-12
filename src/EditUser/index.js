@@ -68,7 +68,6 @@ class EditUser extends Component {
                     })
                 }
                 else if(response.message === "Success."){
-                    console.log(response)
                     this.setState({
                         errorMessage: "",
                         password: "",
