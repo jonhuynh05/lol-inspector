@@ -1,6 +1,6 @@
 # LoL Inspector
 
-<img width="1440" alt="Screen Shot 2019-12-11 at 1 03 15 PM" src="https://user-images.githubusercontent.com/53237744/70662139-84258400-1c1a-11ea-83a0-a701bccdc0de.png">
+<img width="1440" alt="Screen Shot 2019-12-12 at 9 11 00 AM" src="https://user-images.githubusercontent.com/53237744/70733519-5a726880-1cbf-11ea-93eb-8b492e25755e.png">
 
 LoL Inspector is a learning tool for any League of Legends player. Players are able to search by summoner name to view recent matches of players (North America classic-mode only). While other sites will display match stats of all players within a given match, LoL inspector takes the data from a player's match and compares the player's individual stats against an opposing lane player. This will allow people to see where a player can improve whether it be garnering kills or placing more wards during a game. Ultimately, the goal of LoL inspector is to help make the community improve their gameplay.
 
