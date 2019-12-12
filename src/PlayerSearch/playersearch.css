@@ -9,7 +9,7 @@
     color: rgb(231, 197, 84);
     background: black;
     padding: 10px;
-    width: 20%
+    width: 50%
 }
 
 #player-search-input{
@@ -36,6 +36,10 @@
     color: rgb(231, 197, 84);
 }
 
+#welcome-row-header{
+    padding: 0 18%
+}
+
 #welcome-header{
     background-color: black;
     font-size: 40px;
@@ -43,8 +47,7 @@
     margin: 10px auto;
     color: rgb(231, 197, 84);
     padding: 10px;
-    width: 30%
-
+    /* width: 30% */
 }
 
 #welcome-description{
