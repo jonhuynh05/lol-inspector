@@ -13,7 +13,7 @@ LoL Inspector is a learning tool for any League of Legends player. Players are a
 
 ## Technology
 
-Mongo | Express | React | Node
+Mongo | Express | React | Node | Riot Games API
 
 ## Future Goals
 
