@@ -40,6 +40,7 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const dataJson = await data.json()
+        console.log(data, "this is the data from player search")
         res.send(dataJson)
     }
     catch(err){
@@ -59,6 +60,7 @@ app.get("/api/v1/search/:summonerName/matches", async (req, res) => {
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
             }
         )
+        console.log(summoner, "this is the data for matches")
         const summonerJson = await summoner.json()
         const matchList = await(await fetch (`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerJson.accountId}?api_key=${key}`, {
             "Origin": "https://developer.riotgames.com",
