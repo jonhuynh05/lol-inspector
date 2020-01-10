@@ -111,7 +111,7 @@ class ShowPlayer extends Component {
             }
         }
         catch(err){
-            console.log(err, "this is the error")
+            console.log(err, "Error from componentdidmount in ShowPlayer component.")
         }
     }
 
