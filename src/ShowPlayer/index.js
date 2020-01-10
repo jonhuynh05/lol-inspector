@@ -21,6 +21,7 @@ class ShowPlayer extends Component {
     }
     async componentDidMount(){
         try{
+            debugger
             this.setState({
                 name: this.props.match.params.summoner,
                 isLoading: true
