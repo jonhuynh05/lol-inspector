@@ -40,7 +40,7 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const dataJson = await data.json()
-        console.log(data, "this is the data from player search")
+        console.log(dataJsons, "this is the data from player search")
         res.send(dataJson)
     }
     catch(err){
