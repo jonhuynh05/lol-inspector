@@ -12,6 +12,7 @@ const key = process.env.LOL_API_KEY
 const User = require("./models/Users")
 const Favorite = require("./models/Favorites")
 const bcrypt = require("bcryptjs");
+console.log(key, "this is the key")
 
 require("./config/db")
 
