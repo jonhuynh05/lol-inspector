@@ -7,7 +7,7 @@ class Login extends Component {
         champList: []
     }
     async componentDidMount () {
-        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+        const champList = (await (await fetch("https://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
         const champListNames = Object.keys(champList)
         this.setState({
             champList: champListNames
