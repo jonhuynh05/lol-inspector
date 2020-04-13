@@ -42,7 +42,7 @@ class ShowPlayer extends Component {
                 })
             }
             else{
-                const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+                const champList = (await (await fetch("https://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
                 const champListNames = Object.keys(champList)
                 const summonerChamps = []
                 summoner.matchups.forEach((matchup) => {
@@ -170,7 +170,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-summoner">
                                 <h3>{this.state.name}</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
+                            <img className="match-history-champs" src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
                             <div>Lane: {matchup.user.timeline.lane}</div>
@@ -212,7 +212,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-summoner">
                                 <h3>{this.state.name}</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
+                            <img className="match-history-champs" src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.championsUsed[i]}_0.jpg`} alt={`${this.state.championsUsed[i]}`}/><br/>
                             {this.state.championsUsed[i]}<br/>
                             <div>Role: {matchup.user.timeline.role}</div>
                             <div>Lane: {matchup.user.timeline.lane}</div>
@@ -296,7 +296,7 @@ class ShowPlayer extends Component {
                             <div className="col match-category" id="col-category-opponent">
                                 <h3>Opponent</h3>
                             </div>
-                            <img className="match-history-champs" src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`} alt={`${this.state.opposingChampionsUsed[i]}`}/><br/>
+                            <img className="match-history-champs" src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.opposingChampionsUsed[i]}_0.jpg`} alt={`${this.state.opposingChampionsUsed[i]}`}/><br/>
                             {this.state.opposingChampionsUsed[i]}<br/>
                             <div>Role: {matchup.opponents[0].timeline.role}</div>
                             <div>Lane: {matchup.opponents[0].timeline.lane}</div>

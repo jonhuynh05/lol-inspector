@@ -19,7 +19,7 @@ class Login extends Component {
 
         const champs = this.state.champList.map((champ, i) => {
             return(
-                <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
+                <option key={i} value={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
             )
         })
         return(

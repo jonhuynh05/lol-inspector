@@ -18,7 +18,7 @@ class EditUser extends Component {
     }
 
     async componentDidMount () {
-        const champList = (await (await fetch("http://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
+        const champList = (await (await fetch("https://ddragon.leagueoflegends.com/cdn/9.23.1/data/en_US/champion.json")).json()).data
         const champListNames = Object.keys(champList)
         this.setState({
             champList: champListNames
@@ -120,14 +120,14 @@ class EditUser extends Component {
 
     render(){
         const champs = this.state.champList.map((champ, i) => {
-            if(this.state.profileIconUrl === `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`){
+            if(this.state.profileIconUrl === `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`){
                 return(
-                    <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`} selected>{champ}</option>
+                    <option key={i} value={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`} selected>{champ}</option>
                 )
             }
             else{
                 return(
-                    <option key={i} value={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
+                    <option key={i} value={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ}_0.jpg`}>{champ}</option>
                 )
             }
         })
